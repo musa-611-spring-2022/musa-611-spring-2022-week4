@@ -61,3 +61,14 @@ document.getElementsByTagName("p");
 document.querySelector('#id') // Mjumbe's love
 
 ```
+
+HTML
+
+``` js
+const group = L.layerGroup([]).addTo(map) // a group of layers
+
+group.clearLayers(); // clear all 
+
+group.addLayer(marker);
+
+```
