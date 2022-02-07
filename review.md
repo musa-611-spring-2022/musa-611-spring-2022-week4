@@ -122,7 +122,16 @@ There are two ways of accessing an attribute on an object.
 
     river['name'];
     // Result: 'Schuylkill'
+    
+    river.name;
+    // Result: 'Schuylkill'
+    
+    let attrname = 'name'
+    river[attrname]
+    // Result: 'Schuylkill'
+    
     ```
+ **doc length method only can be used in arrays and variables.**
 
 These two ways are equivalent in their results, but there are some important differences. By convention, most JavaScript style guides prefer dot notation whenever possible.
 
@@ -135,7 +144,8 @@ So, when is it not possible to use dot notation?:
     "family name": "Poe"
   };
 
-  person.given name;    // <-- 👎; entirely invalid syntax
+  person.given name; // <-- 👎; entirely invalid syntax
+  person.'given name'; // <-- 👎; entirely invalid syntax
 
   person['given name']; // <-- 👍
   ```
@@ -156,6 +166,18 @@ So, when is it not possible to use dot notation?:
   }
 
   getAttribute(person, 'given name');
+  ```
+  
+  ```js
+  const arr = [1,2,3,4,5]
+  isEven = function(n) { return n%2 == 0}
+  arr['filter'](isEven)
+  ```
+  **??? can't understand**
+  
+  ```js
+  delete river.name  // <-- delete an attribute
+  river.name = 'Delaware' // <-- add an attribute 
   ```
 
 > **My opinion:** I also prefer the dot notation for JavaScript, but if I'm dealing with data where some of the attributes names are not valid identifiers, I will often refer to _all_ the attributes in that data using bracket notation, for visual consistency. For example:
