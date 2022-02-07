@@ -19,6 +19,11 @@ There are multiple ways of looping through an array (and through many array-like
     for (const [index, item] of arr.entries()) {
       ...
     }
+    
+    for (const item of arr) { console.log(item) }
+    
+    for (const entry of arr.entries()) { console.log(entry) }
+    
     ```
 
 3.  Using `forEach` with a callback function
@@ -28,6 +33,9 @@ There are multiple ways of looping through an array (and through many array-like
     arr.forEach((item, index) => {
       ...
     });
+    
+    arr.forEach((item) => { console.log(item); });
+    
     ```
 
 Each method has its advantages, but for the most part they're pretty interchangeable (with one exception: you can't `break` out of a `forEach` loop, but you can get around that by using [`every`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every) instead).
