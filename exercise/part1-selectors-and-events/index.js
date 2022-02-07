@@ -14,14 +14,16 @@ Part 1: Set the variable below equal to the paragraph element representing the
 first test result.
 ==================== */
 
-let firstResult;
+let firstResult = document.getElementById("result-1");
+
+
 
 /* ====================
 Parts 2: Set the variable below equal to a collection of the paragraph
 elements representing the 2nd and 3rd results.
 ==================== */
 
-let secondAndThirdResults;
+let secondAndThirdResults = secondAndThirdResults;
 
 /* ====================
 Parts 3: Set the variable below equal to a collection of the paragraph
