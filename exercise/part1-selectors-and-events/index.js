@@ -68,6 +68,7 @@ if (addSpanButton) {
 /* =====================
 
 Results (all should report success)
+YOU NEED NOT (AND SHOULD NOT) EDIT BELOW THIS LINE.
 
 ===================== */
 
@@ -106,7 +107,7 @@ function updateResults() {
 
   // Part 4
   if (imClickedButton) {
-    imClickedButton.addEventListener('DOMNodeInserted', (evt) => {
+    imClickedButton.addEventListener('DOMNodeInserted', () => {
       if (imClickedButton.textContent === 'I\'m Clicked!') {
         document.querySelector('#result-4').textContent = 'Success!';
       }
@@ -114,7 +115,7 @@ function updateResults() {
   }
 
   // Part 5
-  spanContainer.addEventListener('DOMNodeInserted', (evt) => {
+  spanContainer.addEventListener('DOMNodeInserted', () => {
     if (spanContainer.children.length === 6
       && spanContainer.lastChild.textContent === '5') {
       document.querySelector('#result-5').textContent = 'Success!';
