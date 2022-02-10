@@ -15,7 +15,10 @@
     "extends": "airbnb",
     "globals": {
       "L": "readonly",
-      "_": "readonly"
+      "_": "readonly",
+      "document": "readonly",
+      "htmlToElement": "readonly",
+      "htmlToElements": "readonly"
     },
     "rules": {
       "no-console": "off",
