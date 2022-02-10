@@ -21,7 +21,7 @@ Parts 2: Set the variable below equal to a collection of the paragraph
 elements representing the 2nd and 3rd results.
 ==================== */
 
-let secondAndThirdResults = htmlToElements('<p id="result-2" class="result result-2-3">No success yet...</p><p id="result-3" class="result result-2-3">No success yet...</p>')
+let secondAndThirdResults = htmlToElements('<p id="result-2" class="result result-2-3">No success yet...</p><p id="result-3" class="result result-2-3">No success yet...</p>');
 
 /* ====================
 Parts 3: Set the variable below equal to a collection of the paragraph
@@ -37,7 +37,7 @@ button's own text to "I'm Clicked!"
 
 let imClickedButton = document.querySelector('#im-clicked-button');
 if (imClickedButton) {
-  imClickedButton.addEventListener('click', (evt) => {
+  imClickedButton.addEventListener('click', () => {
     imClickedButton.textContent = "I'm Clicked!";
   });
 }
@@ -58,9 +58,9 @@ spanContainer.appendChild(htmlToElement('<span>0</span>'));
 
 let addSpanButton = document.querySelector('#add-span-button');
 if (addSpanButton) {
-  addSpanButton.addEventListener('click', (evt) => {
+  addSpanButton.addEventListener('click', () => {
     let currentNum = document.querySelector('#span-container').lastChild.textContent;
-    spanContainer.appendChild(htmlToElement('<span>'+(parseInt(currentNum)+1)+'</span>'));
+    spanContainer.appendChild(htmlToElement(`<span>${parseInt(currentNum, 2) + 1}</span>`));
   });
 }
 
@@ -76,6 +76,7 @@ function updateResults() {
   try {
     document.querySelector('#result-1').textContent = 'Success!';
   } catch (exc) {
+    console.log(firstResult);
     console.log('Failed part 1:');
     console.error(exc);
   }
