@@ -159,7 +159,7 @@ So, when is it not possible to use dot notation?:
   getAttribute(person, 'given name');
   ```
 
-> **My opinion:** I also prefer the dot notation for JavaScript, but if I'm dealing with data where some of the attributes names are not valid identifiers, I will often refer to _all_ the attributes in that data using bracket notation, for visual consistency. For example:
+> **My opinion:** I also prefer the dot notation for JavaScript, but if I'm dealing with data where some of the attributes names are not valid identifiers, I will often refer to _all_ the attributes in that data using bracket notation, for the sake of visual consistency. For example:
 >
 > ```js
 > const person = {
