@@ -135,7 +135,11 @@ clear the map and the list element before adding new items.
 
 ==================== */
 
-let updateSchoolMarkers = (schoolsToShow) => {};
+let updateSchoolMarkers = schools.features;
+updateSchoolMarkers.forEach = ((schoolsToShow) => {
+  const location = schools.geometry.coordinates;
+  schoolLayer;
+})
 
 let updateSchoolList = (schoolsToShow) => {};
 
