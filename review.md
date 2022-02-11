@@ -10,6 +10,7 @@ There are multiple ways of looping through an array (and through many array-like
       const item = arr[index];
       ...
     }
+
     ```
 
 2. A `for` loop over the items in the array
@@ -19,6 +20,12 @@ There are multiple ways of looping through an array (and through many array-like
     for (const [index, item] of arr.entries()) {
       ...
     }
+
+    const arr = [...];
+
+for (const [index, item] of arr.entries()) {
+  ...
+}
     ```
 
 3.  Using `forEach` with a callback function
@@ -102,6 +109,7 @@ There are two ways of accessing an attribute on an object.
 
     river.name;
     // Result: 'Schuylkill'
+    // define attributes
     ```
 
 2.  The second way to access an attribute is with [bracket notation](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Basics#bracket_notation). In this syntax, you specify the object, then inside of square brackets you specify the _string value_ of the attribute's name:
@@ -130,6 +138,7 @@ So, when is it not possible to use dot notation?:
   person.given name;    // <-- 👎; entirely invalid syntax
 
   person['given name']; // <-- 👍
+   person["given name"]; // <-- 👍
   ```
 * When you don't know the name of the attribute, but you have a variable that contains the attribute name:
   ```js
@@ -162,4 +171,18 @@ So, when is it not possible to use dot notation?:
 > console.log(person['given name']);
 > console.log(person['family name']);
 > console.log(person['age']);  // <-- could use dot notation here...
+
+
+river.name = 'Delaware'
+
+// 'Delaware'.
+
+river['name'] = 'schuykill'
+
+// 'schuykill'
+
+delete river.name
+
+// true
+
 > ```

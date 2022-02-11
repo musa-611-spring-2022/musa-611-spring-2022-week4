@@ -23,14 +23,14 @@ Parts 2: Set the variable below equal to a collection of the paragraph
 elements representing the 2nd and 3rd results.
 ==================== */
 
-let secondAndThirdResults = secondAndThirdResults;
+let secondAndThirdResults = document.getElementsByClassName("result result-2-3");
 
 /* ====================
 Parts 3: Set the variable below equal to a collection of the paragraph
 elements representing the all of the results.
 ==================== */
 
-let allResults;
+let allResults = document.getElementsByTagName("p");
 
 /* ====================
 Part 4: Add an event listener to the button in problem 4 that changes the
