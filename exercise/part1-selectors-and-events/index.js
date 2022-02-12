@@ -14,31 +14,34 @@ Part 1: Set the variable below equal to the paragraph element representing the
 first test result.
 ==================== */
 
-let firstResult;
+let firstResult = document.getElementById("result-1");
 
 /* ====================
 Parts 2: Set the variable below equal to a collection of the paragraph
 elements representing the 2nd and 3rd results.
 ==================== */
 
-let secondAndThirdResults;
+let secondAndThirdResults = document.querySelectorAll("#result-2, #result-3");
 
 /* ====================
 Parts 3: Set the variable below equal to a collection of the paragraph
 elements representing the all of the results.
 ==================== */
 
-let allResults;
+let allResults = document.querySelectorAll("#result-1, #result-2, #result-3");
 
 /* ====================
 Part 4: Add an event listener to the button in problem 4 that changes the
 button's own text to "I'm Clicked!"
 ==================== */
 
-let imClickedButton;
+let imClickedButton = document.getElementById("im-clicked-button");
 if (imClickedButton) {
-  imClickedButton.addEventListener('click', (evt) => {});
+  imClickedButton.addEventListener('click', (evt) => {
+    
+  });
 }
+
 
 /* ====================
 Part 5: Add an event listener to the button in problem 5 that creates a new span
