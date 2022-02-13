@@ -12,7 +12,7 @@ You can review the concepts raised from last class in [review.md](review.md).
 
 ### Reading
 
-The chapter on [Web Servers]http://132.72.155.230:3838/js/web-servers-1.html) from [Introduction to Web Mapping](http://132.72.155.230:3838/js/index.html).
+The chapter on [Web Servers](http://132.72.155.230:3838/js/web-servers-1.html) from [Introduction to Web Mapping](http://132.72.155.230:3838/js/index.html).
 
 ### Exercises
 
