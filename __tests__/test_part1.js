@@ -58,7 +58,7 @@ describe('The span adder button', () => {
     }
   });
 
-  it('should have spans with 1-5 after 5 clicks', async () => {
+  it('should have spans labeled 1-5 after five clicks', async () => {
     for (let i = 0; i < 5; ++i) {
       await page.click('#add-span-button');
     }
