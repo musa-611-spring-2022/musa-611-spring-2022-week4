@@ -62,20 +62,17 @@ HINT: You may need some global state for this problem.
 
 let spanContainer = document.querySelector('#span-container');
 spanContainer.appendChild(htmlToElement('<span>0</span>'));
-let numcollecter = [];
+
 let addSpanButton;
 addSpanButton = document.getElementById("add-span-button");
+
 if (addSpanButton) {
   addSpanButton.addEventListener('click', (evt) => {
-    let ini = 0;
-    let numItem = ini + 1 ; 
-    numcollecter.push(numItem);
-    
-    spanContainer.appendChild(htmlToElement(`<span>${numcollecter}</span>`));
-
-
+    let ini = parseInt(document.getElementById("span-container").firstChild.innerHTML);
+    document.getElementById("span-container").firstChild.innerHTML = ++ini;
   });
 }
+
 
 /* =====================
 
