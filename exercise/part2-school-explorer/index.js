@@ -135,6 +135,7 @@ clear the map and the list element before adding new items.
 ==================== */
 
 let updateSchoolMarkers = (schoolsToShow) => {
+  schoolLayer.clearLayers();
   schoolsToShow.forEach(school => {
     let name = school["Publication Name"];
     let [lat, lng] = school["GPS Location"].split(',');
@@ -172,17 +173,28 @@ let initializeZipCodeChoices = () => {
 };
 
 let filteredSchools = () => {
-  /*
-  let isHS = (school) => school.GRADE_LEVEL === 'HIGH SCHOOL';
-  let isPublic = (school) => school.TYPE !== '3';
+  let current_zip = zipCodeSelect.value
+  let current_grade = gradeLevelSelect.value
+  console.log(current_grade)
   
-  let publicHighSchools = schools.filter(isHS).filter(isPublic);
-  console.log(publicHighSchools.length);
 
-  let schoolsToShow = [];
-  schools
-  return schools_show
-  */
+  let isGrade = (school) => {
+    if (current_grade === '') {
+      return school
+    }
+    else if ( school[current_grade] === "1") {
+      return school
+    }
+  };
+  let isZip = (school) => {
+    if (current_zip === '') {
+      return school
+    } else if (school["Zip Code"].split('-')[0] === current_zip) {
+      return school
+    }
+  };
+
+  return schools.filter(isZip).filter(isGrade);
 };
 
 
@@ -195,7 +207,6 @@ No need to edit anything below this line ... though feel free.
 // The handleSelectChange function is an event listener that will be used to
 // update the displayed schools when one of the select filters is changed.
 let handleSelectChange = () => {
-  console.log(gradeLevelSelect.querySelector("[value='']").innerHtml)
   const schoolsToShow = filteredSchools() || [];
   updateSchoolMarkers(schoolsToShow);
   updateSchoolList(schoolsToShow);
