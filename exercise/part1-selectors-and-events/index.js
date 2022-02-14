@@ -14,7 +14,7 @@ Part 1: Set the variable below equal to the paragraph element representing the
 first test result.
 ==================== */
 
-let firstResult = document.getElementById('part-1');
+let firstResult = document.getElementById('result-1');
 
 
 /* ====================
@@ -38,8 +38,8 @@ button's own text to "I'm Clicked!"
 
 let imClickedButton = document.getElementById('im-clicked-button');
 if (imClickedButton) {
-imClickedButton.addEventListener('click', (evt) => { 
-  document.getElementById('im-clicked-button').innerHTML = "I'm Clicked!";
+  imClickedButton.addEventListener('click', () => {
+    document.getElementById('im-clicked-button').innerHTML = "I'm Clicked!";
   });
 }
 
@@ -53,26 +53,17 @@ clicking the button, you should add:
 
 HINT: You may need some global state for this problem.
 ==================== */
-
+let counter = 0;
 let spanContainer = document.querySelector('#span-container');
+spanContainer.appendChild(htmlToElement(`<span>${counter}</span>`));
+
 let addSpanButton = document.getElementById('add-span-button');
-
-spanContainer.appendChild(htmlToElement('<span>0</span>'));
-
-let addSpanButton;
 if (addSpanButton) {
-  addSpanButton.addEventListener('click', (evt) => {
-    let count = 0;
-    addSpanButton.onclick('')
-
-
-    addSpanButton.onclick.innerHTML = count;
-        count++;
-        spanContainer.innerHTML = count;
-  };
+  addSpanButton.addEventListener('click', () => {
+    counter++;
+    spanContainer.appendChild(htmlToElement(`<span>${counter}</span>`));
+  });
 }
-
-//need to append count dynamically to span container. look up $ syntax
 
 
 
