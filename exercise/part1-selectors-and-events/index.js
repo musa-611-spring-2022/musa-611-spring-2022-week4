@@ -37,7 +37,7 @@ button's own text to "I'm Clicked!"
 
 let imClickedButton = document.getElementById('im-clicked-button');
 if (imClickedButton) {
-  imClickedButton.addEventListener('click', (evt) => imClickedButton.textContent = 'I\'m Clicked!');
+  imClickedButton.addEventListener('click', () => { imClickedButton.textContent = 'I\'m Clicked!'; });
 }
 
 /* ====================
@@ -54,11 +54,19 @@ HINT: You may need some global state for this problem.
 let spanCounter = 0;
 
 let spanContainer = document.querySelector('#span-container');
-spanContainer.appendChild(htmlToElement('<span>' + spanCounter + '</span>'));
 
-let addSpanButton;
+const addSpanChild = () => {
+  spanContainer.appendChild(htmlToElement(`<span>${spanCounter}</span>`));
+};
+
+addSpanChild();
+
+let addSpanButton = document.getElementById('add-span-button');
 if (addSpanButton) {
-  addSpanButton.addEventListener('click', (evt) => spanCounter++);
+  addSpanButton.addEventListener('click', () => {
+    spanCounter++;
+    addSpanChild();
+  });
 }
 
 /* =====================
