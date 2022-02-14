@@ -73,7 +73,6 @@ if (addSpanButton) {
 /* =====================
 
 Results (all should report success)
-YOU NEED NOT (AND SHOULD NOT) EDIT BELOW THIS LINE.
 
 ===================== */
 
@@ -89,7 +88,7 @@ function updateResults() {
   // Part 2
   try {
     if (secondAndThirdResults.length !== 2) {
-      console.log(`Failed part 2: Variable should represent exactly 2 elements, not ${secondAndThirdResults.length}.`);
+      console.log(`Failed part 2: Variable should represent exactly 2 elements, not ${secondAndThirdResults.length}.`)
     } else {
       document.querySelector('#result-2').textContent = 'Success!';
     }
@@ -101,7 +100,7 @@ function updateResults() {
   // Part 3
   try {
     if (allResults.length < 3) {
-      console.log(`Failed part 3: Variable should represent ... elements, not ${secondAndThirdResults.length}.`);
+      console.log(`Failed part 3: Variable should represent ... elements, not ${secondAndThirdResults.length}.`)
     } else {
       document.querySelector('#result-3').textContent = 'Success!';
     }
@@ -112,20 +111,20 @@ function updateResults() {
 
   // Part 4
   if (imClickedButton) {
-    imClickedButton.addEventListener('DOMNodeInserted', () => {
+    imClickedButton.addEventListener('DOMNodeInserted', (evt) => {
       if (imClickedButton.textContent === 'I\'m Clicked!') {
         document.querySelector('#result-4').textContent = 'Success!';
       }
-    });
+    })
   }
 
   // Part 5
-  spanContainer.addEventListener('DOMNodeInserted', () => {
+  spanContainer.addEventListener('DOMNodeInserted', (evt) => {
     if (spanContainer.children.length === 6
         && spanContainer.lastChild.textContent === '5') {
       document.querySelector('#result-5').textContent = 'Success!';
     }
-  });
+  })
 }
 
 updateResults();
