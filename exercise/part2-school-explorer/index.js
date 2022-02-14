@@ -11,7 +11,7 @@ L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext
   ext: 'png',
 }).addTo(schoolMap);
 
-const schoolList = document.querySelector('#school-list');
+// const schoolList = document.querySelector('#school-list');
 const gradeLevelSelect = document.querySelector('#grade-level-select');
 const zipCodeSelect = document.querySelector('#zip-code-select');
 
@@ -58,7 +58,7 @@ let updateSchoolMarkers = (schoolsToShow) => {
 };
 
 
-/*
+/**
 ## Step 2: Initialize the Zip Code Options ~~~~~~~~~~~~~~~~~~~~
 
 Fill in the `initializeZipCodeChoices` function to add an option for each
@@ -103,7 +103,8 @@ modern JavaScript is with a Set object. For example:
   // ^^ will print something like ['dog', 'cat']
 
 TIP 3: The htmlToElement function from part 1 of this exercise set is available
-to use here as well (and should be used for this).*/
+to use here as well (and should be used for this).
+ */
 
 
 
@@ -113,20 +114,18 @@ let initializeZipCodeChoices = () => {
   const zipCodeSelectEle = document.getElementById('zip-code-select');
   // const zipCodeSelectEle = document.querySelector('#zip-code-select');
   // get the array of zipcode
-  const arrOfZipCode = schools.map((school) => {
-    return school['Zip Code'].substring(0, 5);
-  });
+  const arrOfZipCode = schools.map((school) => school['Zip Code'].substring(0, 5));
   // get unique members of arrOfZipCode
   const uniqueZipCodeArr = [...new Set(arrOfZipCode)];
   // loop through each zip code and add it to the zip-code-select element
-  for (zipcode of uniqueZipCodeArr) {
-  zipCodeSelectEle.innerHTML += `<option>${zipcode}</option>`;
+  for (let zipcode of uniqueZipCodeArr) {
+    zipCodeSelectEle.innerHTML += `<option>${zipcode}</option>`;
   }
 };
 
 
 
-/*
+/**
 ## Step 3: Show the School Names in a List ~~~~~~~~~~~~~~~~~~~~
 
 Fill in the `updateSchoolList` function to add a new `li` element into the
@@ -151,22 +150,19 @@ for the `#school-list` element will look something like this:
   </ol>
 
 This will be very similar to the previous step, except instead of creating
-`option` elements, you'll be creating `li` elements.*/
+`option` elements, you'll be creating `li` elements.
+ */
 
 let updateSchoolList = (schools) => {
   // get the school-list element
   let schoolListEle = document.getElementById('school-list');
   schoolListEle.innerHTML = '';
   // create a list with only names of schools
-  const schoolNameArr = schools.map((school) => {
-    return school['Publication Name'];
-  });
+  const schoolNameArr = schools.map((school) => school['Publication Name']);
   // add schoolNameArr to schoolListEle
   schoolNameArr.forEach((schoolName) => {
     schoolListEle.innerHTML += `<li>${schoolName}</li>`;
   });
-
-
 };
 
 
@@ -204,7 +200,7 @@ let filteredSchools = () => {
 
 
 
-/*
+/**
 ## Step 5: Clear the map and list before adding new items ~~~~~~~~~~~~~~~~~~~~
 
 At this point, if you filter the schools by grade or zip code, you should see
