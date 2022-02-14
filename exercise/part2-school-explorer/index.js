@@ -135,11 +135,16 @@ clear the map and the list element before adding new items.
 
 ==================== */
 
-let updateSchoolMarkers = (schoolsToShow) => {};
+let updateSchoolMarkers = (schoolsToShow) => {
+  L.marker(schoolsToShow['GPS Location']).addTo(schoolLayer);
+};
 
 let updateSchoolList = (schoolsToShow) => {};
 
-let initializeZipCodeChoices = () => {};
+let initializeZipCodeChoices = () => {
+  let zipList = schoolsToShow['Zip Code'];
+  zipCodeSelect.appendChild(htmlToElement(`<option>${zipList}</option>`));
+};
 
 let filteredSchools = () => {};
 
