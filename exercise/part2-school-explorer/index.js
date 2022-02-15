@@ -1,19 +1,4 @@
-/* global schools */
 
-const schoolMap = L.map('school-map').setView([39.95303901388685, -75.16341794003617], 13);
-const schoolLayer = L.layerGroup().addTo(schoolMap);
-
-L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
-  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  subdomains: 'abcd',
-  minZoom: 0,
-  maxZoom: 18,
-  ext: 'png',
-}).addTo(schoolMap);
-
-const schoolList = document.querySelector('#school-list');
-const gradeLevelSelect = document.querySelector('#grade-level-select');
-const zipCodeSelect = document.querySelector('#zip-code-select');
 
 /* ====================
 
@@ -42,6 +27,8 @@ Instead of adding the markers directly to the map with `.addTo(map)` as you have
 in the past, add the markers to the `schoolLayer`, which is defined above on
 line 4. Refer to the documentation for LayerGroup:
 https://leafletjs.com/reference.html#layergroup
+
+
 
 
 ## Step 2: Initialize the Zip Code Options ~~~~~~~~~~~~~~~~~~~~
@@ -135,13 +122,84 @@ clear the map and the list element before adding new items.
 
 ==================== */
 
-let updateSchoolMarkers = (schoolsToShow) => {};
+/* global schools */
 
-let updateSchoolList = (schoolsToShow) => {};
+const schoolMap = L.map('school-map').setView([39.95303901388685, -75.16341794003617], 13);
+const schoolLayer = L.layerGroup().addTo(schoolMap);
 
-let initializeZipCodeChoices = () => {};
+L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
+  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  subdomains: 'abcd',
+  minZoom: 0,
+  maxZoom: 18,
+  ext: 'png',
+}).addTo(schoolMap);
 
-let filteredSchools = () => {};
+const schoolList = document.querySelector('#school-list');
+const gradeLevelSelect = document.querySelector('#grade-level-select');
+const zipCodeSelect = document.querySelector('#zip-code-select');
+
+const schoolList2 = document.getElementById('school-list');
+const gradeLevelSelect2 = document.getElementById('grade-level-select');
+const zipCodeSelect2 = document.getElementById('zip-code-select');
+
+
+let updateSchoolMarkers = (schoolsToShow) => {
+  schoolLayer.clearLayers();
+  schoolsToShow.forEach(school => {
+    const [lat,lng] = school['GPS Location'].split(',').map(l => l.trim());
+    marker = L.marker([lat, lng]);
+    schoolLayer.addLayer(marker);
+  });
+};
+
+
+let updateSchoolList = (schoolsToShow) => {
+  schoolList2.innerHTML = '';
+  const schoolArr = schoolsToShow.map(l => l['Publication Name']);
+  const schoolUnique = [...new Set(schoolArr)];
+  schoolUnique.forEach(school => {
+    schoolList2.appendChild(htmlToElement('<li>' + school + '</li>'));
+  });
+};
+
+
+
+let initializeZipCodeChoices = () => {
+  const zipArr = schools.map(l => l['Zip Code']);
+  const uniqueZip = [...new Set(zipArr)];
+  const cleanZip = uniqueZip.map(l => l.split('-')[0]);
+  cleanZip.forEach(zip => {
+    zipCodeSelect.appendChild(htmlToElement('<option>' + zip + '</option>'));
+  });
+};
+
+let filteredSchools = () => {
+  let index = gradeLevelSelect2.selectedIndex;
+  let grade = gradeLevelSelect2.options[index].text;
+  let index2 = zipCodeSelect2.selectedIndex;
+  let zipcode = zipCodeSelect2.options[index2].text;
+  let newArr = [];
+  if (grade === 'All') {
+    newArr = schools;
+  } else {schools.forEach((school, index) => {
+      if (schools[index][grade] === '1') {
+        newArr.push(schools[index]);
+      }
+    });
+  }
+  let finalArr = [];
+  if (zipcode === 'All') {
+    finalArr = newArr;
+  } else {
+    newArr.forEach((school, index) => {
+      if (schools[index]['Zip Code'].split('-')[0] === zipcode) {
+        finalArr.push(schools[index]);
+      }
+    });
+  }
+  return finalArr;
+};
 
 /*
 
