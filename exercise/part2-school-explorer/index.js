@@ -144,17 +144,17 @@ clear the map and the list element before adding new items.
 };*/
 
 let updateSchoolMarkers = (schoolsToShow) => {
-  coor = schoolsToShow.map(school => {
+  schoolLayer.clearLayers();
+  schoolsToShow.map(school => {
     return school['GPS Location'].split(',').map(str => {
       return Number(str)})
-  });
-
-  coor.map(school => {
+  }).map(school => {
     L.marker(school).addTo(schoolLayer);
   })
 };
 
 let updateSchoolList = (schoolsToShow) => {
+  schoolList.innerHTML = '';
   let theSchoolList = [];
   schoolsToShow.forEach((school) => {
     const schoolName = school['School Name (ULCS)'];
@@ -204,8 +204,8 @@ No need to edit anything below this line ... though feel free.
 // update the displayed schools when one of the select filters is changed.
 let handleSelectChange = () => {
   const schoolsToShow = filteredSchools() || [];
-  updateSchoolMarkers(schoolsToShow);
-  updateSchoolList(schoolsToShow);
+  //updateSchoolMarkers(schoolsToShow);
+  //updateSchoolList(schoolsToShow);
 };
 
 gradeLevelSelect.addEventListener('change', handleSelectChange);
