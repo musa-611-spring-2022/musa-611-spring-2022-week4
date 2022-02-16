@@ -135,14 +135,59 @@ clear the map and the list element before adding new items.
 
 ==================== */
 
-let updateSchoolMarkers = (schoolsToShow) => {};
+let updateSchoolMarkers = (schoolsToShow) => {
+  schoolLayer.clearLayers();
+  schoolsToShow.forEach(schools => {
+    const [lng, lat] = schools['GPS Location'].split(',');
+    const schoolName = schools['Publication Name'];
+    const marker = L.marker([lng, lat]);
+    marker.bindTooltip(schoolName);
+    schoolLayer.addLayer(marker);
+  })
+};
 
-let updateSchoolList = (schoolsToShow) => {};
+let initializeZipCodeChoices = () => {
+  let zip_arr = [];
+  schools.forEach(school => {
+  let zip = school["Zip Code"].split('-',1)[0];
+  if (!zip_arr.includes(zip)) {
+    zip_arr.push(zip);
+  }
+});
+zip_arr.sort();
+let ziporder = document.getElementById("zip-code-select");
+zip_arr.forEach(zip => {
+  ziporder.appendChild(htmlToElement(`<option>${zip}</option>`));
+});
+};
 
-let initializeZipCodeChoices = () => {};
+let updateSchoolList = (schoolsToShow) => {
+  schoolLayer.clearLayers();
+  let school_arr=[];
+  schoolsToShow.forEach(school => {
+    school_arr.push(school['Publication Name']);
+  })
+  school_arr.sort();
+  let nameorder = document.getElementById("school-list");
+  school_arr.forEach(schoolName => {
+    nameorder.appendChild(htmlToElement(`<li>${schoolName}</li>`));
+  });
+};
 
-let filteredSchools = () => {};
-
+let filteredSchools = () => {
+  let gradeVal=gradeLevelSelect.value;
+  let zipVal=zipCodeSelect.value;
+  if (zipVal === '' && gradeVal === '') {
+    return schools;
+  }
+  if (zipVal !== '' && gradeVal === '') {
+    return schools.filter(school => school['Zip Code'].slice(0, 5) === zipVal);
+  }
+  if (zipVal === '' && gradeVal !== '') {
+    return schools.filter(school => school[gradeVal] === '1');
+  }
+  return schools.filter(school => school['Zip Code'].slice(0, 5) === zipVal && school[gradeVal] === '1');
+};
 /*
 
 No need to edit anything below this line ... though feel free.
