@@ -144,7 +144,7 @@ let updateSchoolMarkers = (schoolsToShow) => {
   schoolLayer.clearLayers();
   schoolsToShow.forEach(school => {
     const [lat,lng] = school['GPS Location'].split(',').map(l => l.trim());
-    marker = L.marker([lat, lng]);
+    let marker = L.marker([lat, lng]);
     schoolLayer.addLayer(marker);
   });
 };
@@ -155,7 +155,7 @@ let updateSchoolList = (schoolsToShow) => {
   const schoolArr = schoolsToShow.map(l => l['Publication Name']);
   const schoolUnique = [...new Set(schoolArr)];
   schoolUnique.forEach(school => {
-    schoolList.appendChild(htmlToElement('<li>' + school + '</li>'));
+    schoolList.appendChild(htmlToElement('<li>${school}</li>'));
   });
 };
 
@@ -166,19 +166,20 @@ let initializeZipCodeChoices = () => {
   const uniqueZip = [...new Set(zipArr)];
   const cleanZip = uniqueZip.map(l => l.split('-')[0]);
   cleanZip.forEach(zip => {
-    zipCodeSelect.appendChild(htmlToElement('<option>' + zip + '</option>'));
+    zipCodeSelect.appendChild(htmlToElement('<option>${zip}</option>'));
   });
 };
 
 let filteredSchools = () => {
-  let index = gradeLevelSelect.selectedIndex;
-  let grade = gradeLevelSelect.options[index].text;
+  let index1 = gradeLevelSelect.selectedIndex;
+  let grade = gradeLevelSelect.options[index1].text;
   let index2 = zipCodeSelect.selectedIndex;
   let zipcode = zipCodeSelect.options[index2].text;
   let newArr = [];
   if (grade === 'All') {
     newArr = schools;
-  } else {schools.forEach((school, index) => {
+  } else {
+    schools.forEach((school, index) => {
       if (schools[index][grade] === '1') {
         newArr.push(schools[index]);
       }
