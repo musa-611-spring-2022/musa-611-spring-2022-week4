@@ -135,7 +135,12 @@ clear the map and the list element before adding new items.
 
 ==================== */
 
-let updateSchoolMarkers = (schoolsToShow) => {};
+let updateSchoolMarkers = (schoolsToShow) => {
+  schoolsToShow.forEach((school) => {
+    let gpsLoc = school['GPS Location'].split(',');
+    L.marker([gpsLoc[0], gpsLoc[1]]).addTo(schoolLayer)
+  });
+};
 
 let updateSchoolList = (schoolsToShow) => {};
 
