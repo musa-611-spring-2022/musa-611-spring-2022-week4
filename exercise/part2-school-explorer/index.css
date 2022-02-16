@@ -18,6 +18,7 @@ body {
 
 #school-list {
   overflow-y: auto;
+  width: 30vw;
 }
 
 #school-filters {
