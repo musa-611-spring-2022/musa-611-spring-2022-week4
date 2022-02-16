@@ -1,6 +1,6 @@
 /* global schools */
 
-const schoolMap = L.map('school-map').setView([39.95303901388685, -75.16341794003617], 11);
+const schoolMap = L.map('school-map').setView([39.98185552901966,-75.07970809936523], 11);
 const schoolLayer = L.layerGroup().addTo(schoolMap);
 
 L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
@@ -136,6 +136,7 @@ clear the map and the list element before adding new items.
 ==================== */
 
 let updateSchoolMarkers = (schoolsToShow) => {
+  schoolLayer.clearLayers();
   schoolsToShow.forEach((school) => {
     let gpsLoc = school['GPS Location'].split(',');
     L.marker([gpsLoc[0], gpsLoc[1]]).addTo(schoolLayer);
@@ -144,9 +145,9 @@ let updateSchoolMarkers = (schoolsToShow) => {
 
 
 let updateSchoolList = (schoolsToShow) => {
+  
   let schoolNames = []; // Initialize empty array to hold all schoolNames
-  let schoolList = document.getElementById(`school-list`); // Where to point the new list items
-
+  
   schoolsToShow.forEach(school => {
     schoolNames.push(school['Publication Name']); // Add the school name to the schools array
   });
@@ -180,7 +181,21 @@ let initializeZipCodeChoices = () => {
 };
 
 
-let filteredSchools = () => {};
+let filteredSchools = () => {
+  let schoolsToShow = []; // Initialize empty array to hold schools matching filter
+  let grade = gradeLevelSelect.value; // Get current value at Grade Level selector
+  let zip = zipCodeSelect.value; // Get current value at Zip code selector
+
+  schools.forEach(school => {
+    // Empty string check is for when 'All' is left as the option
+    // Otherwise, append schools that match chosen zip and grade level
+    if ((school['Zip Code'].slice(0, 5) === zip || zip === '') && (school[grade] === '1' || grade === '')){
+      schoolsToShow.push(school);
+    };
+  });
+
+  return schoolsToShow;
+};
 
 /*
 
