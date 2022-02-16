@@ -1,6 +1,6 @@
 /* global schools */
 
-const schoolMap = L.map('school-map').setView([39.95303901388685, -75.16341794003617], 13);
+const schoolMap = L.map('school-map').setView([39.95303901388685, -75.16341794003617], 11);
 const schoolLayer = L.layerGroup().addTo(schoolMap);
 
 L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
@@ -138,13 +138,34 @@ clear the map and the list element before adding new items.
 let updateSchoolMarkers = (schoolsToShow) => {
   schoolsToShow.forEach((school) => {
     let gpsLoc = school['GPS Location'].split(',');
-    L.marker([gpsLoc[0], gpsLoc[1]]).addTo(schoolLayer)
+    L.marker([gpsLoc[0], gpsLoc[1]]).addTo(schoolLayer);
   });
 };
 
+
 let updateSchoolList = (schoolsToShow) => {};
 
-let initializeZipCodeChoices = () => {};
+
+
+let initializeZipCodeChoices = () => {
+  let zips = []; // Initialize empty array to hold all possible zipcodes
+  let dropdown = document.getElementById('zip-code-select') 
+
+  schools.forEach(school => {
+    let zip = school['Zip Code'].slice(0, 5); // Remove region codes from zipcodes
+    if (!zips.includes(zip)){ // Check for unique zipcodes
+      zips.push(zip); // if current zip is not in array, add it
+    };
+  });
+
+  zips.sort(); // Sort zipcodes descending order
+
+  zips.forEach(zip => {
+    dropdown.appendChild(htmlToElement('<option>' + zip + '</option>')); // Add zipcodes to dropdown menu
+  });
+
+};
+
 
 let filteredSchools = () => {};
 
