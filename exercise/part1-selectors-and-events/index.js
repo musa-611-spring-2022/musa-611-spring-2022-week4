@@ -14,28 +14,30 @@ Part 1: Set the variable below equal to the paragraph element representing the
 first test result.
 ==================== */
 
-let firstResult = h(document.getElementById("result-1");
+let firstResult = document.getElementById("result-1");
+firstResult.innerHTML = "Success!";
 
 /* ====================
 Parts 2: Set the variable below equal to a collection of the paragraph
 elements representing the 2nd and 3rd results.
 ==================== */
 
-let secondAndThirdResults = document.getElementByClass("result result-2-3");
-
+let secondAndThirdResults = document.getElementsByClassName("result result-2-3");
+secondAndThirdResults.innerHTML = "Success!";
 /* ====================
 Parts 3: Set the variable below equal to a collection of the paragraph
 elements representing the all of the results.
 ==================== */
 
-let allResults = document.getElementByTagName ("p" )
+let allResults = document.getElementsByTagName ("p");
+allResults.innerHTML = "Success!";
 
 /* ====================
 Part 4: Add an event listener to the button in problem 4 that changes the
 button's own text to "I'm Clicked!"
 ==================== */
 
-let imClickedButton;
+let imClickedButton = document.getElementById("im-clicked-button");
 if (imClickedButton) {
   imClickedButton.addEventListener('click', (evt) => {
     document
@@ -54,13 +56,18 @@ clicking the button, you should add:
 
 HINT: You may need some global state for this problem.
 ==================== */
-
+var x = 0
 let spanContainer = document.querySelector('#span-container');
-spanContainer.appendChild(htmlToElement('<span>0</span>'));
+spanContainer.appendChild(htmlToElement('<span>' +x+ '</span>'));
 
-let addSpanButton;
+let addSpanButton = document.getElementById("add-span-button");
 if (addSpanButton) {
-  addSpanButton.addEventListener('click', (evt) => {});
+  addSpanButton.addEventListener('click', (evt) => {
+    x = x+1
+    spanContainer
+      .appendChild(htmlToElement('<span>'+ x + '</span>'));
+
+  });
 }
 
 /* =====================
