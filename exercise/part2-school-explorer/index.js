@@ -143,13 +143,26 @@ let updateSchoolMarkers = (schoolsToShow) => {
 };
 
 
-let updateSchoolList = (schoolsToShow) => {};
+let updateSchoolList = (schoolsToShow) => {
+  let schoolNames = []; // Initialize empty array to hold all schoolNames
+  let schoolList = document.getElementById(`school-list`); // Where to point the new list items
+
+  schoolsToShow.forEach(school => {
+    schoolNames.push(school['Publication Name']); // Add the school name to the schools array
+  });
+
+  schoolNames.sort(); // Sort school names alphabetically
+
+  schoolNames.forEach(school => {
+    schoolList.appendChild(htmlToElement('<li>' + school + '</li>')); // Add school name to school list
+  });
+};
 
 
 
 let initializeZipCodeChoices = () => {
   let zips = []; // Initialize empty array to hold all possible zipcodes
-  let dropdown = document.getElementById('zip-code-select') 
+  let dropdown = document.getElementById('zip-code-select'); // where to point the zipcodes
 
   schools.forEach(school => {
     let zip = school['Zip Code'].slice(0, 5); // Remove region codes from zipcodes
