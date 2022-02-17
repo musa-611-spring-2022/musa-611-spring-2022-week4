@@ -134,18 +134,53 @@ there as well. Update the `updateSchoolMarkers` and `updateSchoolList` functions
 clear the map and the list element before adding new items.
 
 ==================== */
+//Not solved
 
-let updateSchoolMarkers = schools.features;
-updateSchoolMarkers.forEach = ((schoolsToShow) => {
-  const location = schools.geometry.coordinates;
-  schoolLayer;
-})
+let updateSchoolMarkers = (schoolsToShow) => {
+  schoolLayer.clearLayers();
+  schoolsToShow.forEach((schools) => {
+    const coordinates = schools['GPS Location'].split(', ');
+    const name = schools['Publication Name'];
+    const marker = L.marker(coordinates).bindTooltip(name);
 
-let updateSchoolList = (schoolsToShow) => {};
+    schoolLayer.addLayer(marker);
+    
+  });
+}
 
-let initializeZipCodeChoices = () => {};
+let updateSchoolList = (schoolsToShow) => {
+  schoolList.innerHTML = '';
+  schoolsToShow.forEach((school) => {
+    const name = school['Publication Name'];
+    const nameNode = htmlToElement(`<li>${name}</li>`);
+    schoolList.appendChild(nameNode);
+  });
+};
 
-let filteredSchools = () => {};
+let initializeZipCodeChoices = () => {
+  let zip = schools.map((school) => Number(school['Zip Code'].slice(0, 5)));
+  zip = [...new Set(zip)].sort();
+  zip.forEach((z) => {
+    const zipNode = htmlToElement(`<option>${z}</option>`);
+    zipCodeSelect.appendChild(zipNode);
+  });
+};
+
+let filteredSchools = () => {
+  // filter zip
+  let zipSchools = schools;
+  const selectedZip = zipCodeSelect.selectedOptions[0].label;
+  const selectedGrade = gradeLevelSelect.selectedOptions[0].label;
+
+  if (selectedZip !== 'All') {
+    zipSchools = zipSchools.filter((s) => s['Zip Code'].slice(0, 5) === selectedZip);
+  }
+  if (selectedGrade !== 'All') {
+    zipSchools = zipSchools.filter((s) => s[selectedGrade] === '1');
+  }
+  return zipSchools;
+};
+
 
 /*
 
