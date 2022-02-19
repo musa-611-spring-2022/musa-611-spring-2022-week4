@@ -21,14 +21,14 @@ Parts 2: Set the variable below equal to a collection of the paragraph
 elements representing the 2nd and 3rd results.
 ==================== */
 
-let secondAndThirdResults = document.querySelectorAll(".result-2-3");
+let secondAndThirdResults = document.querySelectorAll('.result-2-3');
 
 /* ====================
 Parts 3: Set the variable below equal to a collection of the paragraph
 elements representing the all of the results.
 ==================== */
 
-let allResults = document.querySelectorAll(".result");
+let allResults = document.querySelectorAll('.result');
 
 /* ====================
 Part 4: Add an event listener to the button in problem 4 that changes the
@@ -37,7 +37,7 @@ button's own text to "I'm Clicked!"
 
 let imClickedButton = document.querySelector('#im-clicked-button');
 if (imClickedButton) {
-  imClickedButton.addEventListener('click', (evt) => {
+  imClickedButton.addEventListener('click', () => {
     imClickedButton.innerHTML = 'I\'m Clicked!';
   });
 }
@@ -58,9 +58,9 @@ spanContainer.appendChild(htmlToElement('<span>0</span>'));
 let count = 0;
 let addSpanButton = document.querySelector('#add-span-button');
 if (addSpanButton) {
-  addSpanButton.addEventListener('click', (evt) => {
-    console.log(1)
-    count = count + 1;
+  addSpanButton.addEventListener('click', () => {
+    console.log(1);
+    count += 1;
     let el2 = htmlToElement(`<span>${count}</span>`);
     spanContainer.appendChild(el2);
   });
