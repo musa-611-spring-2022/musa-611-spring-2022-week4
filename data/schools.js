@@ -7428,7 +7428,7 @@ const schools = [
   "NSC Code": "392798",
   "NCES Code": "421899000901",
   "AUN Code": "126515001",
-  "ULCS Code": "5520",
+  "ULCS Code": "Kensington High School for Creative and Performing Arts",
   "SRC School ID": "552",
   "School Name (ULCS)": "KENSINGTON CAPA",
   "Publication Name": "Kensington High School for Creative and Performing Arts",
