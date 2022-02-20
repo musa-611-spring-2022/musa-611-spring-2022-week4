@@ -135,11 +135,28 @@ clear the map and the list element before adding new items.
 
 ==================== */
 
-let updateSchoolMarkers = (schoolsToShow) => {};
+let updateSchoolMarkers = (schoolsToShow) => {
+  schoolLayer.clearLayers();
+  schoolsToShow.forEach((school) => {
+		const [lat, lng] = JSON.parse("[" + school['GPS Location'] + "]");
+		const schoolName = school['School Name (ULCS)'];
+		const marker = L.marker([lat, lng]);
+		marker.bindTooltip(schoolName).addTo(schoolMap);
+		schoolLayer.addLayer(marker);
+	});
+};
+
+updateSchoolMarkers(schools);
 
 let updateSchoolList = (schoolsToShow) => {};
 
-let initializeZipCodeChoices = () => {};
+let initializeZipCodeChoices = () => {
+  let zipCodes = [];
+  schools.map((school) => zipCodes.push(school['Zip Code'].substring(0,5)));
+  zipCodes = [... new Set(zipCodes)].sort();
+  let zipCodeSelector = document.querySelector('#zip-code-select');
+  zipCodes.forEach((code) => zipCodeSelector.appendChild(htmlToElement(`<option>${code}</option>`)));
+};
 
 let filteredSchools = () => {};
 
