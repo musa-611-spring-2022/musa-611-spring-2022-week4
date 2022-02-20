@@ -5,7 +5,7 @@
 ## Introduction
 
 Open the index.html page in your browser, and update the variables and functions
-below so that the results all read "Success!".
+below so that the results all read 'Success!'.
 
 ===================== */
 
@@ -14,14 +14,14 @@ Part 1: Set the variable below equal to the paragraph element representing the
 first test result.
 ==================== */
 
-let firstResult = document.getElementById("result-1");
+let firstResult = document.getElementById('result-1');
 
 /* ====================
 Parts 2: Set the variable below equal to a collection of the paragraph
 elements representing the 2nd and 3rd results.
 ==================== */
 
-let secondAndThirdResults = document.getElementsByClassName("result result-2-3");
+let secondAndThirdResults = document.getElementsByClassName('result result-2-3');
 
 /* ====================
 Parts 3: Set the variable below equal to a collection of the paragraph
@@ -32,16 +32,16 @@ let allResults = document.getElementsByTagName('p');
 
 /* ====================
 Part 4: Add an event listener to the button in problem 4 that changes the
-button's own text to "I'm Clicked!"
+button's own text to 'I'm Clicked!'
 ==================== */
 
-let imClickedButton = document.getElementById("im-clicked-button");
+let imClickedButton = document.getElementById('im-clicked-button');
 if (imClickedButton) {
   imClickedButton.addEventListener(
-    'click', 
+    'click',
     (evt) => {
-      document.getElementById("im-clicked-button").innerHTML = "I'm Clicked!" }
-    );
+      document.getElementById('im-clicked-button').innerHTML = "I'm Clicked!" }
+  );
 }
 
 /* ====================
@@ -60,11 +60,12 @@ let spanContainer = document.querySelector('#span-container');
 spanContainer.appendChild(htmlToElement(`<span>${clickcounter}</span>`));
 
 
-let addSpanButton = document.getElementById("add-span-button");
+let addSpanButton = document.getElementById('add-span-button');
 if (addSpanButton) {
   addSpanButton.addEventListener(
-    'click', 
+    'click',
     (evt) => {
+      console.log(evt);
       clickcounter = clickcounter + 1;
       spanContainer.appendChild(htmlToElement(`<span>${clickcounter}</span>`));}
     );

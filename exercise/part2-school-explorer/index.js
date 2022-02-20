@@ -4,7 +4,7 @@ const schoolMap = L.map('school-map').setView([39.95303901388685, -75.1634179400
 const schoolLayer = L.layerGroup().addTo(schoolMap);
 
 L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
-  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  attribution: "Map tiles by <a href='http://stamen.com'>Stamen Design</a>, <a href='http://creativecommons.org/licenses/by/3.0'>CC BY 3.0</a> &mdash; Map data &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors",
   subdomains: 'abcd',
   minZoom: 0,
   maxZoom: 18,
@@ -73,7 +73,7 @@ TIP 1: You can use the `map` function to pull a specific attribute off of each
 object in an array.
 
 TIP 2: There are various libraries and techniques that you can use to trim down
-an array to just it's unique elements, but the most efficient way to do this in
+an array to just it's unique elements, 'but the most efficient way to do this in
 modern JavaScript is with a Set object. For example:
 
   const numbers = [1, 4, 2, 3, 4, 1, 2, 1, 3, 2, 4, 2, 3, 1, 2, 4];
@@ -97,14 +97,14 @@ Fill in the `updateSchoolList` function to add a new `li` element into the
 empty when the page loads. Go find the element in the index.html file. It looks
 like this:
 
-  <ol id="school-list"></ol>
+  <ol id=.school-list.></ol>
 
 Without editing the index.html file, you'll be creating new list item (`li`)
 elements. Each list item will have the name of a school in it (use the
-"Publication Name" attribute from the school objects). That means the DOM tree
+.Publication Name. attribute from the school objects). That means the DOM tree
 for the `#school-list` element will look something like this:
 
-  <ol id="school-list">
+  <ol id='school-list'>
     <li>Northeast Community Propel Academy<li>
     <li>John Bartram High School</li>
     <li>West Philadelphia High School</li>
@@ -137,8 +137,8 @@ clear the map and the list element before adding new items.
 let updateSchoolMarkers = (schoolsToShow) => {
   schoolLayer.clearLayers();
   schoolsToShow.forEach(school => {
-    let name = school["Publication Name"];
-    let [lat, lng] = school["GPS Location"].split(',');
+    let name = school['Publication Name'];
+    let [lat, lng] = school['GPS Location'].split(',');
     L.marker([parseFloat(lat), parseFloat(lng)]).bindTooltip(name).addTo(schoolLayer);
   })
 };
@@ -147,11 +147,11 @@ let updateSchoolMarkers = (schoolsToShow) => {
 let updateSchoolList = (schoolsToShow) => {
   let school_arr = []
   schoolsToShow.forEach(school => {
-    school_arr.push(school["Publication Name"]);
+    school_arr.push(school['Publication Name']);
   })
 
   school_arr.sort();
-  let schoolList_container = document.getElementById("school-list");
+  let schoolList_container = document.getElementById('school-list');
   school_arr.forEach(name => {
     schoolList_container.appendChild(htmlToElement(`<li>${name}</li>`));
   });
@@ -160,13 +160,13 @@ let updateSchoolList = (schoolsToShow) => {
 let initializeZipCodeChoices = () => {
   let zip_arr = []
   schools.forEach(school => {
-    let zip = school["Zip Code"].split('-',1)[0];
+    let zip = school['Zip Code'].split('-',1)[0];
     if (!zip_arr.includes(zip)) {
       zip_arr.push(zip)
     };
   })
   zip_arr.sort();
-  let zipContainer = document.getElementById("zip-code-select");
+  let zipContainer = document.getElementById('zip-code-select');
   zip_arr.forEach(zip => {
     zipContainer.appendChild(htmlToElement(`<option>${zip}</option>`));
   });
@@ -176,20 +176,20 @@ let filteredSchools = () => {
   let current_zip = zipCodeSelect.value
   let current_grade = gradeLevelSelect.value
   console.log(current_grade)
-  
+
 
   let isGrade = (school) => {
     if (current_grade === '') {
       return school
     }
-    else if ( school[current_grade] === "1") {
+    else if ( school[current_grade] === '1') {
       return school
     }
   };
   let isZip = (school) => {
     if (current_zip === '') {
       return school
-    } else if (school["Zip Code"].split('-')[0] === current_zip) {
+    } else if (school['Zip Code'].split('-')[0] === current_zip) {
       return school
     }
   };
