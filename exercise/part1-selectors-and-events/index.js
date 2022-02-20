@@ -1,12 +1,8 @@
 /* =====================
-
 # Exercise: Selectors & Events
-
 ## Introduction
-
 Open the index.html page in your browser, and update the variables and functions
 below so that the results all read "Success!".
-
 ===================== */
 
 /* ====================
@@ -38,7 +34,7 @@ button's own text to "I'm Clicked!"
 let imClickedButton = document.getElementById('im-clicked-button');
 if (imClickedButton) {
   imClickedButton.addEventListener('click', (evt) => {
-    document.getElementById('im-clicked-button').innerHTML = ("I'm Clicked!");
+    document.getElementById('im-clicked-button').innerHTML = "I\'m Clicked!";
   });
 }
 
@@ -47,9 +43,7 @@ Part 5: Add an event listener to the button in problem 5 that creates a new span
 to the spanContainer. The span should contain a single number representing how
 many times you have clicked the button. For example, if it is your 3rd time
 clicking the button, you should add:
-
   <span>3</span>
-
 HINT: You may need some global state for this problem.
 ==================== */
 
@@ -60,17 +54,14 @@ let click = 0;
 
 let addSpanButton = document.getElementById('add-span-button');
 if (addSpanButton) {
+  click++;
   addSpanButton.addEventListener('click', (evt) => {
-    click++;
-    spanContainer.appendChild(htmlToElement('<span>' + click + '<span>'));
+    spanContainer.appendChild(htmlToElement('<span>0</span>').innerHTML = ('<span>'+ click +'</span>');
   });
 }
 
 /* =====================
-
 Results (all should report success)
-YOU NEED NOT (AND SHOULD NOT) EDIT BELOW THIS LINE.
-
 ===================== */
 
 function updateResults() {

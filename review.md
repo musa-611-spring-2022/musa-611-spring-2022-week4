@@ -36,12 +36,14 @@ Each method has its advantages, but for the most part they're pretty interchange
 
 At it's most basic level, an object is a collection of related data. We've used them already and we'll use them a lot more. Object literals are a good way of representing structured data in JavaScript (and, as we'll see later, outside of JavaScript too).
 
+
+
 ### Object literal syntax
 
 Object attribute keys are always strings (even though we don't always quote them). So, the following object definitions are equivalent:
 
 ```js
-{
+Let river = {
   name: "Schuylkill",
   length: 217000
 }
@@ -66,6 +68,8 @@ The quotes on the keys (not the values) are optional, as long as the key is a va
   "2nd source elevation": 350
 }
 ```
+order of objects in javascript is arbitrary
+
 
 Objects can also contain other objects in their values. For example, here is the same data as above, represented slightly differently:
 
