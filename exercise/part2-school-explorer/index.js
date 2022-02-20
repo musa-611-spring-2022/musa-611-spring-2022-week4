@@ -147,10 +147,10 @@ let updateSchoolMarkers = (schoolsToShow) => {
 };
 
 let updateSchoolList = (schoolsToShow) => {
+  schoolList.innerHTML = '';
   let schoolNames = [];
-  schools.map((school) => schoolNames.push(school['Publication Name']));
+  schoolsToShow.map((school) => schoolNames.push(school['Publication Name']));
   schoolNames = [... new Set(schoolNames)].sort();
-  let schoolList = document.querySelector('#school-list');
   schoolNames.forEach((name) => schoolList
     .appendChild(htmlToElement(`<li>${name}</li>`)));
 };
@@ -159,12 +159,26 @@ let initializeZipCodeChoices = () => {
   let zipCodes = [];
   schools.map((school) => zipCodes.push(school['Zip Code'].substring(0,5)));
   zipCodes = [... new Set(zipCodes)].sort();
-  let zipCodeSelector = document.querySelector('#zip-code-select');
-  zipCodes.forEach((code) => zipCodeSelector
+  zipCodes.forEach((code) => zipCodeSelect
     .appendChild(htmlToElement(`<option>${code}</option>`)));
 };
 
-let filteredSchools = () => {};
+let filteredSchools = () => {
+  if((gradeLevelSelect.value !== '') && (zipCodeSelect.value !== '')) {
+    return schools.filter((school) => {
+      return (school[gradeLevelSelect.value] === '1')
+        && (school['Zip Code'].substring(0,5) === zipCodeSelect.value);
+    })
+  } else if ((gradeLevelSelect.value === '') && (zipCodeSelect.value !== '')) {
+    return schools.filter((school) => {
+      return school['Zip Code'].substring(0,5) === zipCodeSelect.value;
+    })
+  } else if ((gradeLevelSelect.value !== '') && (zipCodeSelect.value === '')){
+    return schools.filter((school) => school[gradeLevelSelect.value] === '1');
+  } else {
+    return schools;
+  }
+};
 
 /*
 
