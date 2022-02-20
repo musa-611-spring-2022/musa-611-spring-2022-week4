@@ -37,8 +37,10 @@ button's own text to "I'm Clicked!"
 
 let imClickedButton = document.getElementById('im-clicked-button');
 if (imClickedButton.textContent === 'Click me...') {
-  imClickedButton.addEventListener('click', () => imClickedButton.textContent = 'I\'m Clicked!');
-};
+  imClickedButton.addEventListener('click', () => {
+    imClickedButton.textContent = 'I\'m Clicked!';
+  });
+}
 
 /* ====================
 Part 5: Add an event listener to the button in problem 5 that creates a new span
@@ -54,14 +56,14 @@ HINT: You may need some global state for this problem.
 let spanContainer = document.querySelector('#span-container');
 spanContainer.appendChild(htmlToElement('<span>0</span>'));
 
-let count = 0
+let count = 0;
 let addSpanButton = document.getElementById('add-span-button');
 if (addSpanButton.textContent === 'Click me...') {
   addSpanButton.addEventListener('click', () => {
     count++;
     spanContainer.appendChild(htmlToElement(`<span>${count}</span>`));
   });
-};
+}
 
 /* =====================
 
