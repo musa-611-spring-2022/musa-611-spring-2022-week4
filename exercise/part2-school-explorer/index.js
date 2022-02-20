@@ -139,23 +139,29 @@ let updateSchoolMarkers = (schoolsToShow) => {
   schoolLayer.clearLayers();
   schoolsToShow.forEach((school) => {
 		const [lat, lng] = JSON.parse("[" + school['GPS Location'] + "]");
-		const schoolName = school['School Name (ULCS)'];
+		const schoolName = school['Publication Name'];
 		const marker = L.marker([lat, lng]);
 		marker.bindTooltip(schoolName).addTo(schoolMap);
 		schoolLayer.addLayer(marker);
 	});
 };
 
-updateSchoolMarkers(schools);
-
-let updateSchoolList = (schoolsToShow) => {};
+let updateSchoolList = (schoolsToShow) => {
+  let schoolNames = [];
+  schools.map((school) => schoolNames.push(school['Publication Name']));
+  schoolNames = [... new Set(schoolNames)].sort();
+  let schoolList = document.querySelector('#school-list');
+  schoolNames.forEach((name) => schoolList
+    .appendChild(htmlToElement(`<li>${name}</li>`)));
+};
 
 let initializeZipCodeChoices = () => {
   let zipCodes = [];
   schools.map((school) => zipCodes.push(school['Zip Code'].substring(0,5)));
   zipCodes = [... new Set(zipCodes)].sort();
   let zipCodeSelector = document.querySelector('#zip-code-select');
-  zipCodes.forEach((code) => zipCodeSelector.appendChild(htmlToElement(`<option>${code}</option>`)));
+  zipCodes.forEach((code) => zipCodeSelector
+    .appendChild(htmlToElement(`<option>${code}</option>`)));
 };
 
 let filteredSchools = () => {};
