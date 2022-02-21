@@ -137,9 +137,12 @@ clear the map and the list element before adding new items.
 
 let updateSchoolMarkers = (schoolsToShow) => {
   schoolLayer.clearLayers();
+
   schoolsToShow.forEach((school) => {
-    let gpsLoc = school['GPS Location'].split(',');
-    L.marker([gpsLoc[0], gpsLoc[1]]).addTo(schoolLayer);
+    const [lat, lng] = school['GPS Location'].split(',').map(l => l.trim());
+    const marker = L.marker([lat, lng]).bindTooltip(school['Publication Name']);
+    schoolLayer.addLayer(marker);
+
   });
 };
 
