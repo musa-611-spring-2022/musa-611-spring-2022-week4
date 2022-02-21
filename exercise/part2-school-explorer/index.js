@@ -145,7 +145,9 @@ let updateSchoolMarkers = (schoolsToShow) => {
 
 
 let updateSchoolList = (schoolsToShow) => {
-  
+  while(schoolList.firstChild){ // Check if there is a child li element
+    schoolList.removeChild(schoolList.firstChild); // if there is a child, remove it
+  }
   let schoolNames = []; // Initialize empty array to hold all schoolNames
   
   schoolsToShow.forEach(school => {
@@ -163,7 +165,7 @@ let updateSchoolList = (schoolsToShow) => {
 
 let initializeZipCodeChoices = () => {
   let zips = []; // Initialize empty array to hold all possible zipcodes
-  let dropdown = document.getElementById('zip-code-select'); // where to point the zipcodes
+  // let dropdown = document.getElementById('zip-code-select'); // where to point the zipcodes
 
   schools.forEach(school => {
     let zip = school['Zip Code'].slice(0, 5); // Remove region codes from zipcodes
@@ -175,7 +177,7 @@ let initializeZipCodeChoices = () => {
   zips.sort(); // Sort zipcodes descending order
 
   zips.forEach(zip => {
-    dropdown.appendChild(htmlToElement('<option>' + zip + '</option>')); // Add zipcodes to dropdown menu
+    zipCodeSelect.appendChild(htmlToElement('<option>' + zip + '</option>')); // Add zipcodes to dropdown menu
   });
 
 };
