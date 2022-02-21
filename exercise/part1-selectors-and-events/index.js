@@ -14,31 +14,31 @@ Part 1: Set the variable below equal to the paragraph element representing the
 first test result.
 ==================== */
 
-let firstResult = document.getElementById("result-1");
+let firstResult = document.getElementById('result-1');
 
 /* ====================
 Parts 2: Set the variable below equal to a collection of the paragraph
 elements representing the 2nd and 3rd results.
 ==================== */
 
-let secondAndThirdResults = document.getElementsByClassName("result result-2-3");
+let secondAndThirdResults = document.getElementsByClassName('result result-2-3');
 
 /* ====================
 Parts 3: Set the variable below equal to a collection of the paragraph
 elements representing the all of the results.
 ==================== */
 
-let allResults = document.getElementsByTagName("p");
+let allResults = document.getElementsByTagName('p');
 
 /* ====================
 Part 4: Add an event listener to the button in problem 4 that changes the
 button's own text to "I'm Clicked!"
 ==================== */
 
-let imClickedButton = document.getElementById("im-clicked-button");
+let imClickedButton = document.getElementById('im-clicked-button');
 if (imClickedButton) {
-  imClickedButton.addEventListener('click', (evt) => {
-    imClickedButton.textContent = "I\'m Clicked!";
+  imClickedButton.addEventListener('click', () => {
+    imClickedButton.textContent = "I'm Clicked!";
   });
 }
 
@@ -63,13 +63,13 @@ let n = 0;
 
 let addSpanButton = document.querySelector('#add-span-button');
 if (addSpanButton) {
-  addSpanButton.addEventListener('click', (evt) => {
-      n = i++;
-      if (n === 1){spanContainer.appendChild(htmlToElement('<span>1</span>'));} else if (n === 2)
-      {spanContainer.appendChild(htmlToElement('<span>2</span>'));} else if (n === 3)
-      {spanContainer.appendChild(htmlToElement('<span>3</span>'));} else if (n === 4)
-      {spanContainer.appendChild(htmlToElement('<span>4</span>'));} else if (n === 5)
-      {spanContainer.appendChild(htmlToElement('<span>5</span>'));}
+  addSpanButton.addEventListener('click', () => {
+    n = i++;
+    if (n === 1) { spanContainer.appendChild(htmlToElement('<span>1</span>')); } 
+    else if (n === 2) { spanContainer.appendChild(htmlToElement('<span>2</span>')); }
+    else if (n === 3) { spanContainer.appendChild(htmlToElement('<span>3</span>')); }
+    else if (n === 4) { spanContainer.appendChild(htmlToElement('<span>4</span>')); }
+    else if (n === 5) { spanContainer.appendChild(htmlToElement('<span>5</span>')); }
   });
 }
 
