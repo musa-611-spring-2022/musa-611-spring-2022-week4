@@ -143,7 +143,7 @@ let updateSchoolMarkers = (schoolsToShow) => {
     const marker = L.marker([lng, lat]);
     marker.bindTooltip(schoolName);
     schoolLayer.addLayer(marker);
-  })
+  });
 };
 
 let initializeZipCodeChoices = () => {
@@ -155,22 +155,17 @@ let initializeZipCodeChoices = () => {
   }
 });
 zip_arr.sort();
-let ziporder = document.getElementById("zip-code-select");
+let ziporder = document.getElementById('zip-code-select');
 zip_arr.forEach(zip => {
   ziporder.appendChild(htmlToElement(`<option>${zip}</option>`));
 });
 };
 
 let updateSchoolList = (schoolsToShow) => {
-  schoolLayer.clearLayers();
-  let school_arr=[];
-  schoolsToShow.forEach(school => {
-    school_arr.push(school['Publication Name']);
-  })
-  school_arr.sort();
-  let nameorder = document.getElementById("school-list");
-  school_arr.forEach(schoolName => {
-    nameorder.appendChild(htmlToElement(`<li>${schoolName}</li>`));
+  schoolList.innerHTML = '';
+  schoolsToShow.forEach((school) => {
+    const html = `<li>${school['Publication Name']}</li>`;
+    schoolList.appendChild(htmlToElement(html));
   });
 };
 
