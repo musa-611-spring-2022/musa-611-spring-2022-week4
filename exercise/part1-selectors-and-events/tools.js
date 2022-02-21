@@ -9,10 +9,11 @@ for more information: https://stackoverflow.com/a/35385518/123776
  * @return {Element}
  */
 function htmlToElement(html) {
-    var template = document.createElement('template');
-    html = html.trim(); // Never return a text node of whitespace as the result
-    template.innerHTML = html;
-    return template.content.firstChild;
+  let template = document.createElement('template');
+  // eslint-disable-next-line no-param-reassign
+  html = html.trim(); // Never return a text node of whitespace as the result
+  template.innerHTML = html;
+  return template.content.firstChild;
 }
 
 /**
@@ -20,7 +21,9 @@ function htmlToElement(html) {
  * @return {NodeList}
  */
 function htmlToElements(html) {
-    var template = document.createElement('template');
-    template.innerHTML = html;
-    return template.content.childNodes;
+  let template = document.createElement('template');
+  template.innerHTML = html;
+  return template.content.childNodes;
 }
+console.log(htmlToElement);
+console.log(htmlToElements);
