@@ -143,24 +143,11 @@ function removeAllChildNodes(parent) {
   }
 }
 
-let showPopup = (marker, school) => {
-  const dataFileName = `../data/demographics/${school['ULCS Code']}.json`;
-  fetch(dataFileName).then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-    });
-  marker.bindPopup(`<h3>${school['Publication Name']}</h3>`).openPopup();
-};
-
 let updateSchoolMarkers = (schoolsToShow) => {
   schoolLayer.clearLayers();
   schoolsToShow.forEach((school) => {
     let gpsLocation = school['GPS Location'].split(',');
-    let marker = L.marker([gpsLocation[0], gpsLocation[1]]);
-    schoolLayer.addLayer(marker);
-    marker.addEventListener('click', () => {
-      showPopup(marker, school);
-    });
+    L.marker([gpsLocation[0], gpsLocation[1]]).addTo(schoolLayer);
   });
 };
 
