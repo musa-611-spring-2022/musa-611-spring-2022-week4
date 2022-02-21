@@ -135,13 +135,51 @@ clear the map and the list element before adding new items.
 
 ==================== */
 
-let updateSchoolMarkers = (schoolsToShow) => {};
+let updateSchoolMarkers = (schoolsToShow) => {
+  schoolLayer.clearLayers();
+  schoolsToShow.forEach((school) => {
+    const lat = parseFloat(school['GPS Location'].split(',')[0]);
+    const lng = parseFloat(school['GPS Location'].split(',')[1]);
+    const schoolName = school['Publication Name'];
+    const marker = L.marker([lat, lng]);
+    marker.bindTooltip(schoolName);
+    schoolLayer.addLayer(marker);
+  });
+};
 
-let updateSchoolList = (schoolsToShow) => {};
+let updateSchoolList = (schoolsToShow) => {
+  schoolList.innerHTML = '';
+  let schoolName = schoolsToShow.map(a => a['Publication Name']);
+  const uniqueSchoolName = [...new Set(schoolName)];
+  if (schoolList) {
+    uniqueSchoolName.forEach((n) => schoolList.appendChild(htmlToElement(`<li>${n}<li>`)));
+  }
+};
 
-let initializeZipCodeChoices = () => {};
+let initializeZipCodeChoices = () => {
+  let zip = schools.map(a => a['Zip Code'].slice(0, 5));
+  const uniqueZip = [...new Set(zip)];
+  if (zipCodeSelect) {
+    uniqueZip.forEach((z) => zipCodeSelect.appendChild(htmlToElement(`<option>${z}</option>`)));
+  }
+};
 
-let filteredSchools = () => {};
+let filteredSchools = () => {
+  let schoolFilter = [];
+  if (gradeLevelSelect.value === '' && zipCodeSelect.value === '') {
+    schoolFilter = schools;
+  }
+  if (gradeLevelSelect.value === '' && zipCodeSelect.value !== '') {
+    schoolFilter = schools.filter((a) => a['Zip Code'].slice(0, 5) === zipCodeSelect.value);
+  }
+  if (gradeLevelSelect.value !== '' && zipCodeSelect.value === '') {
+    schoolFilter = schools.filter((a) => a[gradeLevelSelect.value] === '1');
+  }
+  if (gradeLevelSelect.value !== '' && zipCodeSelect.value !== '') {
+    schoolFilter = schools.filter((a) => a[gradeLevelSelect.value] === '1' && a['Zip Code'].slice(0, 5) === zipCodeSelect.value);
+  }
+  return schoolFilter;
+};
 
 /*
 
