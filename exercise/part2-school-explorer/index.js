@@ -45,14 +45,6 @@ line 4. Refer to the documentation for LayerGroup:
 https://leafletjs.com/reference.html#layergroup
 ==================== */
 
-
-let schoolData = ;
-
-let updateSchoolMarkers = (schoolsToShow) => {
-
-};
-
-
 /* ====================
 
 ## Step 2: Initialize the Zip Code Options ~~~~~~~~~~~~~~~~~~~~
@@ -157,11 +149,56 @@ clear the map and the list element before adding new items.
 
 ==================== */
 
-let updateSchoolList = (schoolsToShow) => {};
+let updateSchoolMarkers = (schoolsToShow) => {
+  schoolLayer.clearLayers();
 
-let initializeZipCodeChoices = () => {};
+  for(const school of schoolsToShow) {
+    const location = school['GPS Location'];
+    const[lat, lng] = location.split(',');
+    L.marker([lat,lng]).addTo(schoolLayer)
+  }
+};
 
-let filteredSchools = () => {};
+let updateSchoolList = (schoolsToShow) => {
+  schoolList.innerHTML = '';
+
+  for(const school of schoolsToShow) {
+    const name = school['Publication Name'];
+    const schoolLi = htmlToElement(`<li>${name}</li>`);
+    schoolList.appendChild(schoolLi);
+  }
+}
+
+let initializeZipCodeChoices = () => {
+  const allZips = [];
+  for (const school of schools) {
+    const zip = school['Zip Code'].slice(0,5);
+    allZips.push(zip);
+  }
+
+  const uniqueZips = [...new Set(allZips)].sort();
+  for (const zip of uniqueZips) {
+    const zipOpt = htmlToElement(`<option>${zip}</option>`);
+    zipCodeSelect.appendChild(zipOpt);
+  }
+};
+
+let filteredSchools = () => {
+  const selectedZip = zipCodeSelect.value;
+  const selectedGrade = gradeLevelSelect.value;
+
+  const fSchools = schools.filter(school => {
+    const zip = school['Zip Code'].slice(0,5);
+    const zipCodeMatch = (zip === selectedZip || selectedZip === '');
+    const gradeMatch = (school[selectedGrade] === '1' || selectedGrade === '');
+    if (zipCodeMatch && gradeMatch){
+      return true;
+    } else {
+      return false;
+    }
+  });
+  return fSchools;
+};
 
 /*
 
