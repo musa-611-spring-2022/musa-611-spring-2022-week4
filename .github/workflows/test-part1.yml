@@ -1,0 +1,24 @@
+name: Testing Selectors & Events exercise
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node.js 16.x
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16.x
+        cache: 'npm'
+    - name: Install dependencies
+      run: npm install --only=prod
+    - name: Run jest
+      run: |
+        npx http-server --silent --port 8000 &
+        npx jest __tests__/test_part1.js --color=true
