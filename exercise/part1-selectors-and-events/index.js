@@ -15,7 +15,7 @@ first test result.
 ==================== */
 
 let firstResult;
-firstResult = document.getElementById("result-1");
+firstResult = document.getElementById('result-1');
 
 /* ====================
 Parts 2: Set the variable below equal to a collection of the paragraph
@@ -23,7 +23,7 @@ elements representing the 2nd and 3rd results.
 ==================== */
 
 let secondAndThirdResults;
-secondAndThirdResults = document.getElementsByClassName("result result-2-3");
+secondAndThirdResults = document.getElementsByClassName('result result-2-3');
 
 /* ====================
 Parts 3: Set the variable below equal to a collection of the paragraph
@@ -41,12 +41,12 @@ button's own text to "I'm Clicked!"
 let imClickedButton;
 imClickedButton = document.getElementById('im-clicked-button');
 if (imClickedButton) {
-  imClickedButton.addEventListener('click', (evt) => {
+  imClickedButton.addEventListener('click', () => {
     document
       .getElementById('im-clicked-button')
       .innerHTML = "I'm Clicked!";
-    });
-  }
+  });
+};
 
 
 /* ====================
@@ -61,22 +61,21 @@ HINT: You may need some global state for this problem.
 ==================== */
 
 let spanContainer = document.querySelector('#span-container');
-let n = 0
-//let n = 0
-spanContainer.appendChild(htmlToElement('<span>'+n+'</span>'));
+let n = 0;
+
+spanContainer.appendChild(htmlToElement(`<span>${n}</span>')`);
 
 let addSpanButton;
 addSpanButton = document.getElementById('add-span-button');
 
 if (addSpanButton) {
-  addSpanButton.addEventListener('click', (evt) => {
-    n+=1
+  addSpanButton.addEventListener('click', () => {
+    n += 1;
     document
       .getElementById('span-container')
-      .appendChild(htmlToElement('<span>'+n+'</span>'))
-
+      .appendChild(htmlToElement(`<span>${n}</span>`));
   });
-}
+};
 
 /* =====================
 
