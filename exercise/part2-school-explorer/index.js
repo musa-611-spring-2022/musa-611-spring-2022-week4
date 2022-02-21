@@ -166,7 +166,7 @@ let initializeZipCodeChoices = () => {
     let zip = school['Zip Code'].slice(0, 5); // Remove region codes from zipcodes
     if (!zips.includes(zip)) { // Check for unique zipcodes
       zips.push(zip); // if current zip is not in array, add it
-    };
+    }
   });
 
   zips.sort(); // Sort zipcodes descending order
@@ -174,9 +174,7 @@ let initializeZipCodeChoices = () => {
   zips.forEach(zip => {
     dropdown.appendChild(htmlToElement('<option>' + zip + '</option>')); // Add zipcodes to dropdown menu
   });
-
 };
-
 
 let filteredSchools = () => {
   let schoolsToShow = []; // Initialize empty array to hold schools matching filter
@@ -188,7 +186,7 @@ let filteredSchools = () => {
     // Otherwise, append schools that match chosen zip and grade level
     if ((school['Zip Code'].slice(0, 5) === zip || zip === '') && (school[grade] === '1' || grade === '')) {
       schoolsToShow.push(school);
-    };
+    }
   });
 
   return schoolsToShow;

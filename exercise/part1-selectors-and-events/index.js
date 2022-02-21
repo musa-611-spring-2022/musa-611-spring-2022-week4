@@ -57,7 +57,7 @@ if (addSpanButton) {
   click++;
   addSpanButton.addEventListener('click', (evt) => {
     spanContainer.appendChild(htmlToElement('<span>0</span>').innerHTML = ('<span>'+ click +'</span>')
-  )};
+  )}
 }
 
 /* =====================
