@@ -149,17 +149,17 @@ let updateSchoolMarkers = (schoolsToShow) => {
 let initializeZipCodeChoices = () => {
   let ziparr = [];
   schools.forEach(school => {
-    let zip = school["Zip Code"].split('-', 1)[0];
+    let zip = school['Zip Code'].split('-', 1)[0];
     if (!ziparr.includes(zip)) {
       ziparr.push(zip);
-  }
-});
+    }
+  });
   ziparr.sort();
   let ziporder = document.getElementById('zip-code-select');
   ziparr.forEach(zip => {
-  ziporder.appendChild(htmlToElement(`<option>${zip}</option>`));
-    });
-  };
+    ziporder.appendChild(htmlToElement(`<option>${zip}</option>`));
+  });
+};
 
 let updateSchoolList = (schoolsToShow) => {
   schoolList.innerHTML = '';
