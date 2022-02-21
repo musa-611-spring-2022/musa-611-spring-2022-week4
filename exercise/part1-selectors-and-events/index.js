@@ -28,7 +28,7 @@ Parts 3: Set the variable below equal to a collection of the paragraph
 elements representing the all of the results.
 ==================== */
 
-let allResults= document.getElementsByTagName('p');
+let allResults = document.getElementsByTagName('p');
 
 /* ====================
 Part 4: Add an event listener to the button in problem 4 that changes the
@@ -37,7 +37,7 @@ button's own text to "I'm Clicked!"
 
 let imClickedButton = document.getElementById('im-clicked-button');
 if (imClickedButton) {
-  imClickedButton.addEventListener('click', (evt) => {document.getElementById('im-clicked-button').innerHTML = "I'm Clicked!"});
+  imClickedButton.addEventListener('click', () => { document.getElementById('im-clicked-button').innerHTML = "I'm Clicked!" });
 }
 
 /* ====================
@@ -58,7 +58,7 @@ let clicktime = 0;
 let addSpanButton = document.getElementById('add-span-button');
 if (addSpanButton) {
   addSpanButton.addEventListener('click', () => {
-    clicktime = clicktime + 1;
+    clicktime ++;
     spanContainer.appendChild(htmlToElement(`<span>${clicktime}</span>`));
   });
 }
@@ -104,20 +104,20 @@ function updateResults() {
 
   // Part 4
   if (imClickedButton) {
-    imClickedButton.addEventListener('DOMNodeInserted', (evt) => {
+    imClickedButton.addEventListener('DOMNodeInserted', () => {
       if (imClickedButton.textContent === 'I\'m Clicked!') {
         document.querySelector('#result-4').textContent = 'Success!';
       }
-    })
+    });
   }
 
   // Part 5
-  spanContainer.addEventListener('DOMNodeInserted', (evt) => {
+  spanContainer.addEventListener('DOMNodeInserted', () => {
     if (spanContainer.children.length === 6
         && spanContainer.lastChild.textContent === '5') {
       document.querySelector('#result-5').textContent = 'Success!';
     }
-  })
+  });
 }
 
 updateResults();

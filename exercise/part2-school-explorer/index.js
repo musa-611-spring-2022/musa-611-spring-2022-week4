@@ -147,19 +147,19 @@ let updateSchoolMarkers = (schoolsToShow) => {
 };
 
 let initializeZipCodeChoices = () => {
-  let zip_arr = [];
+  let ziparr = [];
   schools.forEach(school => {
-  let zip = school["Zip Code"].split('-',1)[0];
-  if (!zip_arr.includes(zip)) {
-    zip_arr.push(zip);
+    let zip = school["Zip Code"].split('-', 1)[0];
+    if (!ziparr.includes(zip)) {
+      ziparr.push(zip);
   }
 });
-zip_arr.sort();
-let ziporder = document.getElementById('zip-code-select');
-zip_arr.forEach(zip => {
+  ziparr.sort();
+  let ziporder = document.getElementById('zip-code-select');
+  ziparr.forEach(zip => {
   ziporder.appendChild(htmlToElement(`<option>${zip}</option>`));
-});
-};
+    });
+  };
 
 let updateSchoolList = (schoolsToShow) => {
   schoolList.innerHTML = '';
@@ -170,8 +170,8 @@ let updateSchoolList = (schoolsToShow) => {
 };
 
 let filteredSchools = () => {
-  let gradeVal=gradeLevelSelect.value;
-  let zipVal=zipCodeSelect.value;
+  let gradeVal = gradeLevelSelect.value;
+  let zipVal = zipCodeSelect.value;
   if (zipVal === '' && gradeVal === '') {
     return schools;
   }
