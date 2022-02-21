@@ -11,7 +11,7 @@ L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext
   ext: 'png',
 }).addTo(schoolMap);
 
-const schoolList = document.querySelector('#school-list');
+// const schoolList = document.querySelector('#school-list');
 const gradeLevelSelect = document.querySelector('#grade-level-select');
 const zipCodeSelect = document.querySelector('#zip-code-select');
 
@@ -41,9 +41,24 @@ to the map.
 Instead of adding the markers directly to the map with `.addTo(map)` as you have
 in the past, add the markers to the `schoolLayer`, which is defined above on
 line 4. Refer to the documentation for LayerGroup:
-https://leafletjs.com/reference.html#layergroup
+https://leafletjs.com/reference.html#layergroup */
+
+let updateSchoolMarkers = (schoolsToShow) => {
+  schoolLayer.clearLayers();
+  schoolsToShow.forEach((school) => {
+    // split the GPS Location entry of school
+    let schoolGPS = school['GPS Location'].split(',');
+    let lng = parseFloat(schoolGPS[0].trim());
+    let lat = parseFloat(schoolGPS[1].trim());
+    let schoolName = school['Abbreviated Name'];
+    let marker = L.marker([lng, lat]).bindTooltip(schoolName);
+    // add marker to LayerGroup
+    schoolLayer.addLayer(marker);
+  });
+};
 
 
+/**
 ## Step 2: Initialize the Zip Code Options ~~~~~~~~~~~~~~~~~~~~
 
 Fill in the `initializeZipCodeChoices` function to add an option for each
@@ -89,8 +104,28 @@ modern JavaScript is with a Set object. For example:
 
 TIP 3: The htmlToElement function from part 1 of this exercise set is available
 to use here as well (and should be used for this).
+ */
 
 
+
+
+let initializeZipCodeChoices = () => {
+  // Get the zipcodeselece element
+  const zipCodeSelectEle = document.getElementById('zip-code-select');
+  // const zipCodeSelectEle = document.querySelector('#zip-code-select');
+  // get the array of zipcode
+  const arrOfZipCode = schools.map((school) => school['Zip Code'].substring(0, 5));
+  // get unique members of arrOfZipCode
+  const uniqueZipCodeArr = [...new Set(arrOfZipCode)];
+  // loop through each zip code and add it to the zip-code-select element
+  for (let zipcode of uniqueZipCodeArr) {
+    zipCodeSelectEle.innerHTML += `<option>${zipcode}</option>`;
+  }
+};
+
+
+
+/**
 ## Step 3: Show the School Names in a List ~~~~~~~~~~~~~~~~~~~~
 
 Fill in the `updateSchoolList` function to add a new `li` element into the
@@ -116,16 +151,56 @@ for the `#school-list` element will look something like this:
 
 This will be very similar to the previous step, except instead of creating
 `option` elements, you'll be creating `li` elements.
+ */
 
+let updateSchoolList = (schools) => {
+  // get the school-list element
+  let schoolListEle = document.getElementById('school-list');
+  schoolListEle.innerHTML = '';
+  // create a list with only names of schools
+  const schoolNameArr = schools.map((school) => school['Publication Name']);
+  // add schoolNameArr to schoolListEle
+  schoolNameArr.forEach((schoolName) => {
+    schoolListEle.innerHTML += `<li>${schoolName}</li>`;
+  });
+};
+
+
+/*
 ## Step 4: Filter the Schools ~~~~~~~~~~~~~~~~~~~~
 
 Fill in the `filteredSchools` function. This function should start from the
 `schools` array, and return a new array that only contains the schools that
 should be shown on the map, according to the selected grade level and zip code.
 Refer to the `handleSelectChange` to see how the `filteredSchools` function will
-be used.
+be used. */
+
+let filteredSchools = () => {
+  // get selected zipCode value
+  let zipCode = document.getElementById('zip-code-select').value;
+  // get selected Grade value
+  let grade = document.getElementById('grade-level-select').value;
+  // filter schools arr based on selected zipcode and grade
+
+  const schoolsFiltered = schools.filter((school) => {
+    let ifZipAndGrade;
+    if (grade === '' && zipCode === '') {
+      ifZipAndGrade = true;
+    } else if (grade === '') {
+      ifZipAndGrade = school['Zip Code'].substring(0, 5) === zipCode;
+    } else if (zipCode === '') {
+      ifZipAndGrade = school[grade] === '1';
+    } else {
+      ifZipAndGrade = (school['Zip Code'].substring(0, 5) === zipCode) && (school[grade] === '1');
+    }
+    return ifZipAndGrade;
+  });
+  return schoolsFiltered;
+};
 
 
+
+/**
 ## Step 5: Clear the map and list before adding new items ~~~~~~~~~~~~~~~~~~~~
 
 At this point, if you filter the schools by grade or zip code, you should see
@@ -135,13 +210,8 @@ clear the map and the list element before adding new items.
 
 ==================== */
 
-let updateSchoolMarkers = (schoolsToShow) => {};
 
-let updateSchoolList = (schoolsToShow) => {};
 
-let initializeZipCodeChoices = () => {};
-
-let filteredSchools = () => {};
 
 /*
 
