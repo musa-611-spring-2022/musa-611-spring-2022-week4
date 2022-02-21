@@ -144,8 +144,7 @@ let updateSchoolMarkers = (schoolsToShow) => {
   schoolLayer.clearLayers();
   schoolsToShow.forEach(school => {
     const [lat, lng] = school['GPS Location'].split(',').map(l => l.trim());
-    let marker = L.marker([lat, lng]);
-    schoolLayer.addLayer(marker);
+    L.marker([lat, lng]).addTo(schoolLayer);
   });
 };
 
@@ -170,33 +169,24 @@ let initializeZipCodeChoices = () => {
   });
 };
 
+
+
 let filteredSchools = () => {
-  let index1 = gradeLevelSelect.selectedIndex;
-  let grade = gradeLevelSelect.options[index1].text;
-  let index2 = zipCodeSelect.selectedIndex;
-  let zipcode = zipCodeSelect.options[index2].text;
-  let newArr = [];
-  if (grade === 'All') {
-    newArr = schools;
-  } else {
-    schools.forEach((school, index) => {
-      if (schools[index][grade] === '1') {
-        newArr.push(schools[index]);
-      }
-    });
-  }
-  let finalArr = [];
-  if (zipcode === 'All') {
-    finalArr = newArr;
-  } else {
-    newArr.forEach((school, index) => {
-      if (schools[index]['Zip Code'].split('-')[0] === zipcode) {
-        finalArr.push(schools[index]);
-      }
-    });
-  }
-  return finalArr;
-};
+  const grade = gradeLevelSelect.value;
+  const zipcode = zipCodeSelect.value;
+  const filteredSchool = schools.filter(school => {
+    const zipMatch = (school['Zip Code'].slice(0,5) === zipcode || zipcode === '');
+    const gradeMatch = (school[grade] === '1' || grade === '');
+    if (zipMatch && gradeMatch) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+  return filteredSchool;
+}
+
+
 
 /*
 
