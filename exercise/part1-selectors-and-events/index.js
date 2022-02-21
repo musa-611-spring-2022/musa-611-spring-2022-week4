@@ -14,30 +14,32 @@ Part 1: Set the variable below equal to the paragraph element representing the
 first test result.
 ==================== */
 
-let firstResult;
+let firstResult = htmlToElement('<p id="result-1" class="result">No success yet...</p>');
 
 /* ====================
 Parts 2: Set the variable below equal to a collection of the paragraph
 elements representing the 2nd and 3rd results.
 ==================== */
 
-let secondAndThirdResults;
+let secondAndThirdResults = htmlToElements('<p id="result-2" class="result result-2-3">No success yet...</p><p id="result-3" class="result result-2-3">No success yet...</p>');
 
 /* ====================
 Parts 3: Set the variable below equal to a collection of the paragraph
 elements representing the all of the results.
 ==================== */
 
-let allResults;
+let allResults = htmlToElements('<p id="result-1" class="result">No success yet...</p><p id="result-2" class="result result-2-3">No success yet...</p><p id="result-3" class="result result-2-3">No success yet...</p><p id="result-4" class="result">No success yet...<br>(click the button)</p><p id="result-5" class="result">No success yet...<br>(click the button 5 times)</p>');
 
 /* ====================
 Part 4: Add an event listener to the button in problem 4 that changes the
 button's own text to "I'm Clicked!"
 ==================== */
 
-let imClickedButton;
+let imClickedButton = document.querySelector('#im-clicked-button');
 if (imClickedButton) {
-  imClickedButton.addEventListener('click', (evt) => {});
+  imClickedButton.addEventListener('click', () => {
+    imClickedButton.textContent = "I'm Clicked!";
+  });
 }
 
 /* ====================
@@ -52,11 +54,18 @@ HINT: You may need some global state for this problem.
 ==================== */
 
 let spanContainer = document.querySelector('#span-container');
+let addSpanButton = document.querySelector('#add-span-button');
 spanContainer.appendChild(htmlToElement('<span>0</span>'));
 
-let addSpanButton;
 if (addSpanButton) {
-  addSpanButton.addEventListener('click', (evt) => {});
+  addSpanButton.addEventListener('click', () => {
+    let lastchild = document.querySelector('#span-container').lastChild;
+    let currentNum = 0;
+    if (lastchild) {
+      currentNum = parseInt(lastchild.innerText, 10);
+    }
+    spanContainer.appendChild(htmlToElement(`<span>${parseInt(currentNum, 10) + 1}</span>`));
+  });
 }
 
 /* =====================
@@ -69,8 +78,9 @@ YOU NEED NOT (AND SHOULD NOT) EDIT BELOW THIS LINE.
 function updateResults() {
   // Part 1
   try {
-    firstResult.textContent = 'Success!';
+    document.querySelector('#result-1').textContent = 'Success!';
   } catch (exc) {
+    console.log(firstResult);
     console.log('Failed part 1:');
     console.error(exc);
   }

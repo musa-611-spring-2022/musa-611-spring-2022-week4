@@ -43,7 +43,9 @@ in the past, add the markers to the `schoolLayer`, which is defined above on
 line 4. Refer to the documentation for LayerGroup:
 https://leafletjs.com/reference.html#layergroup
 
+*/
 
+/*
 ## Step 2: Initialize the Zip Code Options ~~~~~~~~~~~~~~~~~~~~
 
 Fill in the `initializeZipCodeChoices` function to add an option for each
@@ -135,13 +137,57 @@ clear the map and the list element before adding new items.
 
 ==================== */
 
-let updateSchoolMarkers = (schoolsToShow) => {};
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+}
 
-let updateSchoolList = (schoolsToShow) => {};
+let updateSchoolMarkers = (schoolsToShow) => {
+  schoolLayer.clearLayers();
+  schoolsToShow.forEach((school) => {
+    let gpsLocation = school['GPS Location'].split(',');
+    L.marker([gpsLocation[0], gpsLocation[1]]).addTo(schoolLayer);
+  });
+};
 
-let initializeZipCodeChoices = () => {};
+let updateSchoolList = (schoolsToShow) => {
+  removeAllChildNodes(schoolList);
+  schoolsToShow.forEach((school) => {
+    let schoolElement = htmlToElement(`<li>${school['Publication Name']}</li>`);
+    schoolList.appendChild(schoolElement);
+  });
+};
 
-let filteredSchools = () => {};
+let initializeZipCodeChoices = () => {
+  let uniqueZips = [];
+  let selectDropdown = document.querySelector('#zip-code-select');
+  schools.forEach((school) => {
+    let zip = school['Zip Code'].split('-')[0];
+    if (!uniqueZips.includes(zip)) {
+      uniqueZips.push(zip);
+    }
+  });
+  uniqueZips.sort().forEach((zip) => {
+    let option = document.createElement('option');
+    option.innerText = zip;
+    selectDropdown.appendChild(option);
+  });
+};
+
+let filteredSchools = () => {
+  let schoolsToShow = [];
+  let selectGrade = document.getElementById('grade-level-select');
+  let grade = selectGrade.options[selectGrade.selectedIndex].value;
+  let selectZip = document.getElementById('zip-code-select');
+  let zip = selectZip.options[selectZip.selectedIndex].value;
+  schools.forEach((school) => {
+    if ((school['Zip Code'].split('-')[0] === zip || !zip) && (school[grade] === '1' || !grade)) {
+      schoolsToShow.push(school);
+    }
+  });
+  return schoolsToShow;
+};
 
 /*
 
