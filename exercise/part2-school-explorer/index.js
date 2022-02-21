@@ -1,10 +1,11 @@
+/* eslint-disable consistent-return */
 /* global schools */
 
 const schoolMap = L.map('school-map').setView([39.95303901388685, -75.16341794003617], 13);
 const schoolLayer = L.layerGroup().addTo(schoolMap);
 
 L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
-  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  attribution: "Map tiles by <a href='http://stamen.com'>Stamen Design</a>, <a href='http://creativecommons.org/licenses/by/3.0'>CC BY 3.0</a> &mdash; Map data &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors",
   subdomains: 'abcd',
   minZoom: 0,
   maxZoom: 18,
@@ -12,6 +13,7 @@ L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext
 }).addTo(schoolMap);
 
 const schoolList = document.querySelector('#school-list');
+console.log(schoolList);
 const gradeLevelSelect = document.querySelector('#grade-level-select');
 const zipCodeSelect = document.querySelector('#zip-code-select');
 
@@ -43,7 +45,6 @@ in the past, add the markers to the `schoolLayer`, which is defined above on
 line 4. Refer to the documentation for LayerGroup:
 https://leafletjs.com/reference.html#layergroup
 
-
 ## Step 2: Initialize the Zip Code Options ~~~~~~~~~~~~~~~~~~~~
 
 Fill in the `initializeZipCodeChoices` function to add an option for each
@@ -74,7 +75,7 @@ TIP 1: You can use the `map` function to pull a specific attribute off of each
 object in an array.
 
 TIP 2: There are various libraries and techniques that you can use to trim down
-an array to just it's unique elements, but the most efficient way to do this in
+an array to just it's unique elements, 'but the most efficient way to do this in
 modern JavaScript is with a Set object. For example:
 
   const numbers = [1, 4, 2, 3, 4, 1, 2, 1, 3, 2, 4, 2, 3, 1, 2, 4];
@@ -98,14 +99,14 @@ Fill in the `updateSchoolList` function to add a new `li` element into the
 empty when the page loads. Go find the element in the index.html file. It looks
 like this:
 
-  <ol id="school-list"></ol>
+  <ol id=.school-list.></ol>
 
 Without editing the index.html file, you'll be creating new list item (`li`)
 elements. Each list item will have the name of a school in it (use the
-"Publication Name" attribute from the school objects). That means the DOM tree
+.Publication Name. attribute from the school objects). That means the DOM tree
 for the `#school-list` element will look something like this:
 
-  <ol id="school-list">
+  <ol id='school-list'>
     <li>Northeast Community Propel Academy<li>
     <li>John Bartram High School</li>
     <li>West Philadelphia High School</li>
@@ -135,17 +136,74 @@ clear the map and the list element before adding new items.
 
 ==================== */
 
-let updateSchoolMarkers = (schoolsToShow) => {};
+let updateSchoolMarkers = (schoolsToShow) => {
+  schoolLayer.clearLayers();
+  schoolsToShow.forEach(school => {
+    let name = school['Publication Name'];
+    let [lat, lng] = school['GPS Location'].split(',');
+    L.marker([parseFloat(lat), parseFloat(lng)]).bindTooltip(name).addTo(schoolLayer);
+  });
+};
 
-let updateSchoolList = (schoolsToShow) => {};
 
-let initializeZipCodeChoices = () => {};
+let updateSchoolList = (schoolsToShow) => {
+  let schoolArr = [];
+  schoolsToShow.forEach(school => {
+    schoolArr.push(school['Publication Name']);
+  });
 
-let filteredSchools = () => {};
+  schoolArr.sort();
+  let schoolListContainer = document.getElementById('school-list');
+  schoolArr.forEach(name => {
+    schoolListContainer.appendChild(htmlToElement(`<li>${name}</li>`));
+  });
+};
+
+let initializeZipCodeChoices = () => {
+  let zipArr = [];
+  schools.forEach(school => {
+    let zip = school['Zip Code'].split('-', 1)[0];
+    if (!zipArr.includes(zip)) {
+      zipArr.push(zip);
+    }
+  });
+  zipArr.sort();
+  let zipContainer = document.getElementById('zip-code-select');
+  zipArr.forEach(zip => {
+    zipContainer.appendChild(htmlToElement(`<option>${zip}</option>`));
+  });
+};
+
+let filteredSchools = () => {
+  let currentZip = zipCodeSelect.value;
+  let currentGrade = gradeLevelSelect.value;
+  console.log(currentGrade);
+
+
+  // eslint-disable-next-line consistent-return
+  let isGrade = (school) => {
+    if (currentGrade === '') {
+      return school;
+    }
+    if (school[currentGrade] === '1') {
+      return school;
+    }
+  };
+  let isZip = (school) => {
+    if (currentZip === '') {
+      return school;
+    } if (school['Zip Code'].split('-')[0] === currentZip) {
+      return school;
+    }
+  };
+
+  return schools.filter(isZip).filter(isGrade);
+};
+
 
 /*
 
-No need to edit anything below this line ... though feel free.
+No need to edit anything   below this line ... though feel free.
 
 */
 

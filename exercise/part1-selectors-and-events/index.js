@@ -5,7 +5,7 @@
 ## Introduction
 
 Open the index.html page in your browser, and update the variables and functions
-below so that the results all read "Success!".
+below so that the results all read 'Success!'.
 
 ===================== */
 
@@ -14,30 +14,36 @@ Part 1: Set the variable below equal to the paragraph element representing the
 first test result.
 ==================== */
 
-let firstResult;
+let firstResult = document.getElementById('result-1');
 
 /* ====================
 Parts 2: Set the variable below equal to a collection of the paragraph
 elements representing the 2nd and 3rd results.
 ==================== */
 
-let secondAndThirdResults;
+let secondAndThirdResults = document.getElementsByClassName('result result-2-3');
 
 /* ====================
 Parts 3: Set the variable below equal to a collection of the paragraph
 elements representing the all of the results.
 ==================== */
 
-let allResults;
+let allResults = document.getElementsByTagName('p');
 
 /* ====================
 Part 4: Add an event listener to the button in problem 4 that changes the
-button's own text to "I'm Clicked!"
+button's own text to 'I'm Clicked!'
 ==================== */
 
-let imClickedButton;
+let imClickedButton = document.getElementById('im-clicked-button');
 if (imClickedButton) {
-  imClickedButton.addEventListener('click', (evt) => {});
+  imClickedButton.addEventListener(
+    'click',
+    (evt) => {
+      console.log(evt);
+      document.getElementById('im-clicked-button').innerHTML = "I'm Clicked!";
+    },
+  );
 }
 
 /* ====================
@@ -51,18 +57,26 @@ clicking the button, you should add:
 HINT: You may need some global state for this problem.
 ==================== */
 
+let clickcounter = 0;
 let spanContainer = document.querySelector('#span-container');
-spanContainer.appendChild(htmlToElement('<span>0</span>'));
+spanContainer.appendChild(htmlToElement(`<span>${clickcounter}</span>`));
 
-let addSpanButton;
+
+let addSpanButton = document.getElementById('add-span-button');
 if (addSpanButton) {
-  addSpanButton.addEventListener('click', (evt) => {});
+  addSpanButton.addEventListener(
+    'click',
+    (evt) => {
+      console.log(evt);
+      clickcounter += 1;
+      spanContainer.appendChild(htmlToElement(`<span>${clickcounter}</span>`));
+    },
+  );
 }
 
 /* =====================
 
 Results (all should report success)
-YOU NEED NOT (AND SHOULD NOT) EDIT BELOW THIS LINE.
 
 ===================== */
 
@@ -101,7 +115,8 @@ function updateResults() {
 
   // Part 4
   if (imClickedButton) {
-    imClickedButton.addEventListener('DOMNodeInserted', () => {
+    imClickedButton.addEventListener('DOMNodeInserted', (evt) => {
+      console.log(evt);
       if (imClickedButton.textContent === 'I\'m Clicked!') {
         document.querySelector('#result-4').textContent = 'Success!';
       }
@@ -109,9 +124,10 @@ function updateResults() {
   }
 
   // Part 5
-  spanContainer.addEventListener('DOMNodeInserted', () => {
+  spanContainer.addEventListener('DOMNodeInserted', (evt) => {
     if (spanContainer.children.length === 6
         && spanContainer.lastChild.textContent === '5') {
+      console.log(evt);
       document.querySelector('#result-5').textContent = 'Success!';
     }
   });

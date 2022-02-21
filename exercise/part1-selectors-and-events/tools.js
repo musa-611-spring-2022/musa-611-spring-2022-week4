@@ -4,16 +4,15 @@ representing the tags, using the `template` feature of HTML. See the following
 for more information: https://stackoverflow.com/a/35385518/123776
 ==================== */
 
-/* eslint-disable no-unused-vars */
-
 /**
  * @param {String} HTML representing a single element
  * @return {Element}
  */
 function htmlToElement(html) {
-  const template = document.createElement('template');
-  const trimmedHtml = html.trim(); // Never return a text node of whitespace as the result
-  template.innerHTML = trimmedHtml;
+  let template = document.createElement('template');
+  // eslint-disable-next-line no-param-reassign
+  html = html.trim(); // Never return a text node of whitespace as the result
+  template.innerHTML = html;
   return template.content.firstChild;
 }
 
@@ -22,7 +21,9 @@ function htmlToElement(html) {
  * @return {NodeList}
  */
 function htmlToElements(html) {
-  const template = document.createElement('template');
+  let template = document.createElement('template');
   template.innerHTML = html;
   return template.content.childNodes;
 }
+console.log(htmlToElement);
+console.log(htmlToElements);
