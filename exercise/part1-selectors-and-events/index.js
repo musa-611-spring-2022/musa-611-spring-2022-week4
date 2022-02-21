@@ -54,12 +54,11 @@ let click = 0;
 
 let addSpanButton = document.getElementById('add-span-button');
 if (addSpanButton) {
-  click++;
   addSpanButton.addEventListener('click', (evt) => {
-    spanContainer.appendChild(htmlToElement('<span>0</span>').innerHTML = ('<span>'+ click +'</span>')
-  )}
+    click++;
+    spanContainer.appendChild(htmlToElement('<span>' + click + '</span>'));
+  });
 }
-
 /* =====================
 Results (all should report success)
 ===================== */
