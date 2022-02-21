@@ -40,7 +40,9 @@ if (imClickedButton) {
   imClickedButton.addEventListener(
     'click',
     (evt) => {
-      document.getElementById('im-clicked-button').innerHTML = "I'm Clicked!" }
+      console.log(evt);
+      document.getElementById('im-clicked-button').innerHTML = "I'm Clicked!";
+    },
   );
 }
 
@@ -66,9 +68,10 @@ if (addSpanButton) {
     'click',
     (evt) => {
       console.log(evt);
-      clickcounter = clickcounter + 1;
-      spanContainer.appendChild(htmlToElement(`<span>${clickcounter}</span>`));}
-    );
+      clickcounter += 1;
+      spanContainer.appendChild(htmlToElement(`<span>${clickcounter}</span>`));
+    },
+  );
 }
 
 /* =====================
@@ -89,7 +92,7 @@ function updateResults() {
   // Part 2
   try {
     if (secondAndThirdResults.length !== 2) {
-      console.log(`Failed part 2: Variable should represent exactly 2 elements, not ${secondAndThirdResults.length}.`)
+      console.log(`Failed part 2: Variable should represent exactly 2 elements, not ${secondAndThirdResults.length}.`);
     } else {
       document.querySelector('#result-2').textContent = 'Success!';
     }
@@ -101,7 +104,7 @@ function updateResults() {
   // Part 3
   try {
     if (allResults.length < 3) {
-      console.log(`Failed part 3: Variable should represent ... elements, not ${secondAndThirdResults.length}.`)
+      console.log(`Failed part 3: Variable should represent ... elements, not ${secondAndThirdResults.length}.`);
     } else {
       document.querySelector('#result-3').textContent = 'Success!';
     }
@@ -113,19 +116,21 @@ function updateResults() {
   // Part 4
   if (imClickedButton) {
     imClickedButton.addEventListener('DOMNodeInserted', (evt) => {
+      console.log(evt);
       if (imClickedButton.textContent === 'I\'m Clicked!') {
         document.querySelector('#result-4').textContent = 'Success!';
       }
-    })
+    });
   }
 
   // Part 5
   spanContainer.addEventListener('DOMNodeInserted', (evt) => {
     if (spanContainer.children.length === 6
         && spanContainer.lastChild.textContent === '5') {
+      console.log(evt);
       document.querySelector('#result-5').textContent = 'Success!';
     }
-  })
+  });
 }
 
 updateResults();

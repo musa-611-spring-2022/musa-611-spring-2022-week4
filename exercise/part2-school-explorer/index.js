@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* global schools */
 
 const schoolMap = L.map('school-map').setView([39.95303901388685, -75.16341794003617], 13);
@@ -12,6 +13,7 @@ L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext
 }).addTo(schoolMap);
 
 const schoolList = document.querySelector('#school-list');
+console.log(schoolList);
 const gradeLevelSelect = document.querySelector('#grade-level-select');
 const zipCodeSelect = document.querySelector('#zip-code-select');
 
@@ -140,57 +142,58 @@ let updateSchoolMarkers = (schoolsToShow) => {
     let name = school['Publication Name'];
     let [lat, lng] = school['GPS Location'].split(',');
     L.marker([parseFloat(lat), parseFloat(lng)]).bindTooltip(name).addTo(schoolLayer);
-  })
+  });
 };
 
 
 let updateSchoolList = (schoolsToShow) => {
-  let school_arr = []
+  let schoolArr = [];
   schoolsToShow.forEach(school => {
-    school_arr.push(school['Publication Name']);
-  })
+    schoolArr.push(school['Publication Name']);
+  });
 
-  school_arr.sort();
-  let schoolList_container = document.getElementById('school-list');
-  school_arr.forEach(name => {
-    schoolList_container.appendChild(htmlToElement(`<li>${name}</li>`));
+  schoolArr.sort();
+  let schoolListContainer = document.getElementById('school-list');
+  schoolArr.forEach(name => {
+    schoolListContainer.appendChild(htmlToElement(`<li>${name}</li>`));
   });
 };
 
 let initializeZipCodeChoices = () => {
-  let zip_arr = []
+  let zipArr = [];
   schools.forEach(school => {
-    let zip = school['Zip Code'].split('-',1)[0];
-    if (!zip_arr.includes(zip)) {
-      zip_arr.push(zip)
-    };
-  })
-  zip_arr.sort();
+    let zip = school['Zip Code'].split('-', 1)[0];
+    if (!zipArr.includes(zip)) {
+      zipArr.push(zip);
+    }
+  });
+  zipArr.sort();
   let zipContainer = document.getElementById('zip-code-select');
-  zip_arr.forEach(zip => {
+  zipArr.forEach(zip => {
     zipContainer.appendChild(htmlToElement(`<option>${zip}</option>`));
   });
 };
 
 let filteredSchools = () => {
-  let current_zip = zipCodeSelect.value
-  let current_grade = gradeLevelSelect.value
-  console.log(current_grade)
+  let currentZip = zipCodeSelect.value;
+  let currentGrade = gradeLevelSelect.value;
+  console.log(currentGrade);
 
 
+  // eslint-disable-next-line consistent-return
   let isGrade = (school) => {
-    if (current_grade === '') {
-      return school
+    if (currentGrade === '') {
+      return school;
     }
-    else if ( school[current_grade] === '1') {
-      return school
+    if (school[currentGrade] === '1') {
+      return school;
     }
   };
   let isZip = (school) => {
-    if (current_zip === '') {
-      return school
-    } else if (school['Zip Code'].split('-')[0] === current_zip) {
-      return school
+    if (currentZip === '') {
+      return school;
+    } if (school['Zip Code'].split('-')[0] === currentZip) {
+      return school;
     }
   };
 
