@@ -175,13 +175,35 @@ let filteredSchools = () => {
     schoolsToShow = schoolsToShow.filter((school) => {
       return school['Zip Code'].slice(0,5) === zip;
     });
+    if (grade) {
+      schoolsToShow = schoolsToShow.filter((school) => {
+        return school[grade] > 0;
+      });
+    };
+  } else {
+    schoolsToShow = schools;
+  };
+};
+
+/*
+let filteredSchools = () => {
+  let zip = zipCodeSelect.value;
+  let grade = gradeLevelSelect.value;
+  if (zip) {
+    schoolsToShow = schoolsToShow.filter((school) => {
+      return school['Zip Code'].slice(0,5) === zip;
+    });
   };
   if (grade) {
     schoolsToShow = schoolsToShow.filter((school) => {
       return school[grade] > 0;
     });
   };
+  return schoolsToShow
 };
+
+*/
+
 
 /*
 
