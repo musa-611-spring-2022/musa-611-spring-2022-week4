@@ -135,13 +135,60 @@ clear the map and the list element before adding new items.
 
 ==================== */
 
-let updateSchoolMarkers = (schoolsToShow) => {};
+let updateSchoolMarkers = (schoolsToShow) => {
+  schoolLayer.clearLayers();
+  schoolsToShow.forEach((schools) => {
+    const location = schools['GPS Location'].split(',');
+    L.marker([location[0], location[1]]).addTo(schoolLayer); // add tooltip here
+  });
+};
 
-let updateSchoolList = (schoolsToShow) => {};
+let updateSchoolList = (schoolsToShow) => {
+  schoolList.innerHTML = '';
+  const schoolNames = [];
+  schoolsToShow.forEach(schools => {
+    schoolNames.push(schools['Publication Name']);
+  });
+  schoolNames.sort();
+  schoolNames.forEach(schools => {
+    schoolList.appendChild(htmlToElement(`<li>${schools}</li>`));
+  });
+};
 
-let initializeZipCodeChoices = () => {};
+let initializeZipCodeChoices = () => {
+  const allZipCodes = [];
+  for (const school of schools) {
+    const zip = school['Zip Code'].slice(0, 5);
+    allZipCodes.push(zip);
+  }
 
-let filteredSchools = () => {};
+  // take all zip codes, reduces to unique things, then converts back to array
+  const uniqueZips = [...new Set(allZipCodes)].sort();
+  for (const zip of uniqueZips) {
+    const zipOption = htmlToElement(`<option>${zip}</option>`);
+    zipCodeSelect.appendChild(zipOption);
+  }
+};
+
+
+// could use filter function, forEach function, for loop
+let filteredSchools = () => {
+  const selectedZipCode = zipCodeSelect.value; // .value gives whats in between option tags
+  const selectedGrade = gradeLevelSelect.value; // this and above val wont change
+
+  const filtSchools = schools.filter(school => {
+    const zip = school['Zip Code'].slice(0, 5);
+    const zipCodeMatch = (zip === selectedZipCode || selectedZipCode === ''); // store boolean var - whether zip code matches
+    const gradeMatch = (school[selectedGrade] === '1' || selectedGrade === ''); // store boolean var - whether grade matches
+    if (zipCodeMatch && gradeMatch) {
+      return true;
+    }
+    return false;
+  });
+  return filtSchools;
+};
+
+
 
 /*
 
@@ -165,3 +212,4 @@ zipCodeSelect.addEventListener('change', handleSelectChange);
 initializeZipCodeChoices();
 updateSchoolMarkers(schools);
 updateSchoolList(schools);
+
