@@ -58,18 +58,14 @@ let spanContainer = document.querySelector('#span-container');
 spanContainer.appendChild(htmlToElement('<span>0</span>'));
 
 
-let i = 1;
+
 let n = 0;
 
 let addSpanButton = document.querySelector('#add-span-button');
 if (addSpanButton) {
   addSpanButton.addEventListener('click', () => {
-    n = i++;
-    if (n === 1) { spanContainer.appendChild(htmlToElement('<span>1</span>')); } 
-    else if (n === 2) { spanContainer.appendChild(htmlToElement('<span>2</span>')); }
-    else if (n === 3) { spanContainer.appendChild(htmlToElement('<span>3</span>')); }
-    else if (n === 4) { spanContainer.appendChild(htmlToElement('<span>4</span>')); }
-    else if (n === 5) { spanContainer.appendChild(htmlToElement('<span>5</span>')); }
+    n++;
+    spanContainer.appendChild(htmlToElement(`<span>${n}</span>`));
   });
 }
 
