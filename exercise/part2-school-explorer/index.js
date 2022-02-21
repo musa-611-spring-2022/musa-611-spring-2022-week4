@@ -1,19 +1,4 @@
-/* global schools */
 
-const schoolMap = L.map('school-map').setView([39.95303901388685, -75.16341794003617], 13);
-const schoolLayer = L.layerGroup().addTo(schoolMap);
-
-L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
-  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  subdomains: 'abcd',
-  minZoom: 0,
-  maxZoom: 18,
-  ext: 'png',
-}).addTo(schoolMap);
-
-const schoolList = document.querySelector('#school-list');
-const gradeLevelSelect = document.querySelector('#grade-level-select');
-const zipCodeSelect = document.querySelector('#zip-code-select');
 
 /* ====================
 
@@ -42,6 +27,8 @@ Instead of adding the markers directly to the map with `.addTo(map)` as you have
 in the past, add the markers to the `schoolLayer`, which is defined above on
 line 4. Refer to the documentation for LayerGroup:
 https://leafletjs.com/reference.html#layergroup
+
+
 
 
 ## Step 2: Initialize the Zip Code Options ~~~~~~~~~~~~~~~~~~~~
@@ -135,13 +122,70 @@ clear the map and the list element before adding new items.
 
 ==================== */
 
-let updateSchoolMarkers = (schoolsToShow) => {};
+/* global schools */
 
-let updateSchoolList = (schoolsToShow) => {};
+const schoolMap = L.map('school-map').setView([39.95303901388685, -75.16341794003617], 13);
+const schoolLayer = L.layerGroup().addTo(schoolMap);
 
-let initializeZipCodeChoices = () => {};
+L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
+  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  subdomains: 'abcd',
+  minZoom: 0,
+  maxZoom: 18,
+  ext: 'png',
+}).addTo(schoolMap);
 
-let filteredSchools = () => {};
+const schoolList = document.querySelector('#school-list');
+const gradeLevelSelect = document.querySelector('#grade-level-select');
+const zipCodeSelect = document.querySelector('#zip-code-select');
+
+
+let updateSchoolMarkers = (schoolsToShow) => {
+  schoolLayer.clearLayers();
+  schoolsToShow.forEach(school => {
+    const [lat, lng] = school['GPS Location'].split(',').map(l => l.trim());
+    L.marker([lat, lng]).addTo(schoolLayer);
+  });
+};
+
+
+let updateSchoolList = (schoolsToShow) => {
+  schoolList.innerHTML = '';
+  const schoolArr = schoolsToShow.map(l => l['Publication Name']);
+  const schoolUnique = [...new Set(schoolArr)];
+  schoolUnique.forEach(school => {
+    schoolList.appendChild(htmlToElement(`<li>${school}</li>`));
+  });
+};
+
+
+
+let initializeZipCodeChoices = () => {
+  const zipArr = schools.map(l => l['Zip Code']);
+  const uniqueZip = [...new Set(zipArr)];
+  const cleanZip = uniqueZip.map(l => l.split('-')[0]);
+  cleanZip.forEach(zip => {
+    zipCodeSelect.appendChild(htmlToElement(`<option>${zip}</option>`));
+  });
+};
+
+
+
+let filteredSchools = () => {
+  const grade = gradeLevelSelect.value;
+  const zipcode = zipCodeSelect.value;
+  const filteredSchool = schools.filter(school => {
+    const zipMatch = (school['Zip Code'].slice(0, 5) === zipcode || zipcode === '');
+    const gradeMatch = (school[grade] === '1' || grade === '');
+    if (zipMatch && gradeMatch) {
+      return true;
+    }
+    return false;
+  });
+  return filteredSchool;
+};
+
+
 
 /*
 
