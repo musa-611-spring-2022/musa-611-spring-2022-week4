@@ -143,13 +143,13 @@ let updateSchoolMarkers = (schoolsToShow) => {
     const marker = L.marker([lng, lat]);
     marker.bindTooltip(schoolName);
     schoolLayer.addLayer(marker);
-  })
+  });
 };
 
 let updateSchoolList = (schoolsToShow) => {
   schoolList.innerHTML = '';
   schoolsToShow.forEach((school) => {
-    const html =`<li>${school['Publication Name']}</li>`;
+    const html = `<li>${school['Publication Name']}</li>`;
     schoolList.appendChild(htmlToElement(html));
   });
 };
@@ -157,21 +157,21 @@ let updateSchoolList = (schoolsToShow) => {
 let initializeZipCodeChoices = () => {
   let allzip = [];
   schools.forEach(school => {
-  let zip = school["Zip Code"].split('-',1)[0];
-  if (!allzip.includes(zip)) {
-    allzip.push(zip);
-  }
-});
-allzip.sort();
-let ziporder = document.getElementById("zip-code-select");
-allzip.forEach(zip => {
-  ziporder.appendChild(htmlToElement(`<option>${zip}</option>`));
-});
+    let zip = school["Zip Code"].split('-', 1)[0];
+    if (!allzip.includes(zip)) {
+      allzip.push(zip);
+    }
+  });
+  allzip.sort();
+  let ziporder = document.getElementById('zip-code-select');
+  allzip.forEach(zip => {
+    ziporder.appendChild(htmlToElement(`<option>${zip}</option>`));
+  });
 };
 
 let filteredSchools = () => {
-  let gradeVal=gradeLevelSelect.value;
-  let zipVal=zipCodeSelect.value;
+  let gradeVal = gradeLevelSelect.value;
+  let zipVal = zipCodeSelect.value;
   if (zipVal === '' && gradeVal === '') {
     return schools;
   }

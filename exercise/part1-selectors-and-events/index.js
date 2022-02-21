@@ -58,9 +58,10 @@ spanContainer.appendChild(htmlToElement('<span>0</span>'));
 
 let addSpanButton = document.querySelector('#add-span-button');
 if (addSpanButton) {
-  addSpanButton.addEventListener('click', (evt) => {
+  addSpanButton.addEventListener('click', () => {
     myclick++;
-    spanContainer.appendChild(htmlToElement(`<span>${myclick}</span>`));});
+    spanContainer.appendChild(htmlToElement(`<span>${myclick}</span>`));
+  });
 }
 
 
