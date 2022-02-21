@@ -174,7 +174,7 @@ let initializeZipCodeChoices = () => {
 // could use filter function, forEach function, for loop
 let filteredSchools = () => {
   const selectedZipCode = zipCodeSelect.value; // .value gives whats in between option tags
-  const selectedGrade = gradeLevelSelect.value; // this and above line sits out of the inner function because the values wont change
+  const selectedGrade = gradeLevelSelect.value; // this and above val wont change
 
   const filtSchools = schools.filter(school => {
     const zip = school['Zip Code'].slice(0, 5);
@@ -182,9 +182,8 @@ let filteredSchools = () => {
     const gradeMatch = (school[selectedGrade] === '1' || selectedGrade === ''); // store boolean var - whether grade matches
     if (zipCodeMatch && gradeMatch) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   });
   return filtSchools;
 };
