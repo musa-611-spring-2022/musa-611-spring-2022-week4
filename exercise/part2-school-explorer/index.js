@@ -146,6 +146,17 @@ let updateSchoolMarkers = (schoolsToShow) => {
   });
 };
 
+/*
+let updateSchoolMarkers = (schoolsToShow) => {
+  schoolLayer.clearLayers();
+  for (const school of schoolsToShow) {
+    const location = school['GPS Location'];
+    const [lat, lng] = location.split('.');
+    L.marker([lat, lng]).addTo.schoolLayer;
+  };
+};
+*/
+
 let updateSchoolList = (schoolsToShow) => {
   schoolList.innerHTML = '';
   schoolsToShow.forEach((school) => {
@@ -153,6 +164,17 @@ let updateSchoolList = (schoolsToShow) => {
     schoolList.appendChild(htmlToElement(html));
   });
 };
+
+/*
+let updateSchoolList = (schoolsToShow) => {
+  schoolList.innerHTML = '';
+  for (const school of schoolsToShow) {
+    const name = school['Publication Name'];
+    const schoolLi = htmlToElement(`<li>${name}</li`);
+    schoolList.appendChild(htmlToElement(schoolLi));
+  };
+}
+*/
 
 let initializeZipCodeChoices = () => {
   let allzip = [];
@@ -169,6 +191,25 @@ let initializeZipCodeChoices = () => {
   });
 };
 
+/*
+let initializeZipCodeChoices = () => {
+  const allZips = [];
+  for (const school of schools) {
+    const zip = school['Zip Cpde'].slice(0,5);
+    allZips.push(zip);
+  };
+
+   const uniqueZips = [...new Set(allZips)].sort();
+   for (const zip of uniqueZips) {
+    const zipOpt = htmlToElement(`<option>${zip}</option>`);
+    zipCodeSelect.appendChild(zipOpt);
+  };
+};
+
+zipcode: 1 9 1 0 4 - 2 1 0 1
+        0 1 2 3 4 5
+*/
+
 let filteredSchools = () => {
   let gradeVal = gradeLevelSelect.value;
   let zipVal = zipCodeSelect.value;
@@ -183,6 +224,28 @@ let filteredSchools = () => {
   }
   return schools.filter(school => school['Zip Code'].slice(0, 5) === zipVal && school[gradeVal] === '1');
 };
+
+
+/*
+let filteredSchools = () => {
+  const Selectedzip = zipCodeSelect.value;
+  const selectedGrade = gradeLevelSelect.value;
+
+  const fSchools = school.filter(school => {
+    const zip = school['Zip Code'].slice(0, 5);
+    const zipCodeMatch = (zip === selectedzip || selectedzip === '')；
+    const gradeMatch =(school[selectedGrade === '1' || selectedGrade === '']);
+    if (zipCodeMatch && gradeMatch) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  return fSchools;
+};
+*/
+
 
 /*
 
