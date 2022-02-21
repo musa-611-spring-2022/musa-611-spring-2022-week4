@@ -1,5 +1,6 @@
 /* global schools */
 
+
 const schoolMap = L.map('school-map').setView([39.95303901388685, -75.16341794003617], 13);
 const schoolLayer = L.layerGroup().addTo(schoolMap);
 
@@ -42,7 +43,17 @@ Instead of adding the markers directly to the map with `.addTo(map)` as you have
 in the past, add the markers to the `schoolLayer`, which is defined above on
 line 4. Refer to the documentation for LayerGroup:
 https://leafletjs.com/reference.html#layergroup
+==================== */
 
+
+let schoolData = ;
+
+let updateSchoolMarkers = (schoolsToShow) => {
+
+};
+
+
+/* ====================
 
 ## Step 2: Initialize the Zip Code Options ~~~~~~~~~~~~~~~~~~~~
 
@@ -89,7 +100,11 @@ modern JavaScript is with a Set object. For example:
 
 TIP 3: The htmlToElement function from part 1 of this exercise set is available
 to use here as well (and should be used for this).
+==================== */
 
+
+
+/* ====================
 
 ## Step 3: Show the School Names in a List ~~~~~~~~~~~~~~~~~~~~
 
@@ -116,6 +131,10 @@ for the `#school-list` element will look something like this:
 
 This will be very similar to the previous step, except instead of creating
 `option` elements, you'll be creating `li` elements.
+==================== */
+
+
+/* ====================
 
 ## Step 4: Filter the Schools ~~~~~~~~~~~~~~~~~~~~
 
@@ -124,7 +143,10 @@ Fill in the `filteredSchools` function. This function should start from the
 should be shown on the map, according to the selected grade level and zip code.
 Refer to the `handleSelectChange` to see how the `filteredSchools` function will
 be used.
+==================== */
 
+
+/* ====================
 
 ## Step 5: Clear the map and list before adding new items ~~~~~~~~~~~~~~~~~~~~
 
@@ -134,8 +156,6 @@ there as well. Update the `updateSchoolMarkers` and `updateSchoolList` functions
 clear the map and the list element before adding new items.
 
 ==================== */
-
-let updateSchoolMarkers = (schoolsToShow) => {};
 
 let updateSchoolList = (schoolsToShow) => {};
 
