@@ -143,7 +143,7 @@ const zipCodeSelect = document.querySelector('#zip-code-select');
 let updateSchoolMarkers = (schoolsToShow) => {
   schoolLayer.clearLayers();
   schoolsToShow.forEach(school => {
-    const [lat,lng] = school['GPS Location'].split(',').map(l => l.trim());
+    const [lat, lng] = school['GPS Location'].split(',').map(l => l.trim());
     let marker = L.marker([lat, lng]);
     schoolLayer.addLayer(marker);
   });
@@ -155,7 +155,7 @@ let updateSchoolList = (schoolsToShow) => {
   const schoolArr = schoolsToShow.map(l => l['Publication Name']);
   const schoolUnique = [...new Set(schoolArr)];
   schoolUnique.forEach(school => {
-    schoolList.appendChild(htmlToElement('<li>${school}</li>'));
+    schoolList.appendChild(htmlToElement(`<li>${school}</li>`));
   });
 };
 
@@ -166,7 +166,7 @@ let initializeZipCodeChoices = () => {
   const uniqueZip = [...new Set(zipArr)];
   const cleanZip = uniqueZip.map(l => l.split('-')[0]);
   cleanZip.forEach(zip => {
-    zipCodeSelect.appendChild(htmlToElement('<option>${zip}</option>'));
+    zipCodeSelect.appendChild(htmlToElement(`<option>${zip}</option>`));
   });
 };
 

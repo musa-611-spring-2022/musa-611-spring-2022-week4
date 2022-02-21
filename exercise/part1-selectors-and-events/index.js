@@ -62,7 +62,7 @@ let count = 0;
 if (addSpanButton) {
   addSpanButton.addEventListener('click', () => {
     count++;
-    spanContainer.appendChild(htmlToElement('<span>${count}</span>'));
+    spanContainer.appendChild(htmlToElement(`<span>${count}</span>`));
   });
 }
 
