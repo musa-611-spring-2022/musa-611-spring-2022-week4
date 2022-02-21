@@ -175,16 +175,15 @@ let filteredSchools = () => {
   const grade = gradeLevelSelect.value;
   const zipcode = zipCodeSelect.value;
   const filteredSchool = schools.filter(school => {
-    const zipMatch = (school['Zip Code'].slice(0,5) === zipcode || zipcode === '');
+    const zipMatch = (school['Zip Code'].slice(0, 5) === zipcode || zipcode === '');
     const gradeMatch = (school[grade] === '1' || grade === '');
     if (zipMatch && gradeMatch) {
       return true;
-    } else {
-      return false;
-    }
+    } 
+    return false;
   });
   return filteredSchool;
-}
+};
 
 
 
