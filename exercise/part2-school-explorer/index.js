@@ -157,7 +157,7 @@ let updateSchoolList = (schoolsToShow) => {
   schoolNames.sort(); // Sort school names alphabetically
 
   schoolNames.forEach(school => {
-    schoolList.appendChild(htmlToElement('<li>' + school + '</li>')); // Add school name to school list
+    schoolList.appendChild(htmlToElement(`<li>${school}</li>`)); // Add school name to school list
   });
 };
 
@@ -177,7 +177,7 @@ let initializeZipCodeChoices = () => {
   zips.sort(); // Sort zipcodes descending order
 
   zips.forEach(zip => {
-    zipCodeSelect.appendChild(htmlToElement('<option>' + zip + '</option>')); // Add zipcodes to dropdown menu
+    zipCodeSelect.appendChild(htmlToElement(`<option>${zip}</option>`)); // Add zipcodes to dropdown menu
   });
 
 };
