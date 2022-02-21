@@ -1,6 +1,6 @@
 /* global schools */
 
-const schoolMap = L.map('school-map').setView([39.98185552901966,-75.07970809936523], 11);
+const schoolMap = L.map('school-map').setView([39.98185552901966, -75.07970809936523], 11);
 const schoolLayer = L.layerGroup().addTo(schoolMap);
 
 L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
@@ -145,11 +145,11 @@ let updateSchoolMarkers = (schoolsToShow) => {
 
 
 let updateSchoolList = (schoolsToShow) => {
-  while(schoolList.firstChild){ // Check if there is a child li element
+  while (schoolList.firstChild) { // Check if there is a child li element
     schoolList.removeChild(schoolList.firstChild); // if there is a child, remove it
   }
   let schoolNames = []; // Initialize empty array to hold all schoolNames
-  
+
   schoolsToShow.forEach(school => {
     schoolNames.push(school['Publication Name']); // Add the school name to the schools array
   });
@@ -169,9 +169,9 @@ let initializeZipCodeChoices = () => {
 
   schools.forEach(school => {
     let zip = school['Zip Code'].slice(0, 5); // Remove region codes from zipcodes
-    if (!zips.includes(zip)){ // Check for unique zipcodes
+    if (!zips.includes(zip)) { // Check for unique zipcodes
       zips.push(zip); // if current zip is not in array, add it
-    };
+    }
   });
 
   zips.sort(); // Sort zipcodes descending order
@@ -179,7 +179,6 @@ let initializeZipCodeChoices = () => {
   zips.forEach(zip => {
     zipCodeSelect.appendChild(htmlToElement(`<option>${zip}</option>`)); // Add zipcodes to dropdown menu
   });
-
 };
 
 
@@ -191,9 +190,9 @@ let filteredSchools = () => {
   schools.forEach(school => {
     // Empty string check is for when 'All' is left as the option
     // Otherwise, append schools that match chosen zip and grade level
-    if ((school['Zip Code'].slice(0, 5) === zip || zip === '') && (school[grade] === '1' || grade === '')){
+    if ((school['Zip Code'].slice(0, 5) === zip || zip === '') && (school[grade] === '1' || grade === '')) {
       schoolsToShow.push(school);
-    };
+    }
   });
 
   return schoolsToShow;

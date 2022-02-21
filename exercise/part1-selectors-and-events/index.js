@@ -38,7 +38,7 @@ button's own text to "I'm Clicked!"
 
 let imClickedButton = document.getElementById('im-clicked-button');
 if (imClickedButton) {
-  imClickedButton.addEventListener('click', (evt) => {
+  imClickedButton.addEventListener('click', () => {
     document.getElementById('im-clicked-button').innerHTML = "I'm Clicked!";
   });
 }
@@ -61,9 +61,9 @@ let count = 0;
 
 let addSpanButton = document.getElementById('add-span-button');
 if (addSpanButton) {
-  addSpanButton.addEventListener('click', (evt) => {
+  addSpanButton.addEventListener('click', () => {
     count++;
-    spanContainer.appendChild(htmlToElement('<span>' + count + '</span>'));
+    spanContainer.appendChild(htmlToElement(`<span>${count}</span>`));
   });
 }
 
