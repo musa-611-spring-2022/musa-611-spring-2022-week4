@@ -157,7 +157,7 @@ let updateSchoolList = (schoolsToShow) => {
 let initializeZipCodeChoices = () => {
   let allzip = [];
   schools.forEach(school => {
-    let zip = school["Zip Code"].split('-', 1)[0];
+    let zip = school['Zip Code'].split('-', 1)[0];
     if (!allzip.includes(zip)) {
       allzip.push(zip);
     }
