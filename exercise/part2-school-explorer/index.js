@@ -137,10 +137,10 @@ clear the map and the list element before adding new items.
 
 let updateSchoolMarkers = (schoolsToShow) => {
   schoolLayer.clearLayers();
-  schoolsToShow.map(school => school['GPS Location'].split(',').map(str => Number(str))
-  ).map(school => {
+  schoolsToShow.map(school => school['GPS Location'].split(',').map(str => Number(str)),
+).map(school => {
     L.marker(school).addTo(schoolLayer);
-  })
+  });
 };
 
 let updateSchoolList = (schoolsToShow) => {
@@ -171,11 +171,7 @@ let filteredSchools = () => {
   let gradeValue = gradeLevelSelect.value;
   let zipValue = zipCodeSelect.value;
   console.log(zipValue, gradeValue);
-  let schoolsToShow = schools.filter((school) =>
-    school[`${gradeValue}`] === '1'
-  ).filter((school) => 
-    school['Zip Code'].substring(0, 5) === zipValue
-  );
+  let schoolsToShow = schools.filter((school) => school[`${gradeValue}`] === '1').filter((school) => school['Zip Code'].substring(0, 5) === zipValue);
   schoolsToShow.forEach((school) => {
     console.log(school['School Name (ULCS)']);
   });
