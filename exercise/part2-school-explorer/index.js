@@ -135,14 +135,6 @@ clear the map and the list element before adding new items.
 
 ==================== */
 
-/*let updateSchoolMarkers = (schoolsToShow) => {
-  const schoolLocation = schoolsToShow['GPS Location'];
-  const schoolName = schoolsToShow['School Name (ULCS)'];
-  const marker = L.marker(schoolLocation);
-  marker.bindTooltip(schoolName);
-  schoolLayer.addLayer(marker);
-};*/
-
 let updateSchoolMarkers = (schoolsToShow) => {
   schoolLayer.clearLayers();
   schoolsToShow.map(school => school['GPS Location'].split(',').map(str => Number(str))
