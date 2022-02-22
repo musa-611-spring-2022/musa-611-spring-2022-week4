@@ -135,13 +135,51 @@ clear the map and the list element before adding new items.
 
 ==================== */
 
-let updateSchoolMarkers = (schoolsToShow) => {};
+let updateSchoolMarkers = (schoolsToShow) => {
+  schoolLayer.clearLayers();
+  for (const school of schoolsToShow) {
+    const location = school['GPS Location'];
+    const [lat, lng] = location.split(',');
+    L.marker([lat, lng]).bindTooltip(school['Publication Name']).addTo(schoolLayer);
+  }
+};
 
-let updateSchoolList = (schoolsToShow) => {};
+let updateSchoolList = (schoolsToShow) => {
+  schoolList.innerHTML = '';
+  let theSchoolList = [];
+  schoolsToShow.forEach((school) => {
+    const schoolName = school['School Name (ULCS)'];
+    theSchoolList = theSchoolList.concat(schoolName);
+  });
+  theSchoolList.forEach((school) => {
+    schoolList.appendChild(htmlToElement(`<li>${school}</li>`));
+  });
+};
 
-let initializeZipCodeChoices = () => {};
+let initializeZipCodeChoices = () => {
+  let zipList = [];
+  schools.forEach((school) => {
+    const schoolZip = school['Zip Code'].substring(0, 5);
+    zipList = zipList.concat(schoolZip);
+  });
+  let zipUnique = [...new Set(zipList)].sort();
+  zipUnique.forEach((zip) => {
+    zipCodeSelect.appendChild(htmlToElement(`<option>${zip}</option>`));
+  });
+};
 
-let filteredSchools = () => {};
+let filteredSchools = () => {
+  let gradeValue = gradeLevelSelect.value;
+  let zipValue = zipCodeSelect.value;
+  console.log(zipValue, gradeValue);
+  let schoolsToShow = schools.filter((school) => school[`${gradeValue}`] === '1').filter((school) => school['Zip Code'].substring(0, 5) === zipValue);
+  schoolsToShow.forEach((school) => {
+    console.log(school['School Name (ULCS)']);
+  });
+  updateSchoolList(schoolsToShow);
+  updateSchoolMarkers(schoolsToShow);
+};
+
 
 /*
 
@@ -153,8 +191,9 @@ No need to edit anything below this line ... though feel free.
 // update the displayed schools when one of the select filters is changed.
 let handleSelectChange = () => {
   const schoolsToShow = filteredSchools() || [];
-  updateSchoolMarkers(schoolsToShow);
-  updateSchoolList(schoolsToShow);
+  console.log(schoolsToShow);
+  // updateSchoolMarkers(schoolsToShow);
+  // updateSchoolList(schoolsToShow);
 };
 
 gradeLevelSelect.addEventListener('change', handleSelectChange);
@@ -163,5 +202,5 @@ zipCodeSelect.addEventListener('change', handleSelectChange);
 // The code below will be run when this script first loads. Think of it as the
 // initialization step for the web page.
 initializeZipCodeChoices();
-updateSchoolMarkers(schools);
-updateSchoolList(schools);
+// updateSchoolMarkers(schools);
+// updateSchoolList(schools);
