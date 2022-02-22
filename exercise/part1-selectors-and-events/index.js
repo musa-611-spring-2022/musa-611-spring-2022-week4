@@ -14,7 +14,7 @@ Part 1: Set the variable below equal to the paragraph element representing the
 first test result.
 ==================== */
 
-let firstResult = document.getElementById('result-1');;
+let firstResult = document.getElementById('result-1');
 
 /* ====================
 Parts 2: Set the variable below equal to a collection of the paragraph
@@ -25,7 +25,7 @@ let secondAndThirdResults = document.getElementsByClassName('result result-2-3')
 
 /* ====================
 Parts 3: Set the variable below equal to a collection of the paragraph
-elements representing the all of the results. 
+elements representing the all of the results.
 ==================== */
 
 let allResults = document.getElementsByClassName('result');
@@ -37,8 +37,8 @@ button's own text to "I'm Clicked!"
 
 let imClickedButton = document.getElementById('im-clicked-button');
 if (imClickedButton) {
-  imClickedButton.addEventListener('click', (evt) => {
-    imClickedButton.textContent = 'I\'m Clicked!'
+  imClickedButton.addEventListener('click', () => {
+    imClickedButton.textContent = 'I\'m Clicked!';
   });
 }
 
@@ -59,7 +59,7 @@ let timeClick = 0;
 
 let addSpanButton = document.getElementById('add-span-button');
 if (addSpanButton) {
-  addSpanButton.addEventListener('click', (evt) => {
+  addSpanButton.addEventListener('click', () => {
     timeClick++;
     spanContainer.appendChild(htmlToElement(`<span>${timeClick}</span>`));
   });
