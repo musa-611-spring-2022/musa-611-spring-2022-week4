@@ -134,7 +134,7 @@ there as well. Update the `updateSchoolMarkers` and `updateSchoolList` functions
 clear the map and the list element before adding new items.
 
 ==================== */
-//Not solved
+
 
 let updateSchoolMarkers = (schoolsToShow) => {
   schoolLayer.clearLayers();
@@ -144,9 +144,8 @@ let updateSchoolMarkers = (schoolsToShow) => {
     const marker = L.marker(coordinates).bindTooltip(name);
 
     schoolLayer.addLayer(marker);
-    
   });
-}
+};
 
 let updateSchoolList = (schoolsToShow) => {
   schoolList.innerHTML = '';
