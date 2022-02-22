@@ -133,17 +133,59 @@ new items get added to the map and the list. However, the old items are still
 there as well. Update the `updateSchoolMarkers` and `updateSchoolList` functions
 clear the map and the list element before adding new items.
 
+## not necessary to desing const, let, var to run fuction
+## convert to array
 ==================== */
 
-let updateSchoolMarkers = (schoolsToShow) => {};
+let updateSchoolMarkers = (schoolsToShow) => {
+  schoolLayer.clearLayers();
 
-let updateSchoolList = (schoolsToShow) => {};
+  for (const school of schoolsToShow) {
+    const location = school['GPS Location'];
+    const [lat, lng] = location.split(',');
+    L.marker([lat, lng]).bindTooltip(school['Publication Name']).addTo(schoolLayer);
+  }
+};
 
-let initializeZipCodeChoices = () => {};
+let updateSchoolList = (schoolsToShow) => {
+  schoolList.innerHTML = '';
 
-let filteredSchools = () => {};
+  for (const school of schoolsToShow) {
+    const name = school['Publication Name'];
+    const schoolLi = htmlToElement(`<li>${name}</li>`);
+    schoolList.appendChild(schoolLi);
+  }
+};
 
-/*
+let initializeZipCodeChoices = () => {
+  const allZips = [];
+  for (const school of schools) {
+    const zip = school['Zip Code'].slice(0, 5);
+    allZips.push(zip);
+  }
+
+  const uniqueZips = [...new Set(allZips)].sort();
+  for (const zip of uniqueZips) {
+    const zipOpt = htmlToElement(`<option>${zip}</option>`);
+    zipCodeSelect.appendChild(zipOpt);
+  }
+};
+
+let filteredSchools = () => {
+  const selectedZip = zipCodeSelect.value;
+  const selectGrade = gradeLevelSelect.value;
+
+  const fSchools = schools.filter((school) => {
+    const zip = school['Zip Code'].slice(0, 5);
+    const zipCodeMatch = (zip === selectedZip || selectedZip === '');
+    const gradeMatch = (school[selectGrade] === '1' || selectedZip === '');
+    if (zipCodeMatch && gradeMatch) {
+      return true;
+    } return false;
+  }); return fSchools;
+};
+
+/* 172 define const outside filter becase they don't change
 
 No need to edit anything below this line ... though feel free.
 
