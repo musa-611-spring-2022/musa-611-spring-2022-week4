@@ -137,8 +137,7 @@ clear the map and the list element before adding new items.
 
 let updateSchoolMarkers = (schoolsToShow) => {
   schoolLayer.clearLayers();
-  schoolsToShow.map(school => school['GPS Location'].split(',').map(str => Number(str)),
-).map(school => {
+  schoolsToShow.map(school => school['GPS Location'].split(',').map(str => Number(str))).map(school => {
     L.marker(school).addTo(schoolLayer);
   });
 };
@@ -190,6 +189,7 @@ No need to edit anything below this line ... though feel free.
 // update the displayed schools when one of the select filters is changed.
 let handleSelectChange = () => {
   const schoolsToShow = filteredSchools() || [];
+  console.log(schoolsToShow);
   // updateSchoolMarkers(schoolsToShow);
   // updateSchoolList(schoolsToShow);
 };
