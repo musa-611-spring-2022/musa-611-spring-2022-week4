@@ -135,56 +135,48 @@ clear the map and the list element before adding new items.
 
 ==================== */
 
-let schoolsToShow = [];
+/* let schoolsToShow = [];
 for (let i = 0; i < schools.length; i++) {
   schoolsToShow.push(schools[i]);
-}
+} */
 
-let updateSchoolMarkers = () => {
+let updateSchoolMarkers = (schoolsToShow) => {
   schoolLayer.clearLayers();
   schoolsToShow.forEach(school => {
     let location = school['GPS Location'].split(',');
-    const marker = L.marker([location[0], location[1]])
+    const marker = L.marker([location[0], location[1]]);
     schoolLayer.addLayer(marker);
   });
 };
 
 
-let updateSchoolList = () => {
-  let schoolNames = schoolsToShow.map(school =>
-    school['Publication Name'];
-  );
+let updateSchoolList = (schoolsToShow) => {
+  let schoolNames = schoolsToShow.map(school => school['Publication Name']);
   schoolNames.forEach(school =>
     schoolList.appendChild(htmlToElement(`<li>${school}</li>`)));
 };
 
 
-let initializeZipCodeChoices = () => {
-  let zipCodes = schoolsToShow.map(school => {
-    return school['Zip Code'].slice(0, 5);
-  });
+let initializeZipCodeChoices = (schoolsToShow) => {
+  let zipCodes = schoolsToShow.map(school => school['Zip Code'].slice(0, 5));
   const uniqueZips = [...new Set(zipCodes)].sort();
   uniqueZips.forEach(zipCode => zipCodeSelect
     .appendChild(htmlToElement(`<option>${zipCode}</option>`)));
 };
 
 
-let filteredSchools = () => {
+let filteredSchools = (schoolsToShow) => {
   schoolLayer.clearLayers();
   const zip = zipCodeSelect.value;
   const grade = gradeLevelSelect.value;
   if (zip) {
-    schoolsToShow = schoolsToShow.filter(school => {
-      return zip === school['Zip Code'].slice(0, 5) || zip === '';
-    });
+    schoolsToShow = schoolsToShow.filter(school => zip === school['Zip Code'].slice(0, 5) || zip === '');
     if (grade) {
-      schoolsToShow = schoolsToShow.filter(school => {
-        return school[grade] > 0 || grade === ''
-      });
-    };
+      schoolsToShow = schoolsToShow.filter(school => school[grade] > 0 || grade === '');
+    }
   } else {
     schoolsToShow = schools;
-  };
+  }
 };
 
 /*

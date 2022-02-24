@@ -46,7 +46,7 @@ if (imClickedButton) {
       .getElementById('im-clicked-button')
       .innerHTML = "I'm Clicked!";
   });
-};
+}
 
 
 /* ====================
@@ -75,7 +75,7 @@ if (addSpanButton) {
       .getElementById('span-container')
       .appendChild(htmlToElement(`<span>${n}</span>`));
   });
-};
+}
 
 /* =====================
 
