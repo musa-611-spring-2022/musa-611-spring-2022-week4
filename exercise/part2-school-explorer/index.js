@@ -152,8 +152,7 @@ let updateSchoolMarkers = (schoolsToShow) => {
 
 let updateSchoolList = (schoolsToShow) => {
   let schoolNames = schoolsToShow.map(school => school['Publication Name']);
-  schoolNames.forEach(school =>
-    schoolList.appendChild(htmlToElement(`<li>${school}</li>`)));
+  schoolNames.forEach(school => schoolList.appendChild(htmlToElement(`<li>${school}</li>`)));
 };
 
 
@@ -170,32 +169,31 @@ let filteredSchools = (schoolsToShow) => {
   const zip = zipCodeSelect.value;
   const grade = gradeLevelSelect.value;
   if (zip) {
-    schoolsToShow = schoolsToShow.filter(school => zip === school['Zip Code'].slice(0, 5) || zip === '');
+    schoolsToShow.filter(school => zip === school['Zip Code'].slice(0, 5) || zip === '');
     if (grade) {
-      schoolsToShow = schoolsToShow.filter(school => school[grade] > 0 || grade === '');
+      schoolsToShow.filter(school => school[grade] > 0 || grade === '');
+    }
+  } else {
+    schoolLayer.clearLayers();
+  }
+};
+
+/*
+let filteredSchools = (schoolsToShow) => {
+  schoolLayer.clearLayers();
+  const zip = zipCodeSelect.value;
+  const grade = gradeLevelSelect.value;
+  if (zip) {
+    schoolsToShow = schoolsToShow.filter(school =>
+    zip === school['Zip Code'].slice(0, 5) || zip === '');
+    if (grade) {
+      schoolsToShow = schoolsToShow.filter(school =
+       school[grade] > 0 || grade === '');
     }
   } else {
     schoolsToShow = schools;
   }
 };
-
-/*
-let filteredSchools = () => {
-  let zip = zipCodeSelect.value;
-  let grade = gradeLevelSelect.value;
-  if (zip) {
-    schoolsToShow = schoolsToShow.filter((school) => {
-      return school['Zip Code'].slice(0,5) === zip;
-    });
-  };
-  if (grade) {
-    schoolsToShow = schoolsToShow.filter((school) => {
-      return school[grade] > 0;
-    });
-  };
-  return schoolsToShow
-};
-
 */
 
 
