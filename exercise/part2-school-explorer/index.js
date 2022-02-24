@@ -177,8 +177,6 @@ let filteredSchools = () => {
     const gradeMatch = (school[selectedGrade] === '1' || selectedGrade === '');
     if (zipCodeMatch && gradeMatch) {
       return true;
-    } else {
-      return false;
     }
   });
 
