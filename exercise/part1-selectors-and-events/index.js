@@ -63,7 +63,7 @@ HINT: You may need some global state for this problem.
 let spanContainer = document.querySelector('#span-container');
 let n = 0;
 
-spanContainer.appendChild(htmlToElement(`<span>${n}</span>')`);
+spanContainer.appendChild(htmlToElement(`<span>${n}</span>`));
 
 let addSpanButton;
 addSpanButton = document.getElementById('add-span-button');
