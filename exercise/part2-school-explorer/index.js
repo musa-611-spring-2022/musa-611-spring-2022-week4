@@ -142,6 +142,7 @@ let updateSchoolMarkers = (schoolsToShow) => {
   });
 };
 
+
 let updateSchoolList = (schoolsToShow) => {
   while (schoolList.firstChild) { // Check if there is a child li element
     schoolList.removeChild(schoolList.firstChild); // if there is a child, remove it
@@ -158,6 +159,8 @@ let updateSchoolList = (schoolsToShow) => {
     schoolList.appendChild(htmlToElement(`<li>${school}</li>`)); // Add school name to school list
   });
 };
+
+
 
 let initializeZipCodeChoices = () => {
   let zips = []; // Initialize empty array to hold all possible zipcodes
@@ -177,6 +180,7 @@ let initializeZipCodeChoices = () => {
   });
 };
 
+
 let filteredSchools = () => {
   let schoolsToShow = []; // Initialize empty array to hold schools matching filter
   let grade = gradeLevelSelect.value; // Get current value at Grade Level selector
@@ -192,6 +196,7 @@ let filteredSchools = () => {
 
   return schoolsToShow;
 };
+
 
 /*
 
