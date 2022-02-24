@@ -14,7 +14,7 @@ Part 1: Set the variable below equal to the paragraph element representing the
 first test result.
 ==================== */
 
-let firstResult = document.getElementById('part-1');
+let firstResult = document.querySelector('#result-1');
 
 /* ====================
 Parts 2: Set the variable below equal to a collection of the paragraph
@@ -29,7 +29,7 @@ Parts 3: Set the variable below equal to a collection of the paragraph
 elements representing the all of the results.
 ==================== */
 
-let allResults = document.getElementsByClassName('result');
+let allResults = document.querySelectorAll('p.result');
 
 /* ====================
 Part 4: Add an event listener to the button in problem 4 that changes the
