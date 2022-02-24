@@ -137,59 +137,52 @@ clear the map and the list element before adding new items.
 
 let updateSchoolMarkers = (schoolsToShow) => {
   schoolLayer.clearLayers();
-  schoolsToShow.forEach((school) => {
-    const [lat, lng] = school['GPS Location'].split(',').map(l => l.trim());
-    const marker = L.marker([lat, lng]).bindTooltip(school['Publication Name']);
-    schoolLayer.addLayer(marker);
-  });
-};
 
+  for (const school of schoolsToShow) {
+    const location = school['GPS Location'];
+    const [lat, lng] = location.split(',');
+    L.marker([lat, lng]).addTo(schoolLayer);
+  }
+};
 
 let updateSchoolList = (schoolsToShow) => {
-  let schoolNames = []; // Initialize empty array to hold all schoolNames
-  schoolsToShow.forEach(school => {
-    schoolNames.push(school['Publication Name']); // Add the school name to the schools array
-  });
-  schoolNames.sort(); // Sort school names alphabetically
-  schoolNames.forEach(school => {
-    schoolList.appendChild(htmlToElement('<li>' + school + '</li>')); // Add school name to school list
-  });
+  for (const school of schoolsToShow) {
+    const name = school['Publication Name'];
+    const schoolLi = htmlToElement(`<li>${name}</li>`);
+    schoolList.appendChild(schoolLi);
+  }
 };
 
-
-
 let initializeZipCodeChoices = () => {
-  let zips = []; // Initialize empty array to hold all possible zipcodes
-  let dropdown = document.getElementById('zip-code-select'); // where to point the zipcodes
+  const allZips = [];
+  for (const school of schools) {
+    const zip = school['Zip Code'].slice(0, 5);
+    allZips.push(zip);
+  }
 
-  schools.forEach(school => {
-    let zip = school['Zip Code'].slice(0, 5); // Remove region codes from zipcodes
-    if (!zips.includes(zip)) { // Check for unique zipcodes
-      zips.push(zip); // if current zip is not in array, add it
-    }
-  });
-
-  zips.sort(); // Sort zipcodes descending order
-
-  zips.forEach(zip => {
-    dropdown.appendChild(htmlToElement('<option>' + zip + '</option>')); // Add zipcodes to dropdown menu
-  });
+  const uniqueZips = [...new Set(allZips)].sort();
+  for (const zip of uniqueZips) {
+    const zip0pt = htmlToElement(`<option>${zip}</option>`);
+    zipCodeSelect.appendChild(zip0pt);
+  }
 };
 
 let filteredSchools = () => {
-  let schoolsToShow = []; // Initialize empty array to hold schools matching filter
-  let grade = gradeLevelSelect.value; // Get current value at Grade Level selector
-  let zip = zipCodeSelect.value; // Get current value at Zip code selector
+  const selectedZip = zipCodeSelect.value;
+  const selectedGrade = gradeLevelSelect.value;
 
-  schools.forEach(school => {
-    // Empty string check is for when 'All' is left as the option
-    // Otherwise, append schools that match chosen zip and grade level
-    if ((school['Zip Code'].slice(0, 5) === zip || zip === '') && (school[grade] === '1' || grade === '')) {
-      schoolsToShow.push(school);
+  const fSchools = schools.filter(school => {
+    const zip = school['Zip Code'].slice(0, 5);
+    const zipCodeMatch = (zip === selectedZip || selectedZip === '');
+    const gradeMatch = (school[selectedGrade] === '1' || selectedGrade === '');
+    if (zipCodeMatch && gradeMatch) {
+      return true;
+    } else {
+      return false;
     }
   });
 
-  return schoolsToShow;
+  return fSchools;
 };
 
 /*

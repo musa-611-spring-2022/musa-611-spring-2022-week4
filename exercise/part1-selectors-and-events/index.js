@@ -10,7 +10,7 @@ Part 1: Set the variable below equal to the paragraph element representing the
 first test result.
 ==================== */
 
-let firstResult = document.getElementById('part-1');
+let firstResult = document.getElementById('result-1');
 
 /* ====================
 Parts 2: Set the variable below equal to a collection of the paragraph
@@ -55,9 +55,11 @@ let click = 0;
 let addSpanButton = document.getElementById('add-span-button');
 if (addSpanButton) {
   addSpanButton.addEventListener('click', (evt) => {
-    click++;
-    spanContainer.appendChild(htmlToElement('<span>' + click + '</span>'));
-  });
+    console.log(evt);
+    click +=1;
+    spanContainer.appendChild(htmlToElement(`<span>${click}</span>`));
+   },
+ );
 }
 /* =====================
 Results (all should report success)
