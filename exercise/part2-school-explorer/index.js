@@ -179,7 +179,6 @@ let filteredSchools = () => {
       return school[`${grade}`] === '1' && school['Zip Code'].slice(0, 5) === zip;
     });
   }
-  console.log(newSchoolList);
   return newSchoolList;
 };
 
