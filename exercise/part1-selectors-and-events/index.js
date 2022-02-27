@@ -44,8 +44,7 @@ if (imClickedButton) {
   imClickedButton.addEventListener('click', () => {
     document
       .getElementById('im-clicked-button')
-      .innerHTML ="I'm Clicked!";
-
+      .innerHTML = "I'm Clicked!";
   });
 }
 
@@ -55,7 +54,7 @@ to the spanContainer. The span should contain a single number representing how
 many times you have clicked the button. For example, if it is your 3rd time
 clicking the button, you should add:
 HINT: You may need some global state for this problem.
-this worked for not adding just replace: 
+this worked for not adding just replace:
 document.getElementById('span-container').firstChild.innerHTML = ++ini;
 ==================== */
 

@@ -170,19 +170,16 @@ initializeZipCodeChoices(schools);
 
 let filteredSchools = () => {
   let templisty = schools.filter((school) => {
-    if (zippy.value && gradeLevelSelect.value){
+    if (zippy.value && gradeLevelSelect.value) {
       return school['Zip Code'].includes(zippy.value) && school[gradeLevelSelect.value] > 0;
-    } 
-    
+    }
     if (zippy.value && !gradeLevelSelect.value) {
       return school['Zip Code'].includes(zippy.value);
-    } 
-    
+    }
     if (gradeLevelSelect.value && !zippy.value) {
       return school[gradeLevelSelect.value] > 0;
-    } else {
-      return schools;
     }
+    return schools;
   });
   return templisty;
 };
