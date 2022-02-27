@@ -136,10 +136,10 @@ clear the map and the list element before adding new items.
 
 let updateSchoolMarkers = (schoolsToShow) => {
   schoolLayer.clearLayers();
-  for (let i = 0; i < schoolsToShow.length; i++){
-    let gps = schoolsToShow[i]["GPS Location"];
+  for (let i = 0; i < schoolsToShow.length; i++) {
+    let gps = schoolsToShow[i]['GPS Location'];
     let [lat, lon] = gps.split(',');
-    let schoolname = schoolsToShow[i]["Publication Name"];
+    let schoolname = schoolsToShow[i]['Publication Name'];
     let schoolMarkerThing = L.marker([lat, lon]).bindPopup(schoolname);
     schoolLayer.addLayer(schoolMarkerThing);
   }
@@ -147,13 +147,11 @@ let updateSchoolMarkers = (schoolsToShow) => {
 
 updateSchoolMarkers(schools);
 
-let listy = document.querySelector('#school-list');
-
 let updateSchoolList = (schoolsToShow) => {
-  listy.replaceChildren();
-  for (let i = 0; i < schoolsToShow.length; i++){
-    let schoolname = schoolsToShow[i]["Publication Name"];
-    listy.appendChild(htmlToElement(`<li>${schoolname}</li>`));
+  schoolList.replaceChildren();
+  for (let i = 0; i < schoolsToShow.length; i++) {
+    let schoolname = schoolsToShow[i]['Publication Name'];
+    schoolList.appendChild(htmlToElement(`<li>${schoolname}</li>`));
   }
 };
 
@@ -162,31 +160,33 @@ updateSchoolList(schools);
 const zippy = document.querySelector('#zip-code-select');
 
 let initializeZipCodeChoices = (myObject) => {
-  for (let i = 0; i < myObject.length; i++){
-    let fullzip = myObject[i]["Zip Code"];
-    let shortzip = fullzip.slice(0,5);
+  for (let i = 0; i < myObject.length; i++) {
+    let fullzip = myObject[i]['Zip Code'];
+    let shortzip = fullzip.slice(0, 5);
     zippy.appendChild(htmlToElement(`<option>${shortzip}</option>`));
   }
 };
 initializeZipCodeChoices(schools);
 
 let filteredSchools = () => {
-  templisty = schools.filter((school) => {
+  let templisty = schools.filter((school) => {
     if (zippy.value && gradeLevelSelect.value){
-      return school["Zip Code"].includes(zippy.value) && school[gradeLevelSelect.value] > 0;      
-    } else if (zippy.value && !gradeLevelSelect.value){
-      return school["Zip Code"].includes(zippy.value);
-    }else if (gradeLevelSelect.value && !zippy.value){
+      return school['Zip Code'].includes(zippy.value) && school[gradeLevelSelect.value] > 0;
+    } 
+    
+    if (zippy.value && !gradeLevelSelect.value) {
+      return school['Zip Code'].includes(zippy.value);
+    } 
+    
+    if (gradeLevelSelect.value && !zippy.value) {
       return school[gradeLevelSelect.value] > 0;
-    }else{
+    } else {
       return schools;
     }
   });
-  return templisty
+  return templisty;
 };
-/*i need to fix this fn ^^. if no grade is selected then nothing shows up with just a zip*/ 
 filteredSchools();
-
 /*
 No need to edit anything below this line ... though feel free.
 */
