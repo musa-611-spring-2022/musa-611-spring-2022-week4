@@ -170,7 +170,7 @@ let initializeZipCodeChoices = () => {
 let filteredSchools = () => {
   const selectedZip = zipCodeSelect.value;
   const selectedGrade = gradeLevelSelect.value;
-  
+
   const fSchools = schools.filter(school => {
     const zip = school['Zip Code'].slice(0, 5);
     const zipCodeMatch = (zip === selectedZip || selectedZip === '');
