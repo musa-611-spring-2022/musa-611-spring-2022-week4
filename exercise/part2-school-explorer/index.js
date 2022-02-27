@@ -132,25 +132,65 @@ At this point, if you filter the schools by grade or zip code, you should see
 new items get added to the map and the list. However, the old items are still
 there as well. Update the `updateSchoolMarkers` and `updateSchoolList` functions
 clear the map and the list element before adding new items.
-
 ==================== */
 
-let updateSchoolMarkers = (schoolsToShow) => {};
+let updateSchoolMarkers = (schoolsToShow) => {
+  schoolLayer.clearLayers();
+  for (let i = 0; i < schoolsToShow.length; i++) {
+    let gps = schoolsToShow[i]['GPS Location'];
+    let [lat, lon] = gps.split(',');
+    let schoolname = schoolsToShow[i]['Publication Name'];
+    let schoolMarkerThing = L.marker([lat, lon]).bindPopup(schoolname);
+    schoolLayer.addLayer(schoolMarkerThing);
+  }
+};
 
-let updateSchoolList = (schoolsToShow) => {};
+updateSchoolMarkers(schools);
 
-let initializeZipCodeChoices = () => {};
+let updateSchoolList = (schoolsToShow) => {
+  schoolList.replaceChildren();
+  for (let i = 0; i < schoolsToShow.length; i++) {
+    let schoolname = schoolsToShow[i]['Publication Name'];
+    schoolList.appendChild(htmlToElement(`<li>${schoolname}</li>`));
+  }
+};
 
-let filteredSchools = () => {};
+updateSchoolList(schools);
 
+const zippy = document.querySelector('#zip-code-select');
+
+let initializeZipCodeChoices = (myObject) => {
+  for (let i = 0; i < myObject.length; i++) {
+    let fullzip = myObject[i]['Zip Code'];
+    let shortzip = fullzip.slice(0, 5);
+    zippy.appendChild(htmlToElement(`<option>${shortzip}</option>`));
+  }
+};
+initializeZipCodeChoices(schools);
+
+let filteredSchools = () => {
+  let templisty = schools.filter((school) => {
+    if (zippy.value && gradeLevelSelect.value) {
+      return school['Zip Code'].includes(zippy.value) && school[gradeLevelSelect.value] > 0;
+    }
+    if (zippy.value && !gradeLevelSelect.value) {
+      return school['Zip Code'].includes(zippy.value);
+    }
+    if (gradeLevelSelect.value && !zippy.value) {
+      return school[gradeLevelSelect.value] > 0;
+    }
+    return schools;
+  });
+  return templisty;
+};
+filteredSchools();
 /*
-
 No need to edit anything below this line ... though feel free.
-
 */
 
 // The handleSelectChange function is an event listener that will be used to
 // update the displayed schools when one of the select filters is changed.
+// even tried to add zippy.value to the filtered schools
 let handleSelectChange = () => {
   const schoolsToShow = filteredSchools() || [];
   updateSchoolMarkers(schoolsToShow);

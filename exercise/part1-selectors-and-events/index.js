@@ -15,6 +15,7 @@ first test result.
 ==================== */
 
 let firstResult;
+firstResult = document.getElementById('result-1');
 
 /* ====================
 Parts 2: Set the variable below equal to a collection of the paragraph
@@ -22,6 +23,7 @@ elements representing the 2nd and 3rd results.
 ==================== */
 
 let secondAndThirdResults;
+secondAndThirdResults = document.getElementsByClassName('result-2-3');
 
 /* ====================
 Parts 3: Set the variable below equal to a collection of the paragraph
@@ -29,6 +31,7 @@ elements representing the all of the results.
 ==================== */
 
 let allResults;
+allResults = document.getElementsByClassName('result');
 
 /* ====================
 Part 4: Add an event listener to the button in problem 4 that changes the
@@ -36,8 +39,13 @@ button's own text to "I'm Clicked!"
 ==================== */
 
 let imClickedButton;
+imClickedButton = document.getElementById('im-clicked-button');
 if (imClickedButton) {
-  imClickedButton.addEventListener('click', (evt) => {});
+  imClickedButton.addEventListener('click', () => {
+    document
+      .getElementById('im-clicked-button')
+      .innerHTML = "I'm Clicked!";
+  });
 }
 
 /* ====================
@@ -45,19 +53,24 @@ Part 5: Add an event listener to the button in problem 5 that creates a new span
 to the spanContainer. The span should contain a single number representing how
 many times you have clicked the button. For example, if it is your 3rd time
 clicking the button, you should add:
-
-  <span>3</span>
-
 HINT: You may need some global state for this problem.
+this worked for not adding just replace:
+document.getElementById('span-container').firstChild.innerHTML = ++ini;
 ==================== */
 
 let spanContainer = document.querySelector('#span-container');
 spanContainer.appendChild(htmlToElement('<span>0</span>'));
 
 let addSpanButton;
+addSpanButton = document.getElementById('add-span-button');
+
 if (addSpanButton) {
-  addSpanButton.addEventListener('click', (evt) => {});
+  addSpanButton.addEventListener('click', () => {
+    let ini = parseInt(spanContainer.lastChild.innerHTML, 8);
+    spanContainer.appendChild(htmlToElement(`<span>${++ini}</span>`));
+  });
 }
+
 
 /* =====================
 
