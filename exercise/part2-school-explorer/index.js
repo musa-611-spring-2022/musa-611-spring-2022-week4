@@ -135,13 +135,58 @@ clear the map and the list element before adding new items.
 
 ==================== */
 
-let updateSchoolMarkers = (schoolsToShow) => {};
+let updateSchoolMarkers = (schoolsToShow) => {
+schoolLayer.clearLayers();
+  for (const school of schoolsToShow) {
+    const location = school['GPS Location'];
+    const [lat, long] = location.split(',');
+    const schoolName = schools['Publication Name'];
+    const marker = L.marker([lat, long]);
+    marker.bindTooltip(schoolName);
+    schoolLayer.addLayer(marker);
+  };
+};
 
-let updateSchoolList = (schoolsToShow) => {};
+let updateSchoolList = (schoolsToShow) => {
+  schoolList.innerHTML = '';
 
-let initializeZipCodeChoices = () => {};
+  for (const school of schoolsToShow) {
+    const name = school['Publication Name'];
+    const schoolLi = htmlToElement(`<li>${name}</li>`);
+    schoolList.appendChild(schoolLi);
+  }
+};
 
-let filteredSchools = () => {};
+let initializeZipCodeChoices = () => {
+  const allZips = [];
+  for (const school of schools) {
+    const zip = school['Zip Code']. slice(0,5);
+    allZips.push(zip);
+  }
+
+  const uniqueZips= [...new Set (allZips)].sort();
+  for (const zip of uniqueZips) {
+    const zip0pt = htmlToElement(`<option>${zip}<option>`);
+    zipCodeSelect. appendChild(zip0pt);
+  }
+};
+
+let filteredSchools = () => {
+    const selectedZip = zipCodeSelect.value;
+    const selectedGrade = gradeLevelSelect.value;
+
+    const fSchools = schools.filter(school => {
+      const zip = school['Zip Code'].slice(0,5);
+      const zipCodeMatch = (zip === selectedZip || selectedZip === '');
+      const gradeMatch = (school[selectedGrade] === '1' || selectedGrade === '');
+      if (zipCodeMatch && gradeMatch) {
+        return true;
+      } else {
+        return false;
+      }
+  })
+  return fSchools;
+};
 
 /*
 
