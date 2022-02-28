@@ -164,7 +164,7 @@ let initializeZipCodeChoices = () => {
     allZips.push(zip);
   }
 
-  const uniqueZips = [... new Set(allZips)].sort();
+  const uniqueZips = [...new Set(allZips)].sort();
   for (const zip of uniqueZips) {
     const zip0pt = htmlToElement(`<option>${zip}<option>`);
     zipCodeSelect.appendChild(zip0pt);
@@ -183,7 +183,7 @@ let filteredSchools = () => {
       return true;
     }
     return false;
- });
+  });
   return fSchools;
 };
 
