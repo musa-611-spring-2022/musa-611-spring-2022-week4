@@ -15,7 +15,7 @@ first test result.
 ==================== */
 
 let firstResult = document.getElementById('result-1');
-//firstResult.innerHTML = 'Success!';
+firstResult.innerHTML = 'Success!';
 
 /* ====================
 Parts 2: Set the variable below equal to a collection of the paragraph
@@ -39,7 +39,6 @@ button's own text to "I'm Clicked!"
 
 let imClickedButton = document.getElementById('im-clicked-button');
 if (imClickedButton) {
-  imClickedButton.addEventListener('click', (evt) => {});
   imClickedButton.addEventListener('click', () => {
       imClickedButton.innerHTML = "I'm Clicked!";
     });
@@ -60,10 +59,10 @@ let spanContainer = document.querySelector('#span-container');
 spanContainer.appendChild(htmlToElement('<span>' + x + '</span>'));
 let addSpanButton = document.getElementById('add-span-button');
 if (addSpanButton) {
-  addSpanButton.addEventListener('click', {
-    x =+;
+  addSpanButton.addEventListener('click', () => {
+    x++
     spanContainer
-      .appendChild(htmlToElement('<span>'+ x + '</span>'));
+      .appendChild(htmlToElement('<span>'+ x + '</span>'))
   });
 }
 
