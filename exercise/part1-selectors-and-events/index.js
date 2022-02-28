@@ -40,8 +40,8 @@ button's own text to "I'm Clicked!"
 let imClickedButton = document.getElementById('im-clicked-button');
 if (imClickedButton) {
   imClickedButton.addEventListener('click', () => {
-   imClickedButton.innerHTML = "I'm Clicked!";
- });
+    imClickedButton.innerHTML = "I'm Clicked!";
+  });
 }
 
 /* ====================
@@ -61,9 +61,9 @@ spanContainer.appendChild(htmlToElement(`<span>${x}</span>`));
 let addSpanButton = document.getElementById('add-span-button');
 if (addSpanButton) {
   addSpanButton.addEventListener('click', () => {
-    x++
+    x++;
     spanContainer
-      .appendChild(htmlToElement(`<span>${x}</span>`))
+      .appendChild(htmlToElement(`<span>${x}</span>`));
   });
 }
 
