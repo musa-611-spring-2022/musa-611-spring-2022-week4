@@ -15,7 +15,7 @@ first test result.
 ==================== */
 
 let firstResult = document.getElementById('result-1');
-firstResult.innerHTML = 'Success!';
+//firstResult.innerHTML = 'Success!';
 
 /* ====================
 Parts 2: Set the variable below equal to a collection of the paragraph
@@ -23,14 +23,14 @@ elements representing the 2nd and 3rd results.
 ==================== */
 
 let secondAndThirdResults = document.getElementsByClassName('result result-2-3');
-secondAndThirdResults.innerHTML = 'Success!';
+//secondAndThirdResults.innerHTML = 'Success!';
 /* ====================
 Parts 3: Set the variable below equal to a collection of the paragraph
 elements representing the all of the results.
 ==================== */
 
 let allResults = document.getElementsByTagName('p');
-allResults.innerHTML = 'Success!';
+//allResults.innerHTML = 'Success!';
 
 /* ====================
 Part 4: Add an event listener to the button in problem 4 that changes the
@@ -39,10 +39,11 @@ button's own text to "I'm Clicked!"
 
 let imClickedButton = document.getElementById('im-clicked-button');
 if (imClickedButton) {
-  imClickedButton.addEventListener('click', {
-    document.getElementById('im-clicked-button').innerHTML = 'I'm Clicked!';
-});
-}
+  imClickedButton.addEventListener('click', (evt) => {});
+  imClickedButton.addEventListener('click', () => {
+      imClickedButton.innerHTML = "I'm Clicked!";
+    });
+  }
 
 /* ====================
 Part 5: Add an event listener to the button in problem 5 that creates a new span
