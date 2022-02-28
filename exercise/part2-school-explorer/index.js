@@ -183,8 +183,7 @@ let filteredSchools = () => {
       return true;
       }
    return false;
-      }
-  });
+      });
   return fSchools;
 };
 
