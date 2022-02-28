@@ -40,7 +40,7 @@ button's own text to "I'm Clicked!"
 let imClickedButton = document.getElementById('im-clicked-button');
 if (imClickedButton) {
   imClickedButton.addEventListener('click', () => {
-    imClickedButton.innerHTML = "I'm Clicked!";
+   imClickedButton.innerHTML = "I'm Clicked!";
   });
 }
 
