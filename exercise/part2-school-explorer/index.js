@@ -148,7 +148,7 @@ there as well. Update the `updateSchoolMarkers` and `updateSchoolList` functions
 clear the map and the list element before adding new items.
 
 ==================== */
-
+//declare updateSchoolMarkers function - clears
 let updateSchoolMarkers = (schoolsToShow) => {
   schoolLayer.clearLayers();
 
@@ -158,6 +158,7 @@ let updateSchoolMarkers = (schoolsToShow) => {
     L.marker([lat,lng]).addTo(schoolLayer)
   }
 };
+
 
 let updateSchoolList = (schoolsToShow) => {
   schoolList.innerHTML = '';
