@@ -28,7 +28,7 @@ Parts 3: Set the variable below equal to a collection of the paragraph
 elements representing the all of the results.
 ==================== */
 
-let allResults = document.querySelectorAll('#result-1, #result-2, #result-3');
+let allResults = document.querySelectorAll('#result-1, #result-2, #result-3, #result-4, #result-5');
 
 /* ====================
 Part 4: Add an event listener to the button in problem 4 that changes the
