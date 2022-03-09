@@ -148,14 +148,14 @@ there as well. Update the `updateSchoolMarkers` and `updateSchoolList` functions
 clear the map and the list element before adding new items.
 
 ==================== */
-//declare updateSchoolMarkers function - clears
+//  declare updateSchoolMarkers function - clears
 let updateSchoolMarkers = (schoolsToShow) => {
   schoolLayer.clearLayers();
 
-  for(const school of schoolsToShow) {
+  for ( const school of schoolsToShow) {
     const location = school['GPS Location'];
-    const[lat, lng] = location.split(',');
-    L.marker([lat,lng]).addTo(schoolLayer)
+    const [lat, lng] = location.split(',');
+    L.marker([lat, lng]).addTo(schoolLayer);
   }
 };
 
@@ -163,22 +163,22 @@ let updateSchoolMarkers = (schoolsToShow) => {
 let updateSchoolList = (schoolsToShow) => {
   schoolList.innerHTML = '';
 
-  for(const school of schoolsToShow) {
+  for ( const school of schoolsToShow) {
     const name = school['Publication Name'];
     const schoolLi = htmlToElement(`<li>${name}</li>`);
     schoolList.appendChild(schoolLi);
   }
-}
+};
 
 let initializeZipCodeChoices = () => {
   const allZips = [];
-  for (const school of schools) {
-    const zip = school['Zip Code'].slice(0,5);
+  for ( const school of schools) {
+    const zip = school['Zip Code'].slice(0, 5);
     allZips.push(zip);
   }
 
   const uniqueZips = [...new Set(allZips)].sort();
-  for (const zip of uniqueZips) {
+  for ( const zip of uniqueZips) {
     const zipOpt = htmlToElement(`<option>${zip}</option>`);
     zipCodeSelect.appendChild(zipOpt);
   }
@@ -189,12 +189,12 @@ let filteredSchools = () => {
   const selectedGrade = gradeLevelSelect.value;
 
   const fSchools = schools.filter(school => {
-    const zip = school['Zip Code'].slice(0,5);
+    const zip = school['Zip Code'].slice(0, 5);
     const zipCodeMatch = (zip === selectedZip || selectedZip === '');
     const gradeMatch = (school[selectedGrade] === '1' || selectedGrade === '');
-    if (zipCodeMatch && gradeMatch){
+    if (zipCodeMatch && gradeMatch) {
       return true;
-    } else {
+    } {
       return false;
     }
   });
