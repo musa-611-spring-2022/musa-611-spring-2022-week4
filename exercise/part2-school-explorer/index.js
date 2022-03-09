@@ -152,7 +152,7 @@ clear the map and the list element before adding new items.
 let updateSchoolMarkers = (schoolsToShow) => {
   schoolLayer.clearLayers();
 
-  for ( const school of schoolsToShow) {
+  for (const school of schoolsToShow) {
     const location = school['GPS Location'];
     const [lat, lng] = location.split(',');
     L.marker([lat, lng]).addTo(schoolLayer);
@@ -163,7 +163,7 @@ let updateSchoolMarkers = (schoolsToShow) => {
 let updateSchoolList = (schoolsToShow) => {
   schoolList.innerHTML = '';
 
-  for ( const school of schoolsToShow) {
+  for (const school of schoolsToShow) {
     const name = school['Publication Name'];
     const schoolLi = htmlToElement(`<li>${name}</li>`);
     schoolList.appendChild(schoolLi);
@@ -172,13 +172,13 @@ let updateSchoolList = (schoolsToShow) => {
 
 let initializeZipCodeChoices = () => {
   const allZips = [];
-  for ( const school of schools) {
+  for (const school of schools) {
     const zip = school['Zip Code'].slice(0, 5);
     allZips.push(zip);
   }
 
   const uniqueZips = [...new Set(allZips)].sort();
-  for ( const zip of uniqueZips) {
+  for (const zip of uniqueZips) {
     const zipOpt = htmlToElement(`<option>${zip}</option>`);
     zipCodeSelect.appendChild(zipOpt);
   }
@@ -194,9 +194,8 @@ let filteredSchools = () => {
     const gradeMatch = (school[selectedGrade] === '1' || selectedGrade === '');
     if (zipCodeMatch && gradeMatch) {
       return true;
-    } {
-      return false;
-    }
+    }  return false;
+
   });
   return fSchools;
 };
