@@ -157,9 +157,9 @@ This will be very similar to the previous step, except instead of creating
 
 let updateSchoolList = (schoolsToShow) => {
   schoolList.innerHTML = '';
-  let schoolName = schools.map((ele) => ele['Publication Name']);
+  let name = schools.map((ele) => ele['Publication Name']);
   schoolsToShow.forEach(() => {
-    schoolList.appendChild(htmlToElement(`<li>${schoolName}</li><`));
+    schoolList.appendChild(htmlToElement(`<li>${name}</li><`));
   });
 };
 
@@ -178,12 +178,14 @@ let filteredSchools = () => {
   const selectGrade = gradeLevelSelect.value;
 
   const filterSchools = schools.filter((school) => {
+		const [lat, lng] = school['GPS Location'].split(',');
+    const marker = L.marker([lat, lng]);
     const zip = school['Zip Code'].slice(0, 5);
-		const zipCodeMatch = (zip === selectedZip || selectedZip === '');
-		const gradeMatch = (school[selectGrade] === '1' || selectedZip === '');
-		if (zipCodeMatch && gradeMatch) {
-			return true;
-	} return false;
+    const zipCodeMatch = (zip === selectedZip || selectedZip === '');
+    const gradeMatch = (school[selectGrade] === '1' || selectedZip === '');
+    if (zipCodeMatch && gradeMatch) {
+      return true;
+  } return false;
   });
 
   return filterSchools;
