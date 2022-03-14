@@ -48,11 +48,11 @@ https://leafletjs.com/reference.html#layergroup
 
 
 // let schoolsToShow = (filterschool) =>{}
+const schoolName = schools['Publication Name'];
 let updateSchoolMarkers = (schoolsToShow) => {
   schoolLayer.clearLayers();
   schoolsToShow.forEach((school) => {
-    const [lat, lng] = JSON.parse('[' + school['GPS Location'] + ']');
-    const schoolName = schools['Publication Name'];
+    const [lat, lng] = school['GPS Location'].split(',');
     const marker = L.marker([lat, lng]);
     marker.bindTooltip(schoolName);
     schoolLayer.addLayer(marker);
@@ -178,15 +178,15 @@ let filteredSchools = () => {
   const selectGrade = gradeLevelSelect.value;
 
   const filterSchools = schools.filter((school) => {
-	const zip = school['Zip Code'].slice(0, 5);
-  const zipCodeMatch = (zip === selectedZip || selectedZip === '');
-  const gradeMatch = (school[selectGrade] === '1' || selectedZip === '');
-	if (zipCodeMatch && gradeMatch) {
-		return true;
+    const zip = school['Zip Code'].slice(0, 5);
+		const zipCodeMatch = (zip === selectedZip || selectedZip === '');
+		const gradeMatch = (school[selectGrade] === '1' || selectedZip === '');
+		if (zipCodeMatch && gradeMatch) {
+			return true;
 	} return false;
   });
 
-  return filterSchools
+  return filterSchools;
 
   marker.bindTooltip(schoolName);
   schoolLayer.addLayer(marker);
