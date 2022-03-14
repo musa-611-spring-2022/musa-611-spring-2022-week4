@@ -176,8 +176,6 @@ let filteredSchools = () => {
 // let zipfull = schools.map((ele) => ele['Zip Code'].slice(0, 5));
   const selectedZip = zipCodeSelect.value;
   const selectGrade = gradeLevelSelect.value;
-  const [lat, lng] = school['GPS Location'].split(',');
-  const marker = L.marker([lat, lng]);
   const filterSchools = schools.filter((school) => {
     const zip = school['Zip Code'].slice(0, 5);
     const zipCodeMatch = (zip === selectedZip || selectedZip === '');
@@ -188,10 +186,8 @@ let filteredSchools = () => {
   });
 
   return filterSchools;
-
-  marker.bindTooltip(schoolName);
-  schoolLayer.addLayer(marker);
 };
+
 /*
 ## Step 5: Clear the map and list before adding new items ~~~~~~~~~~~~~~~~~~~~
 
