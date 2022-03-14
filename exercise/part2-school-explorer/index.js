@@ -176,10 +176,9 @@ let filteredSchools = () => {
 // let zipfull = schools.map((ele) => ele['Zip Code'].slice(0, 5));
   const selectedZip = zipCodeSelect.value;
   const selectGrade = gradeLevelSelect.value;
-
+  const [lat, lng] = school['GPS Location'].split(',');
+  const marker = L.marker([lat, lng]);
   const filterSchools = schools.filter((school) => {
-		const [lat, lng] = school['GPS Location'].split(',');
-    const marker = L.marker([lat, lng]);
     const zip = school['Zip Code'].slice(0, 5);
     const zipCodeMatch = (zip === selectedZip || selectedZip === '');
     const gradeMatch = (school[selectGrade] === '1' || selectedZip === '');
