@@ -36,14 +36,13 @@ Part 4: Add an event listener to the button in problem 4 that changes the
 button's own text to "I'm Clicked!"
 ==================== */
 
-let imClickedButton = document.getElementById("im-clicked-button");
+let imClickedButton = document.getElementById('im-clicked-button');
 if (imClickedButton) {
-  imClickedButton.addEventListener('click', (evtfunc) => {
+  imClickedButton.addEventListener('click', () => {
     document
-            .getElementById("im-clicked-button")
-            .innerText= "I'm Clicked!";
-
-});
+      .getElementById('im-clicked-button')
+      .innerText = "I'm Clicked!";
+  });
 }
 
 /* ====================
@@ -57,7 +56,8 @@ clicking the button, you should add:
 HINT: You may need some global state for this problem.
 ==================== */
 
-/*let spanContainer = document.querySelector('#span-container');
+/*
+let spanContainer = document.querySelector('#span-container');
 
 
 let addSpanButton = document.getElementById("add-span-button");
@@ -69,22 +69,22 @@ if (addSpanButton) {
         .getElementById("result-5")
         .innerHTML= "susceess";
   });
-}*/
+}
+*/
 let spanContainer = document.querySelector('#span-container');
 spanContainer.appendChild(htmlToElement('<span>0</span>'));
 let addSpanButton = document.getElementById('add-span-button');
 
 let count = 1;
-  addSpanButton.addEventListener('click', (func) => {
-    if (count < 6) {
-      spanContainer.appendChild(htmlToElement(`<span>${count}</span>`));
-      count += 1;
-    }
+addSpanButton.addEventListener('click', () => {
+  if (count < 6) {
+    spanContainer.appendChild(htmlToElement(`<span>${count}</span>`));
+    count += 1;
+  }
 
     // spanContainer.appendChild(htmlToElement(`<span>${count}</span>`));
     // count = count + 1;
-  }
-);
+});
 
 /* =====================
 

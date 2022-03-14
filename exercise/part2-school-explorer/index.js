@@ -5,11 +5,11 @@ const schoolLayer = L.layerGroup().addTo(schoolMap);
 
 
 L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
-	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-	subdomains: 'abcd',
-	minZoom: 1,
-	maxZoom: 16,
-	ext: 'jpg',
+  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  subdomains: 'abcd',
+  minZoom: 1,
+  maxZoom: 16,
+  ext: 'jpg',
 }).addTo(schoolMap);
 
 const schoolList = document.querySelector('#school-list');
@@ -47,11 +47,11 @@ https://leafletjs.com/reference.html#layergroup
 */
 
 
-//let schoolsToShow = (filterschool) =>{}
+// let schoolsToShow = (filterschool) =>{}
 let updateSchoolMarkers = (schoolsToShow) => {
-    schoolLayer.clearLayers();
-    schoolsToShow.forEach((school) =>{
-    const [lat, lng] = JSON.parse("[" + school['GPS Location'] + "]");
+  schoolLayer.clearLayers();
+  schoolsToShow.forEach((school) => {
+    const [lat, lng] = JSON.parse('[' + school['GPS Location'] + ']');
     const schoolName = schools['Publication Name'];
     const marker = L.marker([lat, lng]);
     marker.bindTooltip(schoolName);
@@ -108,17 +108,17 @@ modern JavaScript is with a Set object. For example:
 TIP 3: The htmlToElement function from part 1 of this exercise set is available
 to use here as well (and should be used for this).
 */
-//let zipfull = schools.map((ele) => ele['Zip Code'].slice(0, 5));
-//let zip = schools.map((ele) => Number(ele['Zip Code'].slice(0, 5)));
-//if only use   zipfull.slice(0,5), it will return the first five zipcode in the array.
-//so we have to use map function to slice every element in the array.
+// let zipfull = schools.map((ele) => ele['Zip Code'].slice(0, 5));
+// let zip = schools.map((ele) => Number(ele['Zip Code'].slice(0, 5)));
+// if only use   zipfull.slice(0,5), it will return the first five zipcode in the array.
+// so we have to use map function to slice every element in the array.
 
 
 let initializeZipCodeChoices = () => {
   let zipfull = schools.map((ele) => ele['Zip Code']);
   let zipcode = zipfull.map((element) => element.slice(0, 5));
   const uniquezip = [...new Set(zipcode)].sort();
-  uniquezip.forEach((a) =>{
+  uniquezip.forEach((a) => {
     zipCodeSelect.appendChild(htmlToElement(`<option>${a}</option>`));
   });
 };
@@ -158,7 +158,7 @@ This will be very similar to the previous step, except instead of creating
 let updateSchoolList = (schoolsToShow) => {
   schoolList.innerHTML = '';
   let schoolName = schools.map((ele) => ele['Publication Name']);
-  schoolsToShow.forEach((school) =>{
+  schoolsToShow.forEach(() => {
     schoolList.appendChild(htmlToElement(`<li>${schoolName}</li><`));
   });
 };
@@ -173,23 +173,23 @@ Refer to the `handleSelectChange` to see how the `filteredSchools` function will
 be used.
 */
 let filteredSchools = () => {
-	let zipfull = schools.map((ele) => ele['Zip Code'].slice(0, 5));
-	const selectedZip = zipCodeSelect.value;
+// let zipfull = schools.map((ele) => ele['Zip Code'].slice(0, 5));
+  const selectedZip = zipCodeSelect.value;
   const selectGrade = gradeLevelSelect.value;
 
-	const filterSchools = schools.filter((school) => {
-	 const zip = school['Zip Code'].slice(0, 5);
-	 const zipCodeMatch = (zip === selectedZip || selectedZip === '');
-	 const gradeMatch = (school[selectGrade] === '1' || selectedZip === '');
-	 if (zipCodeMatch && gradeMatch) {
-		 return true;
-	 } return false;
- });
+  const filterSchools = schools.filter((school) => {
+	const zip = school['Zip Code'].slice(0, 5);
+  const zipCodeMatch = (zip === selectedZip || selectedZip === '');
+  const gradeMatch = (school[selectGrade] === '1' || selectedZip === '');
+	if (zipCodeMatch && gradeMatch) {
+		return true;
+	} return false;
+  });
 
- return filterSchools
+  return filterSchools
 
-	marker.bindTooltip(schoolName);
-	schoolLayer.addLayer(marker);
+  marker.bindTooltip(schoolName);
+  schoolLayer.addLayer(marker);
 };
 /*
 ## Step 5: Clear the map and list before adding new items ~~~~~~~~~~~~~~~~~~~~
