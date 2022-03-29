@@ -14,7 +14,7 @@ Part 1: Set the variable below equal to the paragraph element representing the
 first test result.
 ==================== */
 
-let firstResult = document.getElementById('part-1');
+let firstResult = document.getElementById('result-1');
 
 /* ====================
 Parts 2: Set the variable below equal to a collection of the paragraph
@@ -28,7 +28,7 @@ Parts 3: Set the variable below equal to a collection of the paragraph
 elements representing the all of the results.
 ==================== */
 
-let allResults = document.getElementsByTagName('p');
+let allResults = document.getElementsByClassName('result');
 
 /* ====================
 Part 4: Add an event listener to the button in problem 4 that changes the
@@ -60,8 +60,10 @@ spanContainer.appendChild(htmlToElement('<span>0</span>'));
 let addSpanButton = document.querySelector('#add-span-button');
 if (addSpanButton) {
   addSpanButton.addEventListener('click', () => {
-    clickNum++;
-    spanContainer.appendChild(htmlToElement(`<span>${clickNum}</span>`));
+    if (clickNum < 5) {
+      clickNum++;
+      spanContainer.appendChild(htmlToElement(`<span>${clickNum}</span>`));
+    }
   });
 }
 
