@@ -42,8 +42,30 @@ Instead of adding the markers directly to the map with `.addTo(map)` as you have
 in the past, add the markers to the `schoolLayer`, which is defined above on
 line 4. Refer to the documentation for LayerGroup:
 https://leafletjs.com/reference.html#layergroup
+*/
+
+let updateSchoolMarkers = (schoolsToShow) => {
+  schoolsToShow.forEach(school => {
+    let coor = school['GPS Location'].split(',').map(str => Number(str));
+    L.marker(coor).addTo(schoolLayer);
+  });
+};
 
 
+/*
+let updateSchoolMarkers = (schoolsToShow) => {
+  coor = schoolsToShow.map(school => {
+    return school['GPS Location'].split(',').map(str => {
+      return Number(str)})
+  });
+
+  coor.map(school => {
+    L.marker(school).addTo(schoolLayer);
+  })
+};
+*/
+
+/*
 ## Step 2: Initialize the Zip Code Options ~~~~~~~~~~~~~~~~~~~~
 
 Fill in the `initializeZipCodeChoices` function to add an option for each
@@ -89,7 +111,14 @@ modern JavaScript is with a Set object. For example:
 
 TIP 3: The htmlToElement function from part 1 of this exercise set is available
 to use here as well (and should be used for this).
+*/
 
+let initializeZipCodeChoices = () => {
+  const zipList = schools.map(school => school['Zip Code'].substring(0, 5));
+  const uniqueZip = [...new Set(zipList)];
+  uniqueZip.map(zip => zipCodeSelect.appendChild(htmlToElement(`<option>${zip}</option>`)));
+};
+/*
 
 ## Step 3: Show the School Names in a List ~~~~~~~~~~~~~~~~~~~~
 
@@ -116,7 +145,13 @@ for the `#school-list` element will look something like this:
 
 This will be very similar to the previous step, except instead of creating
 `option` elements, you'll be creating `li` elements.
+*/
 
+function updateSchoolList(schoolsToShow) {
+  schoolsToShow.map(school => schoolList.appendChild(htmlToElement(`<li>${school['Publication Name']}</li>`)));
+}
+
+/*
 ## Step 4: Filter the Schools ~~~~~~~~~~~~~~~~~~~~
 
 Fill in the `filteredSchools` function. This function should start from the
@@ -124,8 +159,50 @@ Fill in the `filteredSchools` function. This function should start from the
 should be shown on the map, according to the selected grade level and zip code.
 Refer to the `handleSelectChange` to see how the `filteredSchools` function will
 be used.
+*/
+
+/*
+let filteredSchools = () => {
+  let selectedGrade = document.querySelector('#grade-level-select').value;
+  let selectedZipCode = document.querySelector('#zip-code-select').value;
+  if (selectedGrade === '') {
+    if (selectedZipCode === '') {
+      return schools;
+    } else {
+      return schools.filter(school => school['Zip Code'].substring(0, 5) === selectedZipCode);
+    }
+  } else if (selectedZipCode === '') {
+    return schools.filter(school => school[selectedGrade] === '1');
+  } else {
+    return schools.filter(school => school['Zip Code'].substring(0, 5)
+    === selectedZipCode && school[selectedGrade] === '1');
+  }
+};
+*/
+let filteredSchools = () => {
+  let selectedGrade = document.querySelector('#grade-level-select').value;
+  let selectedZipCode = document.querySelector('#zip-code-select').value;
+  if (selectedGrade === '' && selectedZipCode === '') {
+    return schools;
+  }
+  if (selectedGrade === '' && selectedZipCode !== '') {
+    return schools.filter(school => school['Zip Code'].substring(0, 5) === selectedZipCode);
+  }
+  if (selectedGrade !== '' && selectedZipCode === '') {
+    return schools.filter(school => school[selectedGrade] === '1');
+  }
+  return schools.filter(school => school['Zip Code'].substring(0, 5) === selectedZipCode && school[selectedGrade] === '1');
+};
+
+/*
+
+  schools.filter(school => {
+    return school['Zip Code'].substring(0,5) === selectedZipCode && school[selectedGrade] === "1"
+  })
+};
 
 
+/*
 ## Step 5: Clear the map and list before adding new items ~~~~~~~~~~~~~~~~~~~~
 
 At this point, if you filter the schools by grade or zip code, you should see
@@ -133,17 +210,7 @@ new items get added to the map and the list. However, the old items are still
 there as well. Update the `updateSchoolMarkers` and `updateSchoolList` functions
 clear the map and the list element before adding new items.
 
-==================== */
-
-let updateSchoolMarkers = (schoolsToShow) => {};
-
-let updateSchoolList = (schoolsToShow) => {};
-
-let initializeZipCodeChoices = () => {};
-
-let filteredSchools = () => {};
-
-/*
+====================
 
 No need to edit anything below this line ... though feel free.
 
@@ -151,7 +218,11 @@ No need to edit anything below this line ... though feel free.
 
 // The handleSelectChange function is an event listener that will be used to
 // update the displayed schools when one of the select filters is changed.
+
+
 let handleSelectChange = () => {
+  schoolLayer.clearLayers();
+  schoolList.innerHTML = '';
   const schoolsToShow = filteredSchools() || [];
   updateSchoolMarkers(schoolsToShow);
   updateSchoolList(schoolsToShow);
@@ -159,6 +230,7 @@ let handleSelectChange = () => {
 
 gradeLevelSelect.addEventListener('change', handleSelectChange);
 zipCodeSelect.addEventListener('change', handleSelectChange);
+
 
 // The code below will be run when this script first loads. Think of it as the
 // initialization step for the web page.
