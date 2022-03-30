@@ -1,47 +1,19 @@
 {
-  "dependencies": {
-    "http-server": "^14.1.0",
-    "jest": "^27.4.7",
-    "jest-puppeteer": "^6.0.3"
+  "name": "musa-611-spring-2022-week4",
+  "version": "1.0.0",
+  "description": "You can review the concepts raised from last class in [review.md](review.md).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "devDependencies": {
-    "eslint": "^8.6.0",
-    "eslint-config-airbnb": "^19.0.4"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xiaoyi-Wu0711/musa-611-spring-2022-week4.git"
   },
-  "jest": {
-    "preset": "jest-puppeteer"
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Xiaoyi-Wu0711/musa-611-spring-2022-week4/issues"
   },
-  "eslintConfig": {
-    "extends": "airbnb",
-    "globals": {
-      "L": "readonly",
-      "_": "readonly",
-      "document": "readonly",
-      "htmlToElement": "readonly",
-      "htmlToElements": "readonly"
-    },
-    "rules": {
-      "arrow-parens": "off",
-      "no-console": "off",
-      "no-plusplus": "off",
-      "no-multiple-empty-lines": "off",
-      "no-multi-spaces": "off",
-      "prefer-const": "off",
-      "no-restricted-syntax": [
-        "error",
-        {
-          "selector": "ForInStatement",
-          "message": "for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array."
-        },
-        {
-          "selector": "LabeledStatement",
-          "message": "Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand."
-        },
-        {
-          "selector": "WithStatement",
-          "message": "`with` is disallowed in strict mode because it makes code impossible to predict and optimize."
-        }
-      ]
-    }
-  }
+  "homepage": "https://github.com/Xiaoyi-Wu0711/musa-611-spring-2022-week4#readme"
 }
