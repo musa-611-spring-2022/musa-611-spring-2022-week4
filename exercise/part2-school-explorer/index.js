@@ -43,7 +43,6 @@ in the past, add the markers to the `schoolLayer`, which is defined above on
 line 4. Refer to the documentation for LayerGroup:
 https://leafletjs.com/reference.html#layergroup
 
-
 ## Step 2: Initialize the Zip Code Options ~~~~~~~~~~~~~~~~~~~~
 
 Fill in the `initializeZipCodeChoices` function to add an option for each
@@ -90,7 +89,6 @@ modern JavaScript is with a Set object. For example:
 TIP 3: The htmlToElement function from part 1 of this exercise set is available
 to use here as well (and should be used for this).
 
-
 ## Step 3: Show the School Names in a List ~~~~~~~~~~~~~~~~~~~~
 
 Fill in the `updateSchoolList` function to add a new `li` element into the
@@ -125,7 +123,6 @@ should be shown on the map, according to the selected grade level and zip code.
 Refer to the `handleSelectChange` to see how the `filteredSchools` function will
 be used.
 
-
 ## Step 5: Clear the map and list before adding new items ~~~~~~~~~~~~~~~~~~~~
 
 At this point, if you filter the schools by grade or zip code, you should see
@@ -135,13 +132,53 @@ clear the map and the list element before adding new items.
 
 ==================== */
 
-let updateSchoolMarkers = (schoolsToShow) => {};
+const updateSchoolMarkers = (schoolsToShow) => {
+  schoolLayer.clearLayers();
+  for (const school of schoolsToShow) {
+    const location = school['GPS Location'];
+    const [lat, lng] = location.split(',');
+    L.marker([lat, lng]).bindTooltip(school['Publication Name']).addTo(schoolLayer);
+  }
+};
 
-let updateSchoolList = (schoolsToShow) => {};
+const updateSchoolList = (schoolsToShow) => {
+  schoolList.innerHTML = '';
+  const selectedSchool = schoolList.value;
+  for (const school of schoolsToShow) {
+    const name = school['Publication Name'];
+    const schoolLi = htmlToElement(`<li>${name}</li>`);
+    schoolList.appendChild(schoolLi);
+  }
+};
 
-let initializeZipCodeChoices = () => {};
+const initializeZipCodeChoices = () => {
+  const allZips = [];
+  for (const school of schools) {
+    const zip = school['Zip Code'].slice(0, 5);
+    allZips.push(zip);
+  }
 
-let filteredSchools = () => {};
+  const uniqueZips = [...new Set(allZips)].sort();
+  for (const zip of uniqueZips) {
+    const zipOpt = htmlToElement(`<option>${zip}</option>`);
+    zipCodeSelect.appendChild(zipOpt);
+  }
+};
+
+const filteredSchools = () => {
+  const selectedZip = zipCodeSelect.value;
+  const selectedGrade = gradeLevelSelect.value;
+
+  const fSchools = schools.filter((school) => {
+    const zip = school['Zip Code'].slice(0, 5);
+    const zipCodeMatch = (zip === selectedZip || selectedZip === '');
+    const gradeCodeMatch = (school[selectedGrade] === '1' || selectedGrade === '');
+    if (zipCodeMatch && gradeCodeMatch) {
+      return true;
+    } return false;
+  });
+  return fSchools;
+};
 
 /*
 
@@ -151,7 +188,7 @@ No need to edit anything below this line ... though feel free.
 
 // The handleSelectChange function is an event listener that will be used to
 // update the displayed schools when one of the select filters is changed.
-let handleSelectChange = () => {
+const handleSelectChange = () => {
   const schoolsToShow = filteredSchools() || [];
   updateSchoolMarkers(schoolsToShow);
   updateSchoolList(schoolsToShow);
