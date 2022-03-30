@@ -143,7 +143,6 @@ const updateSchoolMarkers = (schoolsToShow) => {
 
 const updateSchoolList = (schoolsToShow) => {
   schoolList.innerHTML = '';
-  const selectedSchool = schoolList.value;
   for (const school of schoolsToShow) {
     const name = school['Publication Name'];
     const schoolLi = htmlToElement(`<li>${name}</li>`);
