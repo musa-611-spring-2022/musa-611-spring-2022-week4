@@ -57,7 +57,7 @@ const spanContainer = document.querySelector('#span-container');
 spanContainer.appendChild(htmlToElement('<span>0</span>'));
 
 let count = 0;
-const addSpanButton = document.querySelector('#add-span-button');
+const addSpanButton = document.getElementById('add-span-button');
 if (addSpanButton) {
   addSpanButton.addEventListener('click', () => {
     count++;
