@@ -14,30 +14,32 @@ Part 1: Set the variable below equal to the paragraph element representing the
 first test result.
 ==================== */
 
-let firstResult;
+const firstResult = document.getElementById('result-1');
 
 /* ====================
 Parts 2: Set the variable below equal to a collection of the paragraph
 elements representing the 2nd and 3rd results.
 ==================== */
 
-let secondAndThirdResults;
+const secondAndThirdResults = document.getElementsByClassName('result-2-3');
 
 /* ====================
 Parts 3: Set the variable below equal to a collection of the paragraph
 elements representing the all of the results.
 ==================== */
 
-let allResults;
+const allResults = document.getElementsByTagName('p');
 
 /* ====================
 Part 4: Add an event listener to the button in problem 4 that changes the
 button's own text to "I'm Clicked!"
 ==================== */
 
-let imClickedButton;
+const imClickedButton = document.getElementById('im-clicked-button');
 if (imClickedButton) {
-  imClickedButton.addEventListener('click', (evt) => {});
+  imClickedButton.addEventListener('click', () => {
+    imClickedButton.innerHTML = "I'm Clicked!";
+  });
 }
 
 /* ====================
@@ -51,12 +53,16 @@ clicking the button, you should add:
 HINT: You may need some global state for this problem.
 ==================== */
 
-let spanContainer = document.querySelector('#span-container');
+const spanContainer = document.querySelector('#span-container');
 spanContainer.appendChild(htmlToElement('<span>0</span>'));
 
-let addSpanButton;
+let count = 0;
+const addSpanButton = document.getElementById('add-span-button');
 if (addSpanButton) {
-  addSpanButton.addEventListener('click', (evt) => {});
+  addSpanButton.addEventListener('click', () => {
+    count++;
+    spanContainer.appendChild(htmlToElement(`<span>${count}</span>`));
+  });
 }
 
 /* =====================
@@ -111,10 +117,9 @@ function updateResults() {
   // Part 5
   spanContainer.addEventListener('DOMNodeInserted', () => {
     if (spanContainer.children.length === 6
-        && spanContainer.lastChild.textContent === '5') {
+      && spanContainer.lastChild.textContent === '5') {
       document.querySelector('#result-5').textContent = 'Success!';
     }
   });
 }
-
 updateResults();
