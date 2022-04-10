@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-param-reassign */
 /* ====================
 The following two functions take a string of HTML and create DOM element objects
