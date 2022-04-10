@@ -65,7 +65,7 @@ let addNum = 0;
 let addSpanButton = document.getElementById('add-span-button');
 if (addSpanButton) {
   addSpanButton.addEventListener('click', () => {
-    addNum ++;
+    addNum++;
     spanContainer.appendChild(htmlToElement(`<span>${addNum}</span>`));
   });
 }
@@ -112,7 +112,7 @@ function updateResults() {
 
   // Part 4
   if (imClickedButton) {
-    imClickedButton.addEventListener('DOMNodeInserted', (evt) => {
+    imClickedButton.addEventListener('DOMNodeInserted', () => {
       if (imClickedButton.textContent === 'I\'m Clicked!') {
         document.querySelector('#result-4').textContent = 'Success!';
       }
@@ -120,7 +120,7 @@ function updateResults() {
   }
 
   // Part 5
-  spanContainer.addEventListener('DOMNodeInserted', (evt) => {
+  spanContainer.addEventListener('DOMNodeInserted', () => {
     if (spanContainer.children.length === 6
         && spanContainer.lastChild.textContent === '5') {
       document.querySelector('#result-5').textContent = 'Success!';

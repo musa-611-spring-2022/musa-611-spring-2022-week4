@@ -147,7 +147,7 @@ let updateSchoolMarkers = (schoolsToShow) => {
 
 let updateSchoolList = (schoolsToShow) => {
   schoolList.innerHTML = '';
-  schoolList.innerHTML = schoolsToShow.map((school) => `<li>${school['Publication Name']}</li>`);
+  schoolList.innerHTML = schoolsToShow.map((school) => `<li>${school['Publication Name']}</li>`).join('');
 };
 
 let initializeZipCodeChoices = () => {
