@@ -135,14 +135,74 @@ clear the map and the list element before adding new items.
 
 ==================== */
 
-let updateSchoolMarkers = (schoolsToShow) => {};
 
-let updateSchoolList = (schoolsToShow) => {};
 
-let initializeZipCodeChoices = () => {};
+let updateSchoolMarkers = (schoolsToShow) => {
+  schoolLayer.clearLayers();
+  for (let i = 0; i < schoolsToShow.length; i++) {
+    let gps = schoolsToShow[i]["GPS Location"];
+    let [lat, lng] = gps.split(',');
+    let name = schoolsToShow[i]["Publication Name"];
+    let marker = L.marker([lat, lng]).bindPopup(name);
+    schoolLayer.addLayer(marker);
+  }
+};
 
-let filteredSchools = () => {};
+let updateSchoolList = (schoolsToShow) => {
+  schoolList.innerhtml = ""
+  var element = document.getElementById("school-list");
+  let schoolNames = schoolsToShow.map(s => s['Publication Name']);
+  for (let i = 0; i < schoolsToShow.length; i++) {
+    element.appendChild(htmlToElement(`<li>${schoolNames[i]}</li>`));
+  }
+};
 
+
+let initializeZipCodeChoices = () => {
+  var myDiv = document.getElementById("zip-code-select");
+  let zipAll = schools.map(s => s['Zip Code'].slice(0, 5));
+  let uniqueZip = [...new Set(zipAll)].sort();
+  for (let i = 0; i < uniqueZip.length; i++) {
+    myDiv.appendChild(htmlToElement(`<option>${uniqueZip[i]}</option>`));
+  }
+};
+
+
+
+
+let filteredSchools = () => {
+  const gradeEl = document.getElementById("grade-level-select");
+  let zipEl = document.getElementById("zip-code-select");
+  let newArr = [];
+  for (let i = 0; i < schools.length; i++) {
+    let school = schools[i];
+    const zipCodeMatch = (school['Zip Code'].slice(0, 5) === zipEl.value) || (zipEl.value === "hey");
+    const gradeMatch = (school[gradeEl.value] === '1') || (gradeEl.value === 'hey');
+    if (zipCodeMatch && gradeMatch) {
+      newArr.push(school);
+    }
+  }
+return newArr
+};
+
+//
+// let filteredSchools = () => {
+//   // const gradeEl = document.getElementById("grade-level-select").value;
+//   // const zipEl = document.getElementById("zip-code-select").value;
+//   const selectedZip = zipCodeSelect.value;
+//   const selectedGrade = gradeLevelSelect.value;
+//
+//   const fSchools = schools.filter(school => {
+//     const zip = school['Zip Code'].slice(0, 5);
+//     const zipCodeMatch = (zip === selectedZip);
+//     const gradeMatch = (school[selectedGrade] === '1');
+//     if (zipCodeMatch && gradeMatch) {
+//       return true;
+//     } else {
+//       return false;
+//     }
+//   })
+// };
 /*
 
 No need to edit anything below this line ... though feel free.
