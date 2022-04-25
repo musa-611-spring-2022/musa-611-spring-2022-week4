@@ -64,7 +64,7 @@ let counter = 0;
 let addSpanButton = document.getElementById("add-span-button");
 if (addSpanButton) {
   addSpanButton.addEventListener('click', (evt) => {
-    spanContainer.innerHTML = counter++;
+    spanContainer.appendChild(htmlToElement(`<span>${++counter}</span>`));
     return;
   });
 }
