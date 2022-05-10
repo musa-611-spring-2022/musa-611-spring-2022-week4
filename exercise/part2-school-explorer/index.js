@@ -177,7 +177,7 @@ function onlyUnique(value, index, self) {
 
 const uniqueZips = zips.filter(onlyUnique);
 
-let zipOps = '<option value='' + '0' + '>select</option>';
+let zipOps = '<option value=''>select</option>';
 let initializeZipCodeChoices = () => {
   uniqueZips.forEach((zip) => {
     zipOps += '<option value='' + zip + ''>' + zip + '</option>';
