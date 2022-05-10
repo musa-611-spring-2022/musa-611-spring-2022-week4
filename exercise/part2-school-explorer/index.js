@@ -134,15 +134,70 @@ there as well. Update the `updateSchoolMarkers` and `updateSchoolList` functions
 clear the map and the list element before adding new items.
 
 ==================== */
+let gpsAttr = 'GPS Location';
+let nameAttr = 'Publication Name';
+let updateSchoolMarkers = (schoolsToShow) => {
+  schoolLayer.clearLayers();
+  schoolsToShow.forEach((school) => {
+    let gpsStr = school[gpsAttr];
+    let split = gpsStr.split(',', 2);
+    let lat = split[0];
+    let lng = split[1];
+    let name = school[nameAttr];
+    let marker = L.marker([lat, lng]);
+    marker.bindTooltip(name);
+    schoolLayer.addLayer(marker);
+  });
+};
 
-let updateSchoolMarkers = (schoolsToShow) => {};
 
-let updateSchoolList = (schoolsToShow) => {};
+let updateSchoolList = (schoolsToShow) => {
+  schoolList.replaceChildren();
+  schoolsToShow.forEach((school) => {
+    let schoolStr = school[nameAttr];
+    schoolList.appendChild(htmlToElement(`<li>${schoolStr}</li>`));
+  });
+};
 
-let initializeZipCodeChoices = () => {};
+let zipAttr = 'Zip Code';
+let zips = [];
 
-let filteredSchools = () => {};
+schools.forEach((school) => {
+  let zipStr = school[zipAttr];
+  let trunc = zipStr.split('-', 2);
+  let zip = trunc[0];
+  return zips.push(zip);
+});
 
+function onlyUnique(value, index, self) {
+  return self.indexOf(value) === index;
+}
+
+const uniqueZips = zips.filter(onlyUnique);
+
+let initializeZipCodeChoices = () => {
+  uniqueZips.forEach((zip) => {
+    zipCodeSelect.appendChild(htmlToElement(`<option>${zip}</option>`));
+  });
+};
+
+
+let filteredSchools = () => {
+  let filteredBoy = schools.filter((school) => {
+    if (zipCodeSelect.value && gradeLevelSelect.value) {
+      return school['Zip Code'].includes(zipCodeSelect.value) && school[gradeLevelSelect.value] > 0;
+    }
+    if (zipCodeSelect.value && !gradeLevelSelect.value) {
+      return school['Zip Code'].includes(zipCodeSelect.value);
+    }
+    if (gradeLevelSelect.value && !zipCodeSelect.value) {
+      return school[gradeLevelSelect.value] > 0;
+    }
+    return schools;
+  });
+  return filteredBoy;
+};
+filteredSchools();
 /*
 
 No need to edit anything below this line ... though feel free.
