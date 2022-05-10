@@ -180,7 +180,7 @@ const uniqueZips = zips.filter(onlyUnique);
 let zipOps = '<option value=>select</option>';
 let initializeZipCodeChoices = () => {
   uniqueZips.forEach((zip) => {
-    zipOps += '<option value='' + zip + ''>' + zip + '</option>';
+    zipOps += '<option value=' + zip + '>' + zip + '</option>';
     document.getElementById('zip-code-select').innerHTML = zipOps;
   });
 };
