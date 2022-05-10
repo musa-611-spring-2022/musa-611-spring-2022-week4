@@ -134,7 +134,6 @@ there as well. Update the `updateSchoolMarkers` and `updateSchoolList` functions
 clear the map and the list element before adding new items.
 
 ==================== */
-let schoolsToShow = schools;
 let gpsAttr = 'GPS Location';
 let nameAttr = 'Publication Name';
 let updateSchoolMarkers = (schoolsToShow) => {
@@ -152,7 +151,6 @@ let updateSchoolMarkers = (schoolsToShow) => {
 };
 
 
-let schoolsOps = '';
 let updateSchoolList = (schoolsToShow) => {
   schoolList.replaceChildren();
   schoolsToShow.forEach((school) => {
