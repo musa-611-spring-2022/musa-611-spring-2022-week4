@@ -162,7 +162,7 @@ let updateSchoolList = (schoolsToShow) => {
 let zipAttr = 'Zip Code';
 let zips = [];
 
-schoolsToShow.forEach((school) => {
+schools.forEach((school) => {
   let zipStr = school[zipAttr];
   let trunc = zipStr.split('-', 2);
   let zip = trunc[0];
@@ -175,11 +175,9 @@ function onlyUnique(value, index, self) {
 
 const uniqueZips = zips.filter(onlyUnique);
 
-let zipOps = '<option value=>select</option>';
 let initializeZipCodeChoices = () => {
   uniqueZips.forEach((zip) => {
-    zipOps += '<option value=' + zip + '>' + zip + '</option>';
-    document.getElementById('zip-code-select').innerHTML = zipOps;
+    zipCodeSelect.appendChild(htmlToElement(`<option>${zip}</option>`));
   });
 };
 
