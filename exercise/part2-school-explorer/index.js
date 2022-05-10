@@ -135,14 +135,74 @@ clear the map and the list element before adding new items.
 
 ==================== */
 
-let updateSchoolMarkers = (schoolsToShow) => {};
+let schoolsToShow = schools;
+let gps_attr = "GPS Location";
+let name_attr = "Publication Name";
+let updateSchoolMarkers = (schoolsToShow) => {
+  schoolLayer.clearLayers();
+  schoolsToShow.forEach((school) => {
+    let gps_str = school[gps_attr];
+    let split = gps_str.split(",",2);
+    let lat = split[0];
+    let lng = split[1];
+    let name = school[name_attr];
+    let marker = L.marker([lat,lng]);
+    marker.bindTooltip(name);
+    schoolLayer.addLayer(marker);
+  })
+};
 
-let updateSchoolList = (schoolsToShow) => {};
 
-let initializeZipCodeChoices = () => {};
+let schools_ops = "";
+let updateSchoolList = (schoolsToShow) => {
+  schoolList.replaceChildren();
+  schoolsToShow.forEach((school) => {
+    let school_str = school[name_attr];
+    schoolList.appendChild(htmlToElement(`<li>${school_str}</li>`));
+  })
+};
 
-let filteredSchools = () => {};
+let zip_attr = "Zip Code";
+let zips = [];
 
+schoolsToShow.forEach((school) => {
+  let zip_str = school[zip_attr];
+  let trunc = zip_str.split("-",2);
+  var zip = trunc[0];
+  return zips.push(zip);
+})
+
+function onlyUnique(value, index, self) {
+  return self.indexOf(value) === index;
+}
+
+const unique_zips = zips.filter(onlyUnique);
+
+let zip_ops = "<option value='0'>select</option>";
+let initializeZipCodeChoices = () => {
+  unique_zips.forEach((zip) => {
+    zip_ops += "<option value='"+zip+"'>"+zip+"</option>";
+    document.getElementById('zip-code-select').innerHTML = zip_ops;
+  })
+};
+
+
+let filteredSchools = () => {
+  let filteredboy = schools.filter((school) => {
+    if (zipCodeSelect.value && gradeLevelSelect.value) {
+      return school['Zip Code'].includes(zipCodeSelect.value) && school[gradeLevelSelect.value] > 0;
+    }
+    if (zipCodeSelect.value && !gradeLevelSelect.value) {
+      return school['Zip Code'].includes(zipCodeSelect.value);
+    }
+    if (gradeLevelSelect.value && !zipCodeSelect.value) {
+      return school[gradeLevelSelect.value] > 0;
+    }
+    return schools;
+  });
+  return filteredboy;
+};
+filteredSchools();
 /*
 
 No need to edit anything below this line ... though feel free.
