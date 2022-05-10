@@ -1,19 +1,4 @@
-/* global schools */
 
-const schoolMap = L.map('school-map').setView([39.95303901388685, -75.16341794003617], 13);
-const schoolLayer = L.layerGroup().addTo(schoolMap);
-
-L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
-  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  subdomains: 'abcd',
-  minZoom: 0,
-  maxZoom: 18,
-  ext: 'png',
-}).addTo(schoolMap);
-
-const schoolList = document.querySelector('#school-list');
-const gradeLevelSelect = document.querySelector('#grade-level-select');
-const zipCodeSelect = document.querySelector('#zip-code-select');
 
 /* ====================
 
@@ -133,7 +118,7 @@ new items get added to the map and the list. However, the old items are still
 there as well. Update the `updateSchoolMarkers` and `updateSchoolList` functions
 // clear the map and the list element before adding new items.
 
-LOOP array for update school list? 
+LOOP array for update school list?
 filtered schools = (do we define a new array?) => {return looped array}
 update school markers= event handler => {return new markers (def by variable name?)}
 const newSchool = (newSchoolList) => {console.log(newSchoolList)}
@@ -163,7 +148,7 @@ In this exercise you will create the majority of a simple application that shows
 schools within Philadelphia in both a map and a list, and allows a user to
 filter the schools by zip code and grade level.
 Data on Philadelphia schools has been pre-processed and is available in this
-script as an array called `schools`. 
+script as an array called `schools`.
 
 DID THIS--If you open up the index.html file in a
 browser and open the JavaScript console, you can inspect the `schools` array.
