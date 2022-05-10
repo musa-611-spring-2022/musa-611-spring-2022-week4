@@ -134,14 +134,14 @@ there as well. Update the `updateSchoolMarkers` and `updateSchoolList` functions
 clear the map and the list element before adding new items.
 
 ==================== */
-
+let schoolsToShow = schools;
 let gpsAttr = 'GPS Location';
 let nameAttr = 'Publication Name';
 let updateSchoolMarkers = (schoolsToShow) => {
   schoolLayer.clearLayers();
   schoolsToShow.forEach((school) => {
     let gpsStr = school[gpsAttr];
-    let split = gpsStr.split(",", 2);
+    let split = gpsStr.split(',', 2);
     let lat = split[0];
     let lng = split[1];
     let name = school[nameAttr];
@@ -152,13 +152,13 @@ let updateSchoolMarkers = (schoolsToShow) => {
 };
 
 
-let schoolsOps = "";
+let schoolsOps = '';
 let updateSchoolList = (schoolsToShow) => {
   schoolList.replaceChildren();
   schoolsToShow.forEach((school) => {
     let schoolStr = school[nameAttr];
     schoolList.appendChild(htmlToElement(`<li>${schoolStr}</li>`));
-  })
+  });
 };
 
 let zipAttr = 'Zip Code';
@@ -166,7 +166,7 @@ let zips = [];
 
 schoolsToShow.forEach((school) => {
   let zipStr = school[zipAttr];
-  let trunc = zipStr.split("-",2);
+  let trunc = zipStr.split('-', 2);
   let zip = trunc[0];
   return zips.push(zip);
 });
@@ -177,10 +177,10 @@ function onlyUnique(value, index, self) {
 
 const uniqueZips = zips.filter(onlyUnique);
 
-let zipOps = "<option value='0'>select</option>";
+let zipOps = '<option value='0'>select</option>';
 let initializeZipCodeChoices = () => {
   uniqueZips.forEach((zip) => {
-    zipOps += "<option value='" + zip + "'>" + zip + "</option>";
+    zipOps += '<option value='' + zip + ''>' + zip + '</option>';
     document.getElementById('zip-code-select').innerHTML = zipOps;
   });
 };
