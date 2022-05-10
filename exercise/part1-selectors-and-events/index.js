@@ -13,26 +13,21 @@ below so that the results all read "Success!".
 Part 1: Set the variable below equal to the paragraph element representing the
 first test result.
 ==================== */
-let element = document.getElementById('result-1');
 
-let firstResult = element.textContent = 'Success!';
-
+let firstResult = document.getElementById('result-1');
 
 /* ====================
 Parts 2: Set the variable below equal to a collection of the paragraph
 elements representing the 2nd and 3rd results.
 ==================== */
-let secondResult = htmlToElement('<p>Success!</p>');
-let thirdResult = htmlToElement('<p>Success!</p>');
-
-let secondAndThirdResults = [secondResult,thirdResult];
+let secondAndThirdResults = document.getElementsByClassName('result-2-3');
 
 
 /* ====================
 Parts 3: Set the variable below equal to a collection of the paragraph
 elements representing the all of the results.
 ==================== */
-let allResults = [element,secondResult,thirdResult];
+let allResults = document.getElementsByClassName('result');
 
 
 /* ====================
@@ -41,13 +36,14 @@ button's own text to "I'm Clicked!"
 ==================== */
 
 
-const imClickedButton = document.getElementById("im-clicked-button");
-imClickedButton.addEventListener("click", clickMe);
-
-function clickMe() {
-  document.getElementById("result-4").innerHTML = "I\'m Clicked";
+let imClickedButton = document.getElementById('im-clicked-button');
+if (imClickedButton) {
+  imClickedButton.addEventListener('click', () => {
+    document
+      .getElementById('im-clicked-button')
+      .innerHTML = "I'm Clicked!";
+  });
 }
-
 
 /* ====================
 Part 5: Add an event listener to the button in problem 5 that creates a new span
@@ -60,24 +56,15 @@ clicking the button, you should add:
 HINT: You may need some global state for this problem.
 ==================== */
 
-let count = 0;
-var display = document.getElementById("result-5");
-
 let spanContainer = document.querySelector('#span-container');
 spanContainer.appendChild(htmlToElement('<span>0</span>'));
 
-let addSpanButton = document.getElementById("add-span-button");
+let addSpanButton = document.getElementById('add-span-button');
+
 if (addSpanButton) {
-  addSpanButton.addEventListener('click', (evt) => {
-    addSpanButton.onclick = function () {
-      if (count<=5) {
-        count++;
-        count_format = '<span>' + count + '</span>';
-        spanContainer.appendChild(htmlToElement(count_format));
-      } if (count==5) {
-        display.innerHTML = "Success!";
-      }
-    }
+  addSpanButton.addEventListener('click', () => {
+    let ini = parseInt(spanContainer.lastChild.innerHTML, 8);
+    spanContainer.appendChild(htmlToElement(`<span>${++ini}</span>`));
   });
 }
 
